@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="generator"
-    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <title></title>
-  </head>
-  <body>
-    <div data-role="page" data-theme="b">
-      <div div data-role="panel" id="myPanel" data-display="overlay">
-        <h2>Panel Header</h2>
-        <p>You can close the panel by clicking outside the panel, pressing the Esc key or by swiping.</p>
-		<a href="index.html">Vertretungsplan</a>
-      </div>
-      <div data-role="header">
-        <h1>Welcome To My Homepage</h1>
-		<a href="#myPanel" class="ui-btn ui-btn-inline ui-corner-all ui-icon-bars ui-btn-icon-notext ui-nodisc-icon"></a>
-      </div>
-      <div data-role="main" class="ui-content">
-        <p>I Am Now A Mobile Developer!!</p>
-		<button onclick="getDevice()">Try</button>
+    <head>
+        <meta name="generator"
+        content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 		
 		<script src="getDevice.js"></script>
-      </div>
-      <div data-role="footer">
-        <h1>Footer Text</h1>
-      </div>
-    </div>
-  </body>
+        <title></title>
+    </head>
+	<body onload="getDevice.js">
+        <div data-role="page" data-theme="b">
+            <div div="" data-role="panel" id="myPanel" data-display="overlay">
+                <h2>Panel Header</h2>
+                <p>You can close the panel by clicking outside the panel, pressing the Esc key or by swiping.</p>
+                <a href="index.html">Vertretungsplan</a>
+            </div>
+            <div data-role="header">
+                <h1>Welcome To My Homepage</h1>
+                <a href="#myPanel" class="ui-btn ui-btn-inline ui-corner-all ui-icon-bars ui-btn-icon-notext ui-nodisc-icon"></a>
+            </div>
+			
+            <div data-role="main" class="ui-content">
+                <p>I Am Now A Mobile Developer!!</p>
+				<a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade">Go to Dialog Page</a>
+                <button onclick="getDevice()">Try</button>
+				
+				
+				<div data-role="popup" id="myPopupDialog">
+					<div data-role="header">
+						<h1>Information</h1>
+					</div>
+
+					<div data-role="main" class="ui-content">
+						<p id="deviceDialogContent">Click Button first</p>
+						<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back ui-btn-icon-left" data-rel="back">Go Back</a>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div data-role="footer">
+				<h1>Footer Text</h1>
+			</div>
+        </div>
+    </body>
 </html>

@@ -9,18 +9,19 @@ function getDevice() {
 
   if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
   {
-    alert('iOS');
+    document.getElementById("deviceDialogContent").innerHTML = "Wenn du die Webseite als Webapp verwendest kannst du sie auch offline nutzen!"
 	return 'iOS';
   }
   else if( userAgent.match( /Android/i ) )
   {
-	alert('Android');
-	window.location = "http://google.com"
+	document.getElementById("deviceDialogContent").innerHTML = "Es gibt auch eine Android App im Google Play Store"
     return 'Android';
   }
   else
   {
 	alert('unknown');
+	document.getElementById("deviceDialogContent").innerHTML = "Windows."
+	//window.location.replace("index.html#myPopupDialog");
     return 'unknown';
   }
 }
