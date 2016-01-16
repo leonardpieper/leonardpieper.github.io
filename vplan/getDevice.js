@@ -15,6 +15,7 @@ function getDevice() {
   else if( userAgent.match( /Android/i ) )
   {
 	alert('Android');
+	window.location = "http://google.com"
     return 'Android';
   }
   else
