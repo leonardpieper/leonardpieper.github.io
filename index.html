@@ -18,7 +18,7 @@
 		  firebase.initializeApp(config);
 		  
 		  var userId = firebase.auth().currentUser.uid;
-		  firebase.database().ref('/json/').once('value').then(function(snapshot) {
+		  firebase.database().ref('/json/').once().then(function(snapshot) {
 		  var username = snapshot.val().ljhgkjn;
 		  alert(username);
 		})
