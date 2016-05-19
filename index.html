@@ -16,6 +16,12 @@
 		    storageBucket: "test-e84e5.appspot.com",
 		  };
 		  firebase.initializeApp(config);
+		  
+		  var userId = firebase.auth().currentUser.uid;
+		  firebase.database().ref('/json/').once('value').then(function(snapshot) {
+		  var username = snapshot.val().ljhgkjn;
+		  alert(username);
+		})
 		</script>
 	</body>
 </html>
