@@ -1,27 +1,38 @@
+<!doctype html>
 <html>
-	<head>
-		<title>Project page for github projects.</title>
-		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-	</head>
-	<body>
-		<h1>Hello World</h1>
-		This website is working
-		
-		<script>
-		  // Initialize Firebase
-		  var config = {
-		    apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
-		    authDomain: "test-e84e5.firebaseapp.com",
-		    databaseURL: "https://test-e84e5.firebaseio.com",
-		    storageBucket: "test-e84e5.appspot.com",
-		  };
-		  firebase.initializeApp(config);
-		  
-		  var userId = firebase.auth().currentUser.uid;
-		  firebase.database().ref('/json/').once().then(function(snapshot) {
-		  var username = snapshot.val().ljhgkjn;
-		  alert(username);
-		})
-		</script>
-	</body>
+<head>
+<title>JSONP example</title>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+<body>
+<h1>test jsonP</h1>
+
+<script>
+$.ajax({
+   type: 'GET',
+   url: 'https://test-e84e5.firebaseio.com/.json', 
+   dataType: "json",
+   success: function(data){
+	// success_fn(data);
+	console.log(data);
+	
+	var myTable = "<table border='1' style='width:100%'>";
+	var ef = data.EF;
+	for(var i=1;i<=ef.length-1; i++){
+		var obj = ef[i];
+		myTable+= "<tr><td>"+obj.Fach+"</td>";
+		myTable+= "<td>"+obj.Stunde+"</td>";
+		myTable+= "<td>"+obj.Vertreter+"</td>";
+		myTable+= "<td>"+obj.Raum+"</td>";
+		myTable+= "<td>"+obj.Vertretungs-Text+"</td></tr>";
+	}
+	myTable+="</table>";
+	document.write(myTable);
+   },
+   error: function(jqXHR, textStatus, errorThrown) {
+      // error_fn(jqXHR, textStatus, errorThrown);
+   }
+});
+</script>
+</body>
 </html>
