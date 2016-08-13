@@ -469,6 +469,60 @@ a img{
 	margin-left:auto;
 	margin-right:auto;
 }
+/*Switch*/
+.android-switch{
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.android-switch input{
+  /*display: none;*/
+}
+.android-slider{
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.android-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .android-slider {
+  background-color: #ff4081;
+}
+
+input:focus + .android-slider {
+  box-shadow: 0 0 1px #ff4081;
+}
+
+input:checked + .android-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* Rounded sliders */
+.android-slider.round {
+  border-radius: 34px;
+}
+
+.android-slider.round:before {
+  border-radius: 50%;
+}
+/*End Switch*/
 .android-login-card{
 	margin-left:auto;
 	margin-right:auto;
@@ -484,6 +538,9 @@ a img{
   overflow: visible;
   z-index: 9;
   margin-top: 40px;
+}
+.operatorArea{
+  display: none;
 }
 .android-dialogBox{
   display: none; /* Hidden by default */
@@ -516,6 +573,9 @@ a img{
   font-size: 28px;
   cursor: pointer;
 }
+#uploadCard{
+  display: none;
+}
 .android-kurs-dropZone{
   width: 100%;
   min-height:100px;
@@ -546,6 +606,30 @@ a img{
 .android-mediaCard{
   max-width: 100%;
   max-height: 100%;
+}
+.android-login-button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.android-button--google{
+  background-color: white;
+}
+.android-sign_up{
+  display: none;
+}
+.android-sign_up_teacher{
+  display: none;
+}
+.android-noAcc{
+  cursor: pointer;
+}
+.android-login-err{
+  color: red;
+  width: 100%;
+}
+.android-noUnderline{
+  text-decoration: none;
 }
 
 

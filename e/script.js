@@ -14,7 +14,7 @@ $(document).ready(function() {
     //Fetch and insert
     changePage(href);
     if(href=="kurse.html"){
-      firebaseLogin('e','f');
+      getKurse();
     }
 
   });
@@ -57,47 +57,127 @@ function addHistoryAPIToNewAnchors(changeClass){
   })
 }
 
-function firebaseLogin(uname, pwd){
-  firebase.auth().signInWithEmailAndPassword("lkp0105@gmail.com", "123456").catch(function(error) {
+function firebaseLogin(){
+  var email = $("#firebaseEmail").val();
+  var pwd = $("#firebasePwd").val();
+
+  firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
     // [START_EXCLUDE]
     if (errorCode === 'auth/wrong-password') {
-      alert('Wrong password.');
     } else {
       console.error(error);
     }
     // [END_EXCLUDE]
   });
 
-  var auth = firebase.auth();
 
-  auth.onAuthStateChanged(function(user) {
-      firebase.database().ref('Users/9puU6n4R1AhfFOKZRopHwc0wCpk1/Kurse').on('value', function (snapshot) {
-        var data = snapshot.val();
-        var output = "";
-        snapshot.forEach(function (childSnapshot) {
-          var kurs = childSnapshot.val();
-          var name = kurs.name;
-          output+= "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'><a href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
-        });
-        // for(var i=0; i<data.length; i++){
-        //   var kurs = data[i];
-        //   name = kurs.name;
-        //   output+= "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'>"+name+"</span></li>"
-        // }
+}
 
-        $('#kurs-liste').html(output);
-      })
+function firebaseSignUp() {
+  var email = $("#firebaseEmail").val();
+  var pwd;
+  if ($("#firebasePwd").val() === $("#firebasePwdRepeat").val()){
+    pwd = $("#firebasePwd").val();
+  }else {
+    $(".android-login-err").html("Passwörter müssen identisch sein!");
+  }
+  firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  switch (errorCode) {
+    case "auth/email-already-in-use":
+      $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
+      break;
+    case "auth/invalid-email":
+      $(".android-login-err").html("Ungültige E-Mail Adresse");
+      break;
+    case "auth/operation-not-allowed":
+      $(".android-login-err").html("Dieser Account wurde gesperrt");
+      break;
+    case "auth/weak-password":
+      $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+      break;
+    default:
+      $(".android-login-err").html("Fehler bei der Anmeldung");
+  }
+  var errorMessage = error.message;
+  // ...
+});
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user.uid !== null) {
+      var pwd = $("#firebasePwdTeacher").val();
+      var lehrerAbk = $("#firebaseAbkTeacher").val();
+      firebase.database().ref("Users/" + user.uid).set({
+        lehrerPwd:pwd,
+        abk:lehrerAbk
+      });
+    }
+  })
+}
+
+function signInWithGoogle() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
   });
+}
+
+function showSignUp() {
+  $(".android-sign_up").show();
+  $(".android-logIn").hide();
+}
+function showSignUpTeacher() {
+  if(document.getElementById('teacherChckBx').checked){
+    $(".android-sign_up_teacher").show();
+  }else {
+    $(".android-sign_up_teacher").hide();
+  }
+}
+
+function getKurse() {
+  var auth = firebase.auth();
+  var uid = auth.currentUser.uid;
+
+  firebase.database().ref("Data/lehrerRead").once('value').then(function (snapshot) {
+    $(".operatorArea").show();
+  });
+
+    firebase.database().ref('Users/'+uid+'/Kurse').on('value', function (snapshot) {
+      var data = snapshot.val();
+      var output = "";
+      snapshot.forEach(function (childSnapshot) {
+        var kurs = childSnapshot.val();
+        var name = kurs.name;
+        output+= "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'><a href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
+      });
+      $('#kurs-liste').html(output);
+    });
 }
 
 function addKurs(){
   var name = $("#kursTextfield").val();
   var secret = $("#secretTextfield").val();
+  var auth = firebase.auth();
+  var uid = auth.currentUser.uid;
 
-  firebase.database().ref('Users/9puU6n4R1AhfFOKZRopHwc0wCpk1/Kurse/' + name).set({
+  firebase.database().ref('Users/'+uid+'/Kurse/' + name).set({
     name:name,
     secret: secret
   });
@@ -113,7 +193,13 @@ function closeDialogBox(id) {
 function setKurs(name) {
   $('main').load("kurs.html", function () {
     $("#card-kurs").html(name);
+    firebase.database().ref("Data/lehrerRead").once('value').then(function (snapshot) {
+       $(".operatorArea").show();
+    }, function (err) {
+      $(".operatorArea").hide();
+    });
     addListener();
+    getKursMessage();
     getKursMedia();
   });
 }
@@ -212,6 +298,37 @@ function handleFileSelect(evt) {
       evt.stopPropagation();
       evt.preventDefault();
       evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    }
+
+    function sendKursMessage() {
+      var nachricht = $("#nachricht").val();
+      var sender;
+
+      var abkRef = "Users/" + firebase.auth().currentUser.uid + "/abk";
+      firebase.database().ref(abkRef).on('value', function (snapshot) {
+        sender = snapshot.val();
+
+        var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
+        firebase.database().ref(ref).push({
+          sender:sender,
+          message:nachricht
+        });
+        $("#nachricht").val("");
+      });
+    }
+
+    function getKursMessage() {
+      var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
+      firebase.database().ref(ref).on('value', function(snapshot) {
+        var output = "";
+        snapshot.forEach(function (childSnapshot) {
+          output+=childSnapshot.val().sender;
+          output+=": "
+          output+=childSnapshot.val().message;
+          output+="<br />"
+        });
+        $("#messages").html(output);
+      });
     }
 
 
