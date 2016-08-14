@@ -14,7 +14,10 @@ $(document).ready(function() {
     //Fetch and insert
     changePage(href);
     if(href=="kurse.html"){
-      getKurse();
+      getKurse("kurs-liste");
+    }else if (href=="home.html") {
+      getKurse("dashKurse");
+      getBadge();
     }
 
   });
@@ -116,7 +119,7 @@ function firebaseSignUp() {
         abk:lehrerAbk
       });
     }
-  })
+  });
 }
 
 function signInWithGoogle() {
@@ -135,7 +138,33 @@ function signInWithGoogle() {
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
-    // ...
+    switch (errorCode) {
+      case "auth/email-already-in-use":
+        $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
+        break;
+      case "auth/invalid-email":
+        $(".android-login-err").html("Ungültige E-Mail Adresse");
+        break;
+      case "auth/operation-not-allowed":
+        $(".android-login-err").html("Dieser Account wurde gesperrt");
+        break;
+      case "auth/weak-password":
+        $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+        break;
+      default:
+        $(".android-login-err").html("Fehler bei der Anmeldung");
+    }
+  });
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user.uid !== null) {
+      var pwd = $("#firebasePwdTeacher").val();
+      var lehrerAbk = $("#firebaseAbkTeacher").val();
+      firebase.database().ref("Users/" + user.uid).set({
+        lehrerPwd:pwd,
+        abk:lehrerAbk
+      });
+    }
   });
 }
 
@@ -151,7 +180,7 @@ function showSignUpTeacher() {
   }
 }
 
-function getKurse() {
+function getKurse(id) {
   var auth = firebase.auth();
   var uid = auth.currentUser.uid;
 
@@ -159,15 +188,17 @@ function getKurse() {
     $(".operatorArea").show();
   });
 
+    // Maybe Fix this --> Data consuming
     firebase.database().ref('Users/'+uid+'/Kurse').on('value', function (snapshot) {
       var data = snapshot.val();
       var output = "";
       snapshot.forEach(function (childSnapshot) {
         var kurs = childSnapshot.val();
         var name = kurs.name;
-        output+= "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'><a href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
+        var kursID = name.replace(/ /g, "__");
+        output+= "<li class='mdl-list__item'><span class='mdl-list__item-primary-content'><a id='"+kursID+"Id' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
       });
-      $('#kurs-liste').html(output);
+      $('#' + id).html(output);
     });
 }
 
@@ -201,7 +232,39 @@ function setKurs(name) {
     addListener();
     getKursMessage();
     getKursMedia();
+    setTimeMillForKursLocal(name)
   });
+}
+function getBadge() {
+  var ref="Users/" + firebase.auth().currentUser.uid + "/Kurse";
+  firebase.database().ref(ref).on('value', function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var kurs = childSnapshot.val().name;
+      var kursRef = "Kurse/" + kurs + "/timeStamp";
+      firebase.database().ref(kursRef).on('value', function (snapshot) {
+        if(snapshot.val()>=getTimeMillForKursLocal(kurs)){
+          kursID= kurs.replace(/ /g, "__");
+          document.getElementById(kursID + "Id").dataset.badge = "✶";
+          $("#" + kursID + "Id").addClass("mdl-badge")
+        }
+      });
+    });
+  });
+}
+function setTimeMillForKursLocal(kurs) {
+  var d = new Date();
+  var currTimeMill = d.getTime();
+  localStorage.setItem(kurs + "Mill", currTimeMill);
+}
+function getTimeMillForKursLocal(kurs) {
+  var time = localStorage.getItem(kurs + "Mill");
+  return time;
+}
+function setTimeMillForKursOnline(kurs) {
+  var d = new Date();
+  var currTimeMill = d.getTime();
+  var ref = "Kurse/" + kurs + "/timeStamp";
+  firebase.database().ref(ref).set(currTimeMill);
 }
 function getKursMedia() {
   var storage = firebase.storage();
@@ -210,30 +273,19 @@ function getKursMedia() {
   var i = 0;
 
   firebase.database().ref(ref).on('value', function (snapshot) {
-    output="";
+    // output="";
     snapshot.forEach(function (childSnapshot) {
       var gsPath = childSnapshot.val().p;
       var fileName = gsPath.split('/').pop();
       var pathRef = storage.refFromURL(gsPath);
       pathRef.getDownloadURL().then(function (url) {
         // output += "<img src='"+url+"'/>";
-        if(i===0){
-          output+="<div class=mdl-grid>"
-          output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-        }else if(i===2){
-          output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-          output+="</div>"
-          i=0;
-        }else{
-          output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-        }
-        i = i+1;
-        // output+="<div class='mdl-card mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--1-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div></div>"
+        output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
         showMedia(output);
-      })
+      });
 
-    })
-  })
+    });
+  });
   //pathRef.getDownloadURL().then(function (url) {
     // $("#teso").html(output);
   //})
@@ -264,6 +316,8 @@ function setKursMedia(file) {
     firebase.database().ref(ref).push({
       p:gs
     });
+    setTimeMillForKursOnline(kurs);
+    setTimeMillForKursLocal(kurs);
   });
 }
 
@@ -313,6 +367,8 @@ function handleFileSelect(evt) {
           sender:sender,
           message:nachricht
         });
+        setTimeMillForKursOnline($("#card-kurs").text());
+        setTimeMillForKursLocal($("#card-kurs").text());
         $("#nachricht").val("");
       });
     }
