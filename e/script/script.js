@@ -81,6 +81,10 @@ function firebaseLogin(){
     }
     // [END_EXCLUDE]
   });
+  firebase.auth().onAuthStateChanged(function (user) {
+    history.pushState(null, null, "profile.html");
+    changePage('content/profile.html')
+  });
 
 
 }
@@ -120,7 +124,7 @@ function firebaseSignUp() {
     if(user.uid !== null) {
       var pwd = $("#firebasePwdTeacher").val();
       var lehrerAbk = $("#firebaseAbkTeacher").val();
-      firebase.database().ref("Users/" + user.uid).set({
+      firebase.database().ref("Users/" + user.uid).update({
         lehrerPwd:pwd,
         abk:lehrerAbk
       });
@@ -128,51 +132,51 @@ function firebaseSignUp() {
   });
 }
 
-function signInWithGoogle() {
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    switch (errorCode) {
-      case "auth/email-already-in-use":
-        $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
-        break;
-      case "auth/invalid-email":
-        $(".android-login-err").html("Ungültige E-Mail Adresse");
-        break;
-      case "auth/operation-not-allowed":
-        $(".android-login-err").html("Dieser Account wurde gesperrt");
-        break;
-      case "auth/weak-password":
-        $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
-        break;
-      default:
-        $(".android-login-err").html("Fehler bei der Anmeldung");
-    }
-  });
-
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user.uid !== null) {
-      var pwd = $("#firebasePwdTeacher").val();
-      var lehrerAbk = $("#firebaseAbkTeacher").val();
-      firebase.database().ref("Users/" + user.uid).set({
-        lehrerPwd:pwd,
-        abk:lehrerAbk
-      });
-    }
-  });
-}
+// function signInWithGoogle() {
+//   var provider = new firebase.auth.GoogleAuthProvider();
+//   firebase.auth().signInWithPopup(provider).then(function(result) {
+//     // This gives you a Google Access Token. You can use it to access the Google API.
+//     var token = result.credential.accessToken;
+//     // The signed-in user info.
+//     var user = result.user;
+//     // ...
+//   }).catch(function(error) {
+//     // Handle Errors here.
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     // The email of the user's account used.
+//     var email = error.email;
+//     // The firebase.auth.AuthCredential type that was used.
+//     var credential = error.credential;
+//     switch (errorCode) {
+//       case "auth/email-already-in-use":
+//         $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
+//         break;
+//       case "auth/invalid-email":
+//         $(".android-login-err").html("Ungültige E-Mail Adresse");
+//         break;
+//       case "auth/operation-not-allowed":
+//         $(".android-login-err").html("Dieser Account wurde gesperrt");
+//         break;
+//       case "auth/weak-password":
+//         $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+//         break;
+//       default:
+//         $(".android-login-err").html("Fehler bei der Anmeldung");
+//     }
+//   });
+//
+//   firebase.auth().onAuthStateChanged(function (user) {
+//     if(user.uid !== null) {
+//       var pwd = $("#firebasePwdTeacher").val();
+//       var lehrerAbk = $("#firebaseAbkTeacher").val();
+//       firebase.database().ref("Users/" + user.uid).update({
+//         lehrerPwd:pwd,
+//         abk:lehrerAbk
+//       });
+//     }
+//   });
+// }
 
 function showSignUp() {
   $(".android-sign_up").show();
