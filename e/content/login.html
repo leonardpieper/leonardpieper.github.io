@@ -1,0 +1,61 @@
+<div class="mdl-card mdl-cell mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab">
+  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right" onclick="showSignUp()">
+    <i class="material-icons">add</i>
+  </button>
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text" id="card-kurs">Login</h2>
+  </div>
+  <div class="mdl-card__supporting-text android-kurs-media-card">
+    <div class="android-login-err">
+
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
+      <input class="mdl-textfield__input" type="email" id="firebaseEmail" placeholder="E-Mail Adresse ">
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
+      <input class="mdl-textfield__input" type="password" id="firebasePwd" placeholder="Passwort">
+    </div>
+    <!-- Sign-Up -->
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up">
+      <input class="mdl-textfield__input" type="password" id="firebasePwdRepeat" placeholder="Passwort wiederholen">
+    </div>
+    <div class="android-is_teacher android-sign_up">
+      <label class="android-switch">
+        <input type="checkbox" id="teacherChckBx" onclick="showSignUpTeacher()">
+        <div class="android-slider round"></div>
+      </label>
+      <span class="mdl-switch__label">Ich bin ein Lehrer</span>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
+      <input class="mdl-textfield__input" type="password" id="firebasePwdTeacher" placeholder="Lehrer-Passwort">
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
+      <input class="mdl-textfield__input" type="text" id="firebaseAbkTeacher" placeholder="Lehrer-Kürzel">
+    </div>
+
+    <!-- End Sign-Up -->
+    <br />
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button android-logIn" onclick="firebaseLogin()">
+      Anmelden
+    </button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button android-sign_up" onclick="firebaseSignUp()">
+      Registrieren
+    </button>
+
+    <br />
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect android-login-button mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-button--google android-logIn" onclick="signInWithGoogle()">
+      <img src="https://developers.google.com/identity/images/g-logo.png" height="20px">
+      Anmelden mit Google
+    </button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect android-login-button mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-button--google android-sign_up" onclick="signInWithGoogle()">
+      <img src="https://developers.google.com/identity/images/g-logo.png" height="20px">
+      Registrieren mit Google
+    </button>
+    <br />
+    <a class="android-noAcc"onclick="showSignUp()"> Ich habe noch keinen Account</a>
+    <br />
+    <br />
+    <a class="android-noUnderline"href="content/datenschutz.html">Datenschutzhinweis</a>
+  </div>
+  </div>
+</div>

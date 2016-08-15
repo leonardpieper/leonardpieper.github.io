@@ -108,12 +108,7 @@ limitations under the License
 
     <main class="android-content mdl-layout__content">
       <script>
-        $('main').load('content/home.html', function() {
-          firebase.auth().onAuthStateChanged(function () {
-            getKurse("dashKurse");
-            getBadge();
-          });
-        });
+        $('main').load('content/profile.html');
       </script>
 
 

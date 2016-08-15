@@ -1,61 +1,134 @@
-<div class="mdl-card mdl-cell mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab">
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right" onclick="showSignUp()">
-    <i class="material-icons">add</i>
-  </button>
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" id="card-kurs">Login</h2>
-  </div>
-  <div class="mdl-card__supporting-text android-kurs-media-card">
-    <div class="android-login-err">
+<!doctype html>
+<!--
+Material Design Lite
+Copyright 2015 Google Inc. All rights reserved.
 
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
-      <input class="mdl-textfield__input" type="email" id="firebaseEmail" placeholder="E-Mail Adresse ">
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
-      <input class="mdl-textfield__input" type="password" id="firebasePwd" placeholder="Passwort">
-    </div>
-    <!-- Sign-Up -->
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up">
-      <input class="mdl-textfield__input" type="password" id="firebasePwdRepeat" placeholder="Passwort wiederholen">
-    </div>
-    <div class="android-is_teacher android-sign_up">
-      <label class="android-switch">
-        <input type="checkbox" id="teacherChckBx" onclick="showSignUpTeacher()">
-        <div class="android-slider round"></div>
-      </label>
-      <span class="mdl-switch__label">Ich bin ein Lehrer</span>
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
-      <input class="mdl-textfield__input" type="password" id="firebasePwdTeacher" placeholder="Lehrer-Passwort">
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
-      <input class="mdl-textfield__input" type="text" id="firebaseAbkTeacher" placeholder="Lehrer-Kürzel">
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Android</title>
+
+  <!-- Page styles -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.min.css">
+  <link rel="stylesheet" href="style/styles.css">
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <!-- <script>
+    $(document).ready(function(){
+      $("#m_stundenplan").click(function(){
+        $("main").load("kurse.html");
+      });
+    });
+  </script> -->
+
+  <script src="script/script.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
+    authDomain: "test-e84e5.firebaseapp.com",
+    databaseURL: "https://test-e84e5.firebaseio.com",
+    storageBucket: "test-e84e5.appspot.com",
+  };
+  firebase.initializeApp(config);
+  </script>
+
+</head>
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+
+    <div class="android-header mdl-layout__header mdl-layout__header--waterfall is-casting-shadow" id="waterfallHeader">
+      <div class="mdl-layout__header-row">
+        <span class="android-title mdl-layout-title">
+          Test
+        </span>
+        <!-- Add spacer, to align navigation to the right in desktop -->
+        <div class="android-header-spacer mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <div class="android-navigation-container">
+          <nav class="android-navigation mdl-navigation">
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/home.html">Vertretungsplan</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/stundenplan.html">Stundenplan</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/kurse.html">Kurse</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/login.html">Login</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/profile.html">Profile</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/signout.html">Logout</a>
+          </nav>
+        </div>
+        <span class="android-mobile-title mdl-layout-title">Test</span>
+        <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+          <i class="material-icons">more_vert</i>
+        </button>
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+          <li class="mdl-menu__item">5.0 Lollipop</li>
+          <li class="mdl-menu__item">4.4 KitKat</li>
+          <li disabled class="mdl-menu__item">4.3 Jelly Bean</li>
+          <li class="mdl-menu__item">Android History</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- End Sign-Up -->
-    <br />
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button android-logIn" onclick="firebaseLogin()">
-      Anmelden
-    </button>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button android-sign_up" onclick="firebaseSignUp()">
-      Registrieren
-    </button>
+    <div class="android-drawer mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        Test
+      </span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="home.html">Vertretungsplan</a>
+        <a class="mdl-navigation__link" href="stundenplan.html">Stundenplan</a>
+        <a class="mdl-navigation__link" href="kurse.html">Kurse</a>
+        <a class="mdl-navigation__link" href="">TV</a>
+        <a class="mdl-navigation__link" href="login.html">Login</a>
+        <a class="mdl-navigation__link" href="">One</a>
+        <a class="mdl-navigation__link" href="signout.html">Logout</a>
+      </nav>
+    </div>
 
-    <br />
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect android-login-button mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-button--google android-logIn" onclick="signInWithGoogle()">
-      <img src="https://developers.google.com/identity/images/g-logo.png" height="20px">
-      Anmelden mit Google
-    </button>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect android-login-button mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-button--google android-sign_up" onclick="signInWithGoogle()">
-      <img src="https://developers.google.com/identity/images/g-logo.png" height="20px">
-      Registrieren mit Google
-    </button>
-    <br />
-    <a class="android-noAcc"onclick="showSignUp()"> Ich habe noch keinen Account</a>
-    <br />
-    <br />
-    <a class="android-noUnderline"href="datenschutz.html">Datenschutzhinweis</a>
+    <main class="android-content mdl-layout__content">
+      <script>
+        $('main').load('content/login.html');
+      </script>
+
+
+      <!-- <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo">Title</div>
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+          </ul>
+        </div>
+      </footer> -->
+    </main>
+
+
+
+
   </div>
-  </div>
-</div>
+
+  <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+</body>
+</html>

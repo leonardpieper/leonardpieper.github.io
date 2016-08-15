@@ -28,7 +28,7 @@ limitations under the License
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style/styles.css">
 
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -40,7 +40,7 @@ limitations under the License
     });
   </script> -->
 
-  <script src="script.js"></script>
+  <script src="script/script.js"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
@@ -69,13 +69,13 @@ limitations under the License
         <!-- Navigation -->
         <div class="android-navigation-container">
           <nav class="android-navigation mdl-navigation">
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="home.html">Vertretungsplan</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="stundenplan.html">Stundenplan</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="kurse.html">Aufgaben</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/home.html">Vertretungsplan</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/stundenplan.html">Stundenplan</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/kurse.html">Kurse</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="login.html">Auto</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">One</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="signout.html">Play</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/login.html">Login</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/profile.html">Profile</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/signout.html">Logout</a>
           </nav>
         </div>
         <span class="android-mobile-title mdl-layout-title">Test</span>
@@ -96,19 +96,25 @@ limitations under the License
         Test
       </span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="home.html">Phones</a>
-        <a class="mdl-navigation__link" href="stundenplan.html">Tablets</a>
-        <a class="mdl-navigation__link" href="kurse.html">Aufgaben</a>
+        <a class="mdl-navigation__link" href="home.html">Vertretungsplan</a>
+        <a class="mdl-navigation__link" href="stundenplan.html">Stundenplan</a>
+        <a class="mdl-navigation__link" href="kurse.html">Kurse</a>
         <a class="mdl-navigation__link" href="">TV</a>
-        <a class="mdl-navigation__link" href="login.html">Auto</a>
+        <a class="mdl-navigation__link" href="login.html">Login</a>
         <a class="mdl-navigation__link" href="">One</a>
-        <a class="mdl-navigation__link" href="">Play</a>
+        <a class="mdl-navigation__link" href="signout.html">Logout</a>
       </nav>
     </div>
 
     <main class="android-content mdl-layout__content">
       <script>
-        $('main').load('home.html');
+        $('main').load('content/home.html', function () {
+          firebase.auth().onAuthStateChanged(function () {
+            getKurse("dashKurse");
+            getBadge();
+          });
+        });
+
       </script>
 
 
