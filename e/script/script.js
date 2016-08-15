@@ -326,8 +326,15 @@ function setKursMedia(file) {
     var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
     document.getElementById("kursUploader").value=percentage;
   }, function error (err) {
-
+    switch (err.code) {
+      case 'storage/unauthorized':
+          $(".maxDatei").css({'color': 'red', 'font-size':'1.5rem'});
+        break;
+      default:
+        alert("Upload abgebrochen/abgelehnt");
+    }
   }, function complete() {
+    $(".maxDatei").css({'color': 'rgba(0,0,0,.54)', 'font-size':'1rem'});
     var downLoadUrl = uploadTask.snapshot.downLoadUrl;
     var gs = kursRef.toString() + "/"+ file.name;
     var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
