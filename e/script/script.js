@@ -21,26 +21,30 @@ $(document).ready(function() {
   // End History Api
 });
 
+function toggleDrawer() {
+  var layout = document.querySelector('.mdl-layout');
+  layout.MaterialLayout.toggleDrawer();
+}
 
 function changePage (href){
+  $("#waterfallHeader").addClass("is-casting-shadow");
   $('main').load(href, function() {
     if(href=="content/kurse.html"){
       getKurse("kurs-liste");
     }else if (href=="content/home.html") {
       getKurse("dashKurse");
       getBadge();
+      getVPlanForToday();
+      getVPlanForTomorrow();
     }else if (href=="content/profile.html") {
       getUserProfilePage();
+    }else if (href=="content/vplan.html") {
+      getVPlanForYear("EF");
+      setFirstOpen();
     }
   });
-  if(firebase.database() === null){
-    var config = {
-    apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
-    authDomain: "test-e84e5.firebaseapp.com",
-    databaseURL: "https://test-e84e5.firebaseio.com",
-    storageBucket: "test-e84e5.appspot.com",
-  };
-  firebase.initializeApp(config);
+  if(firebase.app().name !== '[DEFAULT]'){
+    firebase.initializeApp(config);
   }
   // var content = $('main');
   // $.ajax({
@@ -129,6 +133,14 @@ function firebaseSignUp() {
         abk:lehrerAbk
       });
     }
+  });
+}
+
+function signOut() {
+  firebase.auth().signOut().then(function() {
+    console.log('Signed Out');
+  }, function(error) {
+    console.error('Sign Out Error', error);
   });
 }
 

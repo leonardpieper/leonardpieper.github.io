@@ -41,6 +41,7 @@ limitations under the License
   </script> -->
 
   <script src="script/script.js"></script>
+  <script src="script/vplan.js"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
@@ -96,13 +97,13 @@ limitations under the License
         Test
       </span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="home.html">Vertretungsplan</a>
-        <a class="mdl-navigation__link" href="stundenplan.html">Stundenplan</a>
-        <a class="mdl-navigation__link" href="kurse.html">Kurse</a>
-        <a class="mdl-navigation__link" href="">TV</a>
-        <a class="mdl-navigation__link" href="login.html">Login</a>
-        <a class="mdl-navigation__link" href="">One</a>
-        <a class="mdl-navigation__link" href="signout.html">Logout</a>
+        <a class="mdl-navigation__link" href="home.html" onclick="toggleDrawer()">Vertretungsplan</a>
+        <a class="mdl-navigation__link" href="stundenplan.html" onclick="toggleDrawer()">Stundenplan</a>
+        <a class="mdl-navigation__link" href="kurse.html" onclick="toggleDrawer()">Kurse</a>
+        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">TV</a>
+        <a class="mdl-navigation__link" href="login.html" onclick="toggleDrawer()">Login</a>
+        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">One</a>
+        <a class="mdl-navigation__link" href="signout.html" onclick="toggleDrawer()">Logout</a>
       </nav>
     </div>
 
@@ -112,6 +113,8 @@ limitations under the License
           firebase.auth().onAuthStateChanged(function () {
             getKurse("dashKurse");
             getBadge();
+            getVPlanForToday();
+            getVPlanForTomorrow();
           });
         });
       </script>

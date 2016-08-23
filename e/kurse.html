@@ -96,19 +96,23 @@ limitations under the License
         Test
       </span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="home.html">Vertretungsplan</a>
-        <a class="mdl-navigation__link" href="stundenplan.html">Stundenplan</a>
-        <a class="mdl-navigation__link" href="kurse.html">Kurse</a>
-        <a class="mdl-navigation__link" href="">TV</a>
-        <a class="mdl-navigation__link" href="login.html">Login</a>
-        <a class="mdl-navigation__link" href="">One</a>
-        <a class="mdl-navigation__link" href="signout.html">Logout</a>
+        <a class="mdl-navigation__link" href="home.html" onclick="toggleDrawer()">Vertretungsplan</a>
+        <a class="mdl-navigation__link" href="stundenplan.html" onclick="toggleDrawer()">Stundenplan</a>
+        <a class="mdl-navigation__link" href="kurse.html" onclick="toggleDrawer()">Kurse</a>
+        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">TV</a>
+        <a class="mdl-navigation__link" href="login.html" onclick="toggleDrawer()">Login</a>
+        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">One</a>
+        <a class="mdl-navigation__link" href="signout.html" onclick="toggleDrawer()">Logout</a>
       </nav>
     </div>
 
     <main class="android-content mdl-layout__content">
       <script>
-        $('main').load('content/kurse.html');
+        $('main').load('content/kurse.html', function () {
+          firebase.auth().onAuthStateChanged(function () {
+            getKurse("kurs-liste");
+          });
+        });
       </script>
 
 

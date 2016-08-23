@@ -24,13 +24,18 @@ a img{
 }
 
 ::-moz-selection {
-  background-color: #6ab344;
+  background-color: #009688;
   color: #fff;
 }
 
 ::selection {
-  background-color: #6ab344;
+  background-color: #009688;
   color: #fff;
+}
+
+.android-title {
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
 .android-search-box .mdl-textfield__input {
@@ -123,7 +128,7 @@ a img{
   }
 
     .android-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid #8bc34a;
+      border-bottom: 4px solid #009688;
     }
 
   .android-search-box {
@@ -523,10 +528,71 @@ input:checked + .android-slider:before {
   border-radius: 50%;
 }
 /*End Switch*/
+
+/*Loader*/
+.loader {
+    border: 5px solid #B2DFDB; /* Light teal */
+    border-top: 5px solid #009688; /* Teal */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: loaderspin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes loaderspin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/*End Loader*/
 .android-login-card{
 	margin-left:auto;
 	margin-right:auto;
 }
+.android-vertretung{
+  width: 100%;
+}
+/* For Tabs */
+.android-tab{
+  width:100%;
+  background-color: #607D8B;
+  height: 55px;
+}
+ul.android-tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Float the list items side by side */
+ul.android-tab li {float: left;}
+
+ul.android-tab li:hover{
+  border-bottom: 4px solid #009688;
+}
+ul.android-tab li a.active{
+  border-bottom: 4px solid #009688;
+}
+/* Style the links inside the list items */
+ul.android-tab li a {
+  width: 50px;
+    display: inline-block;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    /*padding: 6px 12px;*/
+    border: 1px solid #ccc;
+    border-top: none;
+}
+/*End Tabs*/
 .fab-top-right {
    position: absolute;
    top: 0px;
@@ -631,6 +697,17 @@ input:checked + .android-slider:before {
 .android-noUnderline{
   text-decoration: none;
 }
+.android-vPlan-Table{
+  width:100%;
+  border-collapse: collapse;
+}
+.android-vPlan-Table tr td{
+  border: 1px solid rgba(0,0,0,.8);
+  font-size: 1.3em;
+}
+.tdNonText{
+  white-space: nowrap;
+}
 
 
 /**** Mobile layout ****/
@@ -707,5 +784,14 @@ input:checked + .android-slider:before {
 
   .android-footer .mdl-mega-footer--bottom-section {
     display: none;
+  }
+
+  /***Own Content***/
+  .android-vPlan-card{
+    padding-left: 0;
+    padding-right: 100%;
+    left:0;
+    right: 0;
+    width: 100%;
   }
 }

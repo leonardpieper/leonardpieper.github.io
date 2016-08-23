@@ -1,0 +1,26 @@
+<ul class="android-tab">
+  <li><a class="tablinks" onclick="changeVPlanYear(event, 'EF');getVPlanForYear('EF')" id="tabEF">EF</a></li>
+  <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q1');getVPlanForYear('Q1')">Q1</a></li>
+  <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q2');getVPlanForYear('Q2')">Q2</a></li>
+</ul>
+
+<div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp android-main">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text" id="profileHead">Vertretungsplan</h2>
+  </div>
+  <div class="mdl-card__supporting-text android-vPlan-card">
+    <section id="EF" class="tabcontent">
+        <div id="vPlanAllEF"></div>
+    </section>
+    <section id="Q1" class="tabcontent">
+      <table>
+        <div id="vPlanAllQ1"></div>
+      </table>
+    </section>
+    <section id="Q2" class="tabcontent">
+      <table>
+        <div id="vPlanAllQ2"></div>
+      </table>
+    </section>
+  </div>
+</div>

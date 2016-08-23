@@ -1,7 +1,9 @@
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
 <script>
-  firebase.auth().signOut().then(function() {
-    console.log('Signed Out');
-  }, function(error) {
-    console.error('Sign Out Error', error);
+(function() {
+  'use strict';
+  var data = {message: 'Example Message # ' + ++counter};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
   });
 </script>

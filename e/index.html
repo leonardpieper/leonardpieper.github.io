@@ -41,6 +41,7 @@ limitations under the License
   </script> -->
 
   <script src="script/script.js"></script>
+  <script src="script/vplan.js"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
@@ -57,7 +58,7 @@ limitations under the License
 
 </head>
 <body>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
     <div class="android-header mdl-layout__header mdl-layout__header--waterfall is-casting-shadow" id="waterfallHeader">
       <div class="mdl-layout__header-row">
@@ -69,7 +70,7 @@ limitations under the License
         <!-- Navigation -->
         <div class="android-navigation-container">
           <nav class="android-navigation mdl-navigation">
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/home.html">Vertretungsplan</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/vplan.html">Vertretungsplan</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/stundenplan.html">Stundenplan</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/kurse.html">Kurse</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
@@ -96,13 +97,13 @@ limitations under the License
         Test
       </span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="home.html">Vertretungsplan</a>
-        <a class="mdl-navigation__link" href="stundenplan.html">Stundenplan</a>
-        <a class="mdl-navigation__link" href="kurse.html">Kurse</a>
-        <a class="mdl-navigation__link" href="">TV</a>
-        <a class="mdl-navigation__link" href="login.html">Login</a>
-        <a class="mdl-navigation__link" href="">One</a>
-        <a class="mdl-navigation__link" href="signout.html">Logout</a>
+        <a class="mdl-navigation__link" href="content/vplan.html" onclick="toggleDrawer()">Vertretungsplan</a>
+        <a class="mdl-navigation__link" href="stundenplan.html" onclick="toggleDrawer()">Stundenplan</a>
+        <a class="mdl-navigation__link" href="kurse.html" onclick="toggleDrawer()">Kurse</a>
+        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">TV</a>
+        <a class="mdl-navigation__link" href="login.html" onclick="toggleDrawer()">Login</a>
+        <a class="mdl-navigation__link" href="content/profile.html" onclick="toggleDrawer()">Profil</a>
+        <a class="mdl-navigation__link" href="signout.html" onclick="toggleDrawer()">Logout</a>
       </nav>
     </div>
 
@@ -112,6 +113,8 @@ limitations under the License
           firebase.auth().onAuthStateChanged(function () {
             getKurse("dashKurse");
             getBadge();
+            getVPlanForToday();
+            getVPlanForTomorrow();
           });
         });
 
