@@ -730,7 +730,10 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
   left: 50px!important;
   top: 7px!important;
 }
-
+/*Buttons*/
+.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab{
+  background-color: #009688;
+}
 /**** Mobile layout ****/
 @media (max-width: 900px) {
   .android-navigation-container {
