@@ -28,6 +28,14 @@ function toggleDrawer() {
 
 function changePage (href){
   $("#waterfallHeader").addClass("is-casting-shadow");
+  // if(firebase.app().name !== '[DEFAULT]'){
+  //   firebase.initializeApp({
+  //     apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
+  //     authDomain: "test-e84e5.firebaseapp.com",
+  //     databaseURL: "https://test-e84e5.firebaseio.com",
+  //     storageBucket: "test-e84e5.appspot.com",
+  //   });
+  // }
   $('main').load(href, function() {
     if(href=="content/kurse.html"){
       getKurse("kurs-liste");
@@ -43,9 +51,6 @@ function changePage (href){
       setFirstOpen();
     }
   });
-  if(firebase.app().name !== '[DEFAULT]'){
-    firebase.initializeApp(config);
-  }
   // var content = $('main');
   // $.ajax({
   //   url:'http://localhost/e/' + href.split('/').pop(),
@@ -86,8 +91,11 @@ function firebaseLogin(){
     // [END_EXCLUDE]
   });
   firebase.auth().onAuthStateChanged(function (user) {
-    history.pushState(null, null, "profile.html");
-    changePage('content/profile.html')
+    if(user !== null){
+      history.pushState(null, null, "profile.html");
+      changePage('content/profile.html');
+    }
+
   });
 
 
@@ -255,12 +263,22 @@ function setKurs(name) {
     getKursMessage();
     getKursMedia();
     setTimeMillForKursLocal(name)
+    var i = document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge;
+    if(i!=1){
+      document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge = i-1;
+      document.getElementById("mobileNavKurse").dataset.badge = i-1;
+    }else{
+      $(".mdl-layout__drawer-button").removeClass("mdl-badge");
+      $("#mobileNavKurse").removeClass("mdl-badge");
+    }
+
   });
 }
 function getBadge() {
   var ref="Users/" + firebase.auth().currentUser.uid + "/Kurse";
   // var count;
   firebase.database().ref(ref).on('value', function (snapshot) {
+    var i=0;
     snapshot.forEach(function (childSnapshot) {
       var kurs = childSnapshot.val().name;
       var kursRef = "Kurse/" + kurs + "/timeStamp";
@@ -269,16 +287,18 @@ function getBadge() {
           kursID= kurs.replace(/ /g, "__");
           document.getElementById(kursID + "Id").dataset.badge = "✶";
           $("#" + kursID + "Id").addClass("mdl-badge");
-          // count = count + 1;
+          i = i+1;
+          if(i!== 0){
+            document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge = i;
+            $(".mdl-layout__drawer-button").addClass("mdl-badge");
+            document.getElementById("mobileNavKurse").dataset.badge = i;
+            $("#mobileNavKurse").addClass("mdl-badge");
+          }
+
         }
       });
     });
-    // var kursBadge = document.getElementsByClassName("kursBadgeDisplay");
-    // for(var i = 0; i < kursBadge.length; i++){
-    //   kursBadge[i].dataset.badge = count;
-    //   kursBadge[i].classList.add("mdl-badge");
-    // }
-    // $("#" + kursID + "Id").addClass("mdl-badge")
+    // $(".mdl-layout__drawer-button").addClass("mdl-badge--overlap");
   });
 }
 function setTimeMillForKursLocal(kurs) {

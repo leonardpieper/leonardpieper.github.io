@@ -148,6 +148,7 @@ a img{
 
 .android-drawer {
   border-right: none;
+  color:#FFFFFF;
 }
 
   .android-drawer-separator {
@@ -167,7 +168,10 @@ a img{
 
   .android-drawer .mdl-layout-title {
     position: relative;
-    background: #6ab344;
+    background: rgb(96,125,139); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(96,125,139,1) 0%, rgba(144,164,174,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(96,125,139,1) 0%,rgba(144,164,174,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(96,125,139,1) 0%,rgba(144,164,174,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     height: 160px;
   }
 
@@ -470,6 +474,9 @@ a img{
 }
 
 /**** Own content ****/
+a{
+  color:#009688;
+}
 .android-main{
 	margin-left:auto;
 	margin-right:auto;
@@ -593,6 +600,9 @@ ul.android-tab li a {
     border-top: none;
 }
 /*End Tabs*/
+.mdl-button--fab.mdl-button--colored{
+  background: #009688;
+}
 .fab-top-right {
    position: absolute;
    top: 0px;
@@ -708,7 +718,18 @@ ul.android-tab li a {
 .tdNonText{
   white-space: nowrap;
 }
-
+/*Badges*/
+.mdl-badge[data-badge]:after{
+  background: #009688;
+}
+div.mdl-layout__drawer-button.mdl-badge[data-badge]:after {
+  right: 0px!important;
+  top: 0px!important;
+}
+a.mdl-navigation__link.mdl-badge[data-badge]:after {
+  left: 50px!important;
+  top: 7px!important;
+}
 
 /**** Mobile layout ****/
 @media (max-width: 900px) {
@@ -724,7 +745,8 @@ ul.android-tab li a {
     display: block !important;
     position: absolute;
     left: calc(50% - 70px);
-    top: 12px;
+    /*top: 12px;*/
+    margin-top: auto;
     transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
