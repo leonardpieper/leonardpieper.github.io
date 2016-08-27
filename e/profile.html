@@ -114,6 +114,7 @@ limitations under the License
         $('main').load('content/profile.html', function () {
           firebase.auth().onAuthStateChanged(function () {
             getUserProfilePage();
+            isUserLoggedIn()
           });
         });
       </script>

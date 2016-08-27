@@ -17,10 +17,12 @@
 <div class="android-dialogBox" id="android-kurs-dialog">
   <div class="android-dialogBox__content">
     <i class="material-icons close-icon" onclick="closeDialogBox('android-kurs-dialog')">close</i>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <h3 class="android-dialogBox__title">Neuen Kurs erstellen</h3>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
       <input class="mdl-textfield__input" type="text" id="kursTextfield" placeholder="Kursabkürzung">
     </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <br />
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
       <input class="mdl-textfield__input" type="text" id="secretTextfield" placeholder="Passwort">
     </div>
     <div class="android-dialogBox__footer">
@@ -28,5 +30,18 @@
         Hinzufügen
       </button>
     </div>
+  </div>
+</div>
+<div class="android-dialogBox" id="android-delkurs-dialog">
+  <div class="android-dialogBox__content">
+    <i class="material-icons close-icon" onclick="closeDialogBox('android-delkurs-dialog')">close</i>
+    <span class="android-dialogBox__title" id="delFach"></span>
+    <span class="android-dialogBox__title">wird gelöscht</span>
+    <br />
+    <br />
+    <br />
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="delKurs()">
+      Bestätigen
+    </button>
   </div>
 </div>

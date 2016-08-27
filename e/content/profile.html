@@ -3,6 +3,21 @@
     <h2 class="mdl-card__title-text" id="profileHead">Hallo</h2>
   </div>
   <div class="mdl-card__supporting-text android-login-card">
+
+    Vertretungsplan Daten
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
+      <input class="mdl-textfield__input" type="text" id="vPlanChangeU" placeholder="Vertretungsplan Benutzername">
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col">
+      <input class="mdl-textfield__input" type="password" id="vPlanChangeP" placeholder="Vertretungsplan Passwort">
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="changevPlanData()">
+      Speichern
+    </button>
+    <i class="material-icons" id="changeDone" style="display:none">done</i>
+    <br />
+    <br />
+    <br />
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="signOut()">
       Abmelden
     </button>

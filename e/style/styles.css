@@ -474,6 +474,15 @@ a img{
 }
 
 /**** Own content ****/
+/*
+ __                                                  __
+/\ \                                                /\ \
+\ \ \         __     ___     ___       __     _ __  \_\ \
+\ \ \  __  /'__`\  / __`\ /' _ `\   /'__`\  /\`'__\/'_` \
+ \ \ \L\ \/\  __/ /\ \L\ \/\ \/\ \ /\ \L\.\_\ \ \//\ \L\ \
+  \ \____/\ \____\\ \____/\ \_\ \_\\ \__/.\_\\ \_\\ \___,_\
+   \/___/  \/____/ \/___/  \/_/\/_/ \/__/\/_/ \/_/ \/__,_ /
+   */
 a{
   color:#009688;
 }
@@ -514,11 +523,11 @@ a{
   transition: .4s;
 }
 input:checked + .android-slider {
-  background-color: #ff4081;
+  background-color: #009688;
 }
 
 input:focus + .android-slider {
-  box-shadow: 0 0 1px #ff4081;
+  box-shadow: 0 0 1px #009688;
 }
 
 input:checked + .android-slider:before {
@@ -635,9 +644,16 @@ ul.android-tab li a {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 50%;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
      /* Could be more or less, depending on screen size */
+}
+.android-dialogBox__title{
+  color:#009688;
+  font-size: 2em;
+}
+.android-dialogBox__input{
+  width: 100%;
 }
 .android-dialogBox__footer{
   margin-left: auto;
@@ -730,8 +746,29 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
   left: 50px!important;
   top: 7px!important;
 }
+.android-kursList-close{
+  display: none;
+}
+.android-kursList:hover > .android-kursList-close{
+  display: block;
+}
+.android-kursList-close:hover{
+  cursor: pointer;
+}
 /*Buttons*/
 .mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab{
+  background-color: #009688;
+}
+.mdl-button--fab.mdl-button--colored:hover{
+  background-color: #009688;
+}
+.mdl-button--fab.mdl-button--colored:active{
+  background-color: #009688;
+}
+.mdl-button--fab.mdl-button--colored:focus{
+  background-color: #009688;
+}
+.mdl-button--fab.mdl-button--colored:focus:not(:active){
   background-color: #009688;
 }
 /**** Mobile layout ****/
@@ -818,5 +855,17 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
     left:0;
     right: 0;
     width: 100%;
+  }
+  .android-dialogBox__content{
+    background-color: #fefefe;
+      margin: 30% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 70%;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+       /* Could be more or less, depending on screen size */
+  }
+  .android-dialogBox__title{
+    font-size: 2em;
   }
 }
