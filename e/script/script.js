@@ -1,3 +1,6 @@
+var uploadedFiles;
+
+
 $(document).ready(function() {
   // History Api
   var content = $('main');
@@ -320,6 +323,7 @@ function setKurs(name) {
       $(".operatorArea").hide();
     });
     addListener();
+    checkAuth();
     getKursMessage();
     getKursMedia();
     setTimeMillForKursLocal(name)
@@ -385,14 +389,19 @@ function getKursMedia() {
   firebase.database().ref(ref).on('value', function (snapshot) {
     output="";
     snapshot.forEach(function (childSnapshot) {
-      var gsPath = childSnapshot.val().p;
-      var fileName = gsPath.split('/').pop();
-      var pathRef = storage.refFromURL(gsPath);
-      pathRef.getDownloadURL().then(function (url) {
-        // output += "<img src='"+url+"'/>";
-        output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-        showMedia(output);
-      });
+      // var gsPath = childSnapshot.val().p;
+      // var fileName = gsPath.split('/').pop();
+      // var pathRef = storage.refFromURL(gsPath);
+      // pathRef.getDownloadURL().then(function (url) {
+      //   // output += "<img src='"+url+"'/>";
+      //   output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
+      //   showMedia(output);
+      // });
+
+      var downloadUrl = childSnapshot.val().downloadUrl;
+      var fileName = childSnapshot.val().title;
+      output += "<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+downloadUrl+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+downloadUrl+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
+      showMedia(output);
 
     });
   });
@@ -404,71 +413,80 @@ function showMedia(media){
   $("#mediaDiv").html(media);
 }
 
-function setKursMedia(file) {
-  var storage = firebase.storage();
-  var storageRef = storage.ref();
-
-  var kurs = $("#card-kurs").html();
-  var kurseRef = storageRef.child('kurse');
-  var kursRef = kurseRef.child(kurs);
-
-  var uploadTask = kursRef.child(file.name).put(file);
-  uploadTask.on('state_changed',
-  function progress (snapshot) {
-    var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    document.getElementById("kursUploader").value=percentage;
-  }, function error (err) {
-    switch (err.code) {
-      case 'storage/unauthorized':
-          $(".maxDatei").css({'color': 'red', 'font-size':'1.5rem'});
-        break;
-      default:
-        alert("Upload abgebrochen/abgelehnt");
-    }
-  }, function complete() {
-    $(".maxDatei").css({'color': 'rgba(0,0,0,.54)', 'font-size':'1rem'});
-    var downLoadUrl = uploadTask.snapshot.downLoadUrl;
-    var gs = kursRef.toString() + "/"+ file.name;
-    var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
-    firebase.database().ref(ref).push({
-      p:gs
-    });
-    setTimeMillForKursOnline(kurs);
-    setTimeMillForKursLocal(kurs);
-  });
-}
+// function setKursMedia(file) {
+//   var storage = firebase.storage();
+//   var storageRef = storage.ref();
+//
+//   var kurs = $("#card-kurs").html();
+//   var kurseRef = storageRef.child('kurse');
+//   var kursRef = kurseRef.child(kurs);
+//
+//   var uploadTask = kursRef.child(file.name).put(file);
+//   uploadTask.on('state_changed',
+//   function progress (snapshot) {
+//     var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     document.getElementById("kursUploader").value=percentage;
+//   }, function error (err) {
+//     switch (err.code) {
+//       case 'storage/unauthorized':
+//           $(".maxDatei").css({'color': 'red', 'font-size':'1.5rem'});
+//         break;
+//       default:
+//         alert("Upload abgebrochen/abgelehnt");
+//     }
+//   }, function complete() {
+//     $(".maxDatei").css({'color': 'rgba(0,0,0,.54)', 'font-size':'1rem'});
+//     var downLoadUrl = uploadTask.snapshot.downLoadUrl;
+//     var gs = kursRef.toString() + "/"+ file.name;
+//     var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
+//     firebase.database().ref(ref).push({
+//       p:gs
+//     });
+//     setTimeMillForKursOnline(kurs);
+//     setTimeMillForKursLocal(kurs);
+//   });
+// }
 
 function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+    //var files = evt.target.files; // FileList object
+    uploadedFiles = evt.target.files;
 
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      // output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-      //             f.size, ' bytes, last modified: ',
-      //             f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-      //             '</li>');
-      setKursMedia(f);
+    var uploadListElement = "<div class='uploadedItemsListElement'><i class='material-icons'>&#xE24D;</i>"
+    var uploadListElements = "";
+    for(i=0;i<uploadedFiles.length;i++){
+      uploadListElements += uploadListElement+uploadedFiles[i].name+"</div>"
     }
+    $("#uploadedItemsList").html(uploadListElements)
+
   }
   function handleFileDrop(evt) {
       evt.stopPropagation();
       evt.preventDefault();
 
-      var files = evt.dataTransfer.files; // FileList object.
+      $(".android-kurs-dropZone").css({"border-color": "rgba(0,0,0,0.8)","border-width":"4px","background-color": "rgba(0,0,0,0)"});
 
-      // files is a FileList of File objects. List some properties.
-      var output = [];
-      for (var i = 0, f; f = files[i]; i++) {
-        setKursMedia(f);
+      var files = evt.dataTransfer.files; // FileList object.
+      uploadedFiles = files;
+
+      var uploadListElement = "<div class='uploadedItemsListElement'><i class='material-icons'>&#xE24D;</i>"
+      var uploadListElements = "";
+      for(i=0;i<uploadedFiles.length;i++){
+        uploadListElements += uploadListElement+uploadedFiles[i].name+"</div>"
       }
-      // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+      $("#uploadedItemsList").html(uploadListElements)
     }
 
     function handleDragOver(evt) {
       evt.stopPropagation();
       evt.preventDefault();
       evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
+      if(evt.target === document.getElementById('drop_zone')){
+        $(".android-kurs-dropZone").css({"border-color": "#81C784","border-width":"4px","background-color": "rgba(129,199,132,0.2)"});
+      }else{
+        $(".android-kurs-dropZone").css({"border-color": "rgba(0,0,0,0.8)","border-width":"4px","background-color": "rgba(0,0,0,0)"});
+      }
+
     }
 
     function sendKursMessage() {
@@ -518,11 +536,22 @@ function getUserProfilePage() {
 
 
 function addListener() {
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
-// Setup the dnd listeners
-var dropZone = document.getElementById('drop_zone');
-dropZone.addEventListener('dragover', handleDragOver, false);
-dropZone.addEventListener('drop', handleFileDrop, false);
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  // Setup the dnd listeners
+  var dropZone = document.getElementById('drop_zone');
+  window.addEventListener('dragover', handleDragOver, false);
+  dropZone.addEventListener('drop', handleFileDrop, false);
+
+  $('#uploadButton').click(function () {
+    files = uploadedFiles;
+    for (var i = 0, f; f = files[i]; i++) {
+      uploadKursMediaDrive(f);
+    }
+  });
+
+  $('#driveLogInButton').click(function () {
+    handleAuthClick();
+  });
 }
 
 /**Auto Function**/

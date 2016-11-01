@@ -545,7 +545,7 @@ input:checked + .android-slider:before {
 }
 /*End Switch*/
 
-/*Loader*/
+/*Progress Loader*/
 .loader {
     border: 5px solid #B2DFDB; /* Light teal */
     border-top: 5px solid #009688; /* Teal */
@@ -605,7 +605,7 @@ ul.android-tab li a {
 .tabcontent {
     display: none;
     /*padding: 6px 12px;*/
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-top: none;
 }
 /*End Tabs*/
@@ -625,6 +625,9 @@ ul.android-tab li a {
   margin-top: 40px;
 }
 .operatorArea{
+  display: none;
+}
+.driveLoggedIn{
   display: none;
 }
 .android-dialogBox{
@@ -678,11 +681,11 @@ ul.android-tab li a {
   border-radius: 8px;
   padding-top: 50px;
 }
-.android-kurs-dropZone:hover{
+/*.android-kurs-dropZone:hover{
   border-width:6px;
   border-color: #81C784;
   background-color: rgba(129,199,132,0.2);
-}
+}*/
 .android-kurs-fileInput{
   width: 0.1px;
 	height: 0.1px;
@@ -694,6 +697,19 @@ ul.android-tab li a {
 }
 .android-kurs-fileInput + label{
   margin-top: 30px;
+}
+.uploadDescription{
+  font-size: 1.5em;
+}
+#uploadedItemsLoader{
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  display: none;
+}
+.uploadInputLabel{
+  color: #009688;
+  cursor:pointer;
 }
 .android-mediaCard{
   max-width: 100%;
@@ -727,12 +743,21 @@ ul.android-tab li a {
   width:100%;
   border-collapse: collapse;
 }
-.android-vPlan-Table tr td{
+.android-vPlan-Table tr .vTd{
   border: 1px solid rgba(0,0,0,.8);
   font-size: 1.3em;
 }
 .tdNonText{
   white-space: nowrap;
+}
+.tdDate{
+  white-space: nowrap;
+  border: none;
+  font-size: 1.8em;
+
+}
+.trDate{
+  height: 45px;
 }
 /*Badges*/
 .mdl-badge[data-badge]:after{

@@ -50,15 +50,21 @@ function getVPlanForYear(year) {
     // for(var i = 0; i<years.length; i++){
       firebase.database().ref("vPlan" + "/" + year).on("value", function (snapshot) {
         var output = "<table class='android-vPlan-Table'>";
+        var iDatum;
         snapshot.forEach(function (childSnapshot) {
           var datum = childSnapshot.val().Datum;
-          if(!(childSnapshot.val().Fach === undefined || childSnapshot.val().Fach === "Fach")){
-            output+="<tr><td class='tdNonText'>" + childSnapshot.val().Fach + "</td>";
-            output+="<td class='tdNonText'>" + childSnapshot.val().Stunde + "</td>";
-            output+="<td class='tdNonText'>" + childSnapshot.val().Vertreter + "</td>";
-            output+="<td class='tdNonText'>" + childSnapshot.val().Raum + "</td>";
-            output+="<td>" + childSnapshot.val()['Vertretungs-Text'] + "</td></tr>";
+          if(iDatum != datum && !(childSnapshot.val().Fach === undefined || childSnapshot.val().Fach === "Fach")){
+            output+="<tr class='trDate'><td class='tdDate' colspan='3'>" + childSnapshot.val().Tag + "</td>";
+            output+="<td class='tdDate' colspan='2'>" + childSnapshot.val().Datum + "</td></tr>";
           }
+          if(!(childSnapshot.val().Fach === undefined || childSnapshot.val().Fach === "Fach")){
+            output+="<tr><td class='tdNonText vTd'>" + childSnapshot.val().Fach + "</td>";
+            output+="<td class='tdNonText vTd'>" + childSnapshot.val().Stunde + "</td>";
+            output+="<td class='tdNonText vTd'>" + childSnapshot.val().Vertreter + "</td>";
+            output+="<td class='tdNonText vTd'>" + childSnapshot.val().Raum + "</td>";
+            output+="<td class='vTd'>" + childSnapshot.val()['Vertretungs-Text'] + "</td></tr>";
+          }
+          iDatum = datum;
         });
         output+="</table>"
         $("#vPlanAll" + year).html(output);
