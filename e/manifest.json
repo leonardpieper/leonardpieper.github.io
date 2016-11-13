@@ -1,0 +1,8 @@
+{
+  "short_name": "Ceci Vertretungsplan",
+  "name": "Ceci Vertretungsplan",
+  "start_url": "index.html?launcher=true",
+  "display": "standalone",
+  "theme_color": "#607D8B",
+  "gcm_sender_id": "103953800507"
+}

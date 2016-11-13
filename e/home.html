@@ -115,8 +115,9 @@ limitations under the License
           firebase.auth().onAuthStateChanged(function () {
             getKurse("dashKurse");
             getBadge();
-            getVPlanForToday();
-            getVPlanForTomorrow();
+            // getVPlanForToday();
+            // getVPlanForTomorrow();
+            getVPlanForYear("EF", "home");
           });
         });
       </script>
