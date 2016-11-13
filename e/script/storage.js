@@ -47,7 +47,7 @@ function handleAuthClick() {
 }
 
 function loadDriveApi() {
-  gapi.client.load('drive', 'v3');
+  gapi.client.load('drive', 'v2');
 }
 
 
@@ -105,7 +105,92 @@ function uploadKursMediaDrive(fileData) {
          id:driveFile.id,
          title:driveFile.title
        });
+       setTimeMillForKursOnline($("#card-kurs").text());
+       setNewestMedia(driveFile.id);
     });
 
   // });
 }}
+
+function getKursMedia() {
+  var storage = firebase.storage();
+  var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
+  // var output = "";
+  var i = 0;
+
+  firebase.database().ref(ref).on('value', function (snapshot) {
+    output="";
+    snapshot.forEach(function (childSnapshot) {
+      // var gsPath = childSnapshot.val().p;
+      // var fileName = gsPath.split('/').pop();
+      // var pathRef = storage.refFromURL(gsPath);
+      // pathRef.getDownloadURL().then(function (url) {
+      //   // output += "<img src='"+url+"'/>";
+      //   output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
+      //   showMedia(output);
+      // });
+
+      var downloadUrl = childSnapshot.val().downloadUrl;
+      var fileName = childSnapshot.val().title;
+      output += "<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+downloadUrl+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+downloadUrl+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
+      showMedia(output);
+
+    });
+  });
+  //pathRef.getDownloadURL().then(function (url) {
+    // $("#teso").html(output);
+  //})
+}
+function showMedia(media){
+  $("#mediaDiv").html(media);
+}
+
+function setNewestMedia(driveId){
+  var ref="Kurse/" + $("#card-kurs").text() + "/newestMedia";
+  var date = new Date();
+  var time = date.getTime();
+  firebase.database().ref(ref).set({
+    id:driveId,
+    date:time
+  });
+}
+
+function getRecentMedia() {
+  var currentNewestMediaTime = [];
+  var currentNewestMediaId = [];
+  for(kurs in kurse){
+    var kursNewestMediaDate = kurse[kurs].val().newestMedia.date;
+    var kursNewestMediaId = kurse[kurs].val().newestMedia.id;
+    if(currentNewestMediaTime.length<=3){
+      var key = currentNewestMediaTime.indexOf(Math.min.apply(Math, currentNewestMediaTime));
+      currentNewestMediaTime[currentNewestMediaTime.length] = kursNewestMediaDate;
+      currentNewestMediaId[currentNewestMediaId.length] = kursNewestMediaId;
+    }else{
+      if(Math.min.apply(Math, currentNewestMediaTime)<kursNewestMediaDate){
+        var key = currentNewestMediaTime.indexOf(Math.min.apply(Math, currentNewestMediaTime));
+        currentNewestMediaTime[key] = kursNewestMediaDate;
+        currentNewestMediaId[key] = kursNewestMediaId;
+      }
+    }
+  }
+  return currentNewestMediaId;
+}
+
+function showRecentMedia(){
+  var recentMedia = getRecentMedia();
+  var output = "";
+  for(id in recentMedia){
+    var fileId = recentMedia[id];
+    var request = gapi.client.drive.files.get({
+      'fileId': fileId
+    });
+
+    request.execute(function(resp) {
+      var downloadUrl = resp.downloadUrl;
+      downloadUrl = downloadUrl.replace("?e=download&gd=true", "");
+      output += "<img src='"+downloadUrl+"'>"
+      $("#dashFiles").html(output);
+    });
+  }
+  $("#dashFiles").html(output);
+}

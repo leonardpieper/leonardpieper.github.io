@@ -490,6 +490,9 @@ a{
 	margin-left:auto;
 	margin-right:auto;
 }
+.vplan-card_grid{
+  margin: 0;
+}
 /*Switch*/
 .android-switch{
   position: relative;
@@ -668,6 +671,10 @@ ul.android-tab li a {
   font-size: 28px;
   cursor: pointer;
 }
+#kursMessages{
+  max-height: 200px;
+  overflow: auto;
+}
 #uploadCard{
   display: none;
 }
@@ -780,6 +787,10 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
 .android-kursList-close:hover{
   cursor: pointer;
 }
+.kursIcon{
+  min-height:34px;
+}
+
 /*Buttons*/
 .mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab{
   background-color: #009688;
@@ -863,7 +874,6 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
   .android-fab {
     display: none;
   }
-
   .android-wear-band-text {
     margin-left: 0;
     padding: 16px;
@@ -874,6 +884,17 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
   }
 
   /***Own Content***/
+  .android-kurs_nav{
+    min-height: 70px;
+    margin: 0;
+    width: 100% !important;
+  }
+  .android-kurs_nav * li{
+    display: inline;
+  }
+  /*.android-kurs_nav * li .mdl-list__item, .mdl-list__item .mdl-list__item-primary-content{
+    display: inline;
+  }*/
   .android-vPlan-card{
     padding-left: 0;
     padding-right: 100%;
@@ -892,5 +913,12 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
   }
   .android-dialogBox__title{
     font-size: 2em;
+  }
+
+  .kursLink{
+    display: none;
+  }
+  .kursIcon{
+    min-height: 50px;
   }
 }

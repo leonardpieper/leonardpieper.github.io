@@ -45,7 +45,7 @@ function getVPlanForTomorrow() {
   });
 }
 
-function getVPlanForYear(year) {
+function getVPlanForYear(year, location) {
   // var years = ["EF", "Q1", "Q2"];
     // for(var i = 0; i<years.length; i++){
       firebase.database().ref("vPlan" + "/" + year).on("value", function (snapshot) {
@@ -67,7 +67,12 @@ function getVPlanForYear(year) {
           iDatum = datum;
         });
         output+="</table>"
-        $("#vPlanAll" + year).html(output);
+        if(location==="vplan"){
+          $("#vPlanAll" + year).html(output);
+        }else if (location==="home") {
+          $("#vPlanToday").html(output);
+        }
+
         // $("#vPlanAll" + year + " tr:last").after(output);
         // document.getElementById("vPlanAll" + year).innerHTML = output;
       });
