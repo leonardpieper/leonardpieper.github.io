@@ -1,10 +1,13 @@
-const kurse = [];
+var kurse = [];
 
-function getKurse(){
+function getKurse(outputElementId){
   var output = "";
   var ref="Users/" + firebase.auth().currentUser.uid + "/Kurse";
 
   firebase.database().ref(ref).once('value').then(function (snapshot) {
+    var snapChildren = snapshot.numChildren();
+
+    var i = 1;
     snapshot.forEach(function (childSnapshot) {
       var kurs = childSnapshot.val().name;
       var kursRef = "Kurse/" + kurs;
@@ -17,22 +20,31 @@ function getKurse(){
             var kursID = name.replace(/ /g, "__");
             var timestamp = snapshot.val().timestamp;
             // output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img alt='"+name+" Icon' src='"+getIcon(name)+"'><span class='mdl-list__item-primary-content dash-kurs_span'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
-            output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img class='kursIcon' alt='"+name+" Icon' src='"+getIcon(name)+"'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></li>";
-            $("#dashKurse").html(output);
+            output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img class='kursIcon' alt='"+name+" Icon' src='"+getIcon(name)+"'><a id='"+kursID+"Id' class='kursLink "+outputElementId+"' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></li>";
 
-            $("#dashKurse").find(".android-kursList").sort(function (a,b) {
+            $("#" + outputElementId).html(output);
+
+            $("#d" + outputElementId).find(".android-kursList").sort(function (a,b) {
               a.dataset.timestamp = a.dataset.timestamp *-1;
               b.dataset.timestamp = b.dataset.timestamp *-1;
               return +a.dataset.timestamp - +b.dataset.timestamp;
-            }).appendTo("#dashKurse");
+            }).appendTo("#" + outputElementId);
 
             getBadge();
             kurse.push(snapshot);
+            getKurseReady(snapChildren, i);
+            i++;
           // }
       });
     });
     $("#dashKurse").html(output);
   });
+}
+
+function getKurseReady(snapshotChildren, count) {
+  if(snapshotChildren === count){
+    showRecentMedia();
+  }
 }
 
 function getBadge(){

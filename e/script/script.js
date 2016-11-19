@@ -1,5 +1,5 @@
 var uploadedFiles;
-
+var currentPage="";
 
 $(document).ready(function() {
   // History Api
@@ -12,6 +12,7 @@ $(document).ready(function() {
     // Manipulate History
     var adressBarHref = href.split('/').pop();
     history.pushState(null, null, adressBarHref);
+    currentPage=adressBarHref;
     //Fetch and insert
     changePage(href);
   });

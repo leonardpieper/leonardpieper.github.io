@@ -490,6 +490,9 @@ a{
 	margin-left:auto;
 	margin-right:auto;
 }
+.nav-footer{
+  display: none;
+}
 .vplan-card_grid{
   margin: 0;
 }
@@ -761,11 +764,12 @@ ul.android-tab li a {
   white-space: nowrap;
   border: none;
   font-size: 1.8em;
-
 }
 .trDate{
   height: 45px;
 }
+
+
 /*Badges*/
 .mdl-badge[data-badge]:after{
   background: #009688;
@@ -790,6 +794,53 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
 .kursIcon{
   min-height:34px;
 }
+/*For Dashbord Files Table*/
+/*table.onlyInnerBorderTable{
+  border-collapse: collapse;
+}
+table.onlyInnerBorderTable td{
+  border: : 1px solid black;
+}
+table.onlyInnerBorderTable tr:first-child td{
+  border-top: 0;
+}
+table.onlyInnerBorderTable tr:last-child td{
+  border-bottom: 0;
+}
+table.onlyInnerBorderTable tr td:first-child{
+  border-left: 0;
+}
+table.onlyInnerBorderTable tr td:last-child{
+  border-right: 0;
+}*/
+table.onlyInnerBorderTable {
+  border-collapse: collapse;
+}
+table.onlyInnerBorderTable td{
+  border: 1px solid #607D8B;
+}
+table.onlyInnerBorderTable tr:first-child td {
+  border-top: 0;
+}
+table.onlyInnerBorderTable tr:last-child td {
+  border-bottom: 0;
+}
+table.onlyInnerBorderTable tr td:first-child{
+  border-left: 0;
+}
+table.onlyInnerBorderTable tr td:last-child{
+  border-right: 0;
+}
+
+.dashThumbnailFiles{
+  /*max-height: 165px;*/
+}
+.dashThumbnailFiles img{
+  max-height: 165px;
+  max-width: 90%;
+}
+
+
 
 /*Buttons*/
 .mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab{
@@ -809,6 +860,35 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {
+  /*.nav-footer{
+    display: flex;
+    display: -webkit-flex;
+    z-index: 50;
+    padding: 0;
+    height: 84px;
+    width: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 5px 0px 5px grey;
+  }
+  .nav-footer__icons{
+    width: 100%;
+  }
+  .nav-footer__icons ul {
+    padding: 0;
+    margin: 0;
+  }
+  .nav-footer__icons * *{
+    width: 30%;
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+  }
+  .nav-footer__icons * * div i{
+    align-content: center;
+    margin-bottom: -5px;
+  }*/
+
+
   .android-navigation-container {
     display: none;
   }
@@ -917,6 +997,9 @@ a.mdl-navigation__link.mdl-badge[data-badge]:after {
 
   .kursLink{
     display: none;
+  }
+  .kurs-liste{
+    display: block !important;
   }
   .kursIcon{
     min-height: 50px;

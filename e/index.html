@@ -112,10 +112,12 @@ limitations under the License
     <main class="android-content mdl-layout__content">
       <script>
         $('main').load('content/home.html', function () {
+          currentPage="index.html";
           firebase.auth().onAuthStateChanged(function () {
-            getKurse();
-            getBadge();
+            getKurse("dashKurse");
+            // getBadge();
             getVPlanForYear("EF", "home");
+            checkAuth();
           });
         });
 
@@ -132,6 +134,23 @@ limitations under the License
         </div>
       </footer> -->
     </main>
+      <!-- <footer class="mdl-mini-footer nav-footer">
+          <div class="nav-footer__icons">
+            <ul>
+              <li>
+                <div>
+                  <i class="material-icons">&#xE871;</i>
+                  Dashboard
+                </div>
+              </li>
+              <li>
+                Vertretungsplan
+              </li>
+              <li>
+                Kurse
+              </li>
+          </div>
+      </footer> -->
 
 
   </div>
