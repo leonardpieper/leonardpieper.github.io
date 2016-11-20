@@ -61,5 +61,6 @@ function getBadge(){
 
 function getIcon(fach) {
   fach = fach.split(' ')[0];
+  fach = fach.toLowerCase();
   return "resources/kurs-icons/"+fach+".svg";
 }
