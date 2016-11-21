@@ -82,6 +82,7 @@ function getVPlanForYear(year, location) {
 function changeVPlanYear(evt, year) {
   var i, tabcontent, tablins;
 
+  getVPlanForYear(year , "vplan");
   $(".tabcontent").hide();
   $(".tablinks").removeClass("active");
 

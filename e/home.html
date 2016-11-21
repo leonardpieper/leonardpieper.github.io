@@ -22,7 +22,7 @@ limitations under the License
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <title>Android</title>
+  <title>Ceciplan</title>
 
   <!-- Page styles -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
@@ -30,21 +30,25 @@ limitations under the License
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.min.css">
   <link rel="stylesheet" href="style/styles.css">
 
+  <!-- Android and newer Browsers -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Apple Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-startup-image" href="resources/icons/logo.png">
+
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <!-- <script>
-    $(document).ready(function(){
-      $("#m_stundenplan").click(function(){
-        $("main").load("kurse.html");
-      });
-    });
-  </script> -->
+  <script src="https://apis.google.com/js/client.js"></script>
 
   <script src="script/script.js"></script>
   <script src="script/vplan.js"></script>
+  <script src="script/storage.js"></script>
+  <script src="script/kurs.js"></script>
 
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
   <script>
   // Initialize Firebase
   var config = {
@@ -52,18 +56,19 @@ limitations under the License
     authDomain: "test-e84e5.firebaseapp.com",
     databaseURL: "https://test-e84e5.firebaseio.com",
     storageBucket: "test-e84e5.appspot.com",
+    messagingSenderId: "445583886225",
   };
   firebase.initializeApp(config);
   </script>
 
 </head>
 <body>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
     <div class="android-header mdl-layout__header mdl-layout__header--waterfall is-casting-shadow" id="waterfallHeader">
       <div class="mdl-layout__header-row">
         <a class="android-title mdl-layout-title" href="home.html">
-          Test
+          Ceciplan
         </a>
         <!-- Add spacer, to align navigation to the right in desktop -->
         <div class="android-header-spacer mdl-layout-spacer"></div>
@@ -71,18 +76,18 @@ limitations under the License
         <div class="android-navigation-container">
           <nav class="android-navigation mdl-navigation">
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/vplan.html">Vertretungsplan</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/stundenplan.html">Stundenplan</a>
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/stundenplan.html">Stundenplan</a> -->
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/kurse.html">Kurse</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/login.html">Login</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/profile.html">Profile</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/signout.html">Logout</a>
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/login.html">Login</a> -->
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/profile.html">Profil</a>
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="content/signout.html">Logout</a> -->
           </nav>
         </div>
-        <a class="android-title android-mobile-title mdl-layout-title" href="home.html">
-          Test
+        <a class="andoird-title android-mobile-title mdl-layout-title" href="home.html">
+          <img class="android-logo-image" src="resources/icons/logo.png">
         </a>
-        <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+        <!-- <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
           <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
@@ -90,7 +95,7 @@ limitations under the License
           <li class="mdl-menu__item">4.4 KitKat</li>
           <li disabled class="mdl-menu__item">4.3 Jelly Bean</li>
           <li class="mdl-menu__item">Android History</li>
-        </ul>
+        </ul> -->
       </div>
     </div>
 
@@ -100,12 +105,12 @@ limitations under the License
       </span>
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="content/vplan.html" onclick="toggleDrawer()">Vertretungsplan</a>
-        <a class="mdl-navigation__link" href="content/stundenplan.html" onclick="toggleDrawer()">Stundenplan</a>
-        <a class="mdl-navigation__link" href="content/kurse.html" onclick="toggleDrawer()">Kurse</a>
-        <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">TV</a>
-        <a class="mdl-navigation__link" href="content/login.html" onclick="toggleDrawer()">Login</a>
+        <!-- <a class="mdl-navigation__link" href="content/stundenplan.html" onclick="toggleDrawer()">Stundenplan</a> -->
+        <a class="mdl-navigation__link" href="content/kurse.html" onclick="toggleDrawer()" id="mobileNavKurse">Kurse</a>
+        <!-- <a class="mdl-navigation__link" href="" onclick="toggleDrawer()">TV</a> -->
+        <!-- <a class="mdl-navigation__link" href="content/login.html" onclick="toggleDrawer()">Login</a> -->
         <a class="mdl-navigation__link" href="content/profile.html" onclick="toggleDrawer()">Profil</a>
-        <a class="mdl-navigation__link" href="content/signout.html" onclick="toggleDrawer()">Logout</a>
+        <!-- <a class="mdl-navigation__link" href="content/signout.html" onclick="toggleDrawer()">Logout</a> -->
       </nav>
     </div>
 
@@ -114,7 +119,8 @@ limitations under the License
         $('main').load('content/home.html', function() {
           firebase.auth().onAuthStateChanged(function () {
             getKurse("dashKurse");
-            getBadge();
+            // getBadge();
+            checkAuth();
             // getVPlanForToday();
             // getVPlanForTomorrow();
             getVPlanForYear("EF", "home");
@@ -133,8 +139,23 @@ limitations under the License
         </div>
       </footer> -->
     </main>
-
-
+      <!-- <footer class="mdl-mini-footer nav-footer">
+          <div class="nav-footer__icons">
+            <ul>
+              <li>
+                <div>
+                  <i class="material-icons">&#xE871;</i>
+                  Dashboard
+                </div>
+              </li>
+              <li>
+                Vertretungsplan
+              </li>
+              <li>
+                Kurse
+              </li>
+          </div>
+      </footer> -->
 
 
   </div>

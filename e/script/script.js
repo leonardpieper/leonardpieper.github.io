@@ -49,7 +49,7 @@ function changePage (href){
       getUserProfilePage();
       isUserLoggedIn();
     }else if (href=="content/vplan.html") {
-      getVPlanForYear("EF");
+      getVPlanForYear("EF", "vplan");
       setFirstOpen();
     }
   });
