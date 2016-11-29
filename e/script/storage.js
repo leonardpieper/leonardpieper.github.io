@@ -48,10 +48,11 @@ function handleAuthClick() {
 }
 
 function loadDriveApi() {
-  gapi.client.load('drive', 'v2');
-  if(currentPage==="home.html"||currentPage==="index.html"){
-    showRecentMedia();
-  }
+  gapi.client.load('drive', 'v2', function () {
+    if(currentPage==="home.html"||currentPage==="index.html"){
+      showRecentMedia();
+    }
+  });
 }
 
 
