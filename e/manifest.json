@@ -29,7 +29,7 @@
   "short_name": "Ceci Vertretungsplan",
   "start_url": "index.html?launcher=true",
   "display": "standalone",
-  "orientation":"any",
+  "orientation":"natural",
 
   "background_color": "#ffffff",
   "theme_color": "#607D8B"
