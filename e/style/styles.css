@@ -490,6 +490,9 @@ h2{
   color: rgba(0,0,0,.7) !important;
   /*font-size: 2em;*/
 }
+.android-content{
+  height: 200%;
+}
 .android-main{
 	margin-left:auto;
 	margin-right:auto;
@@ -864,12 +867,15 @@ table.onlyInnerBorderTable tr td:last-child{
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {
-  /*.nav-footer{
-    display: flex;
-    display: -webkit-flex;
+  .mdl-mini-footer{
+    padding:0;
+  }
+  .nav-footer{
+    display: block;
     z-index: 50;
-    padding: 0;
+    padding: 0 !important;
     height: 84px;
+    max-height: 84px;
     width: 100%;
     background-color: #FFFFFF;
     box-shadow: 5px 0px 5px grey;
@@ -890,7 +896,7 @@ table.onlyInnerBorderTable tr td:last-child{
   .nav-footer__icons * * div i{
     align-content: center;
     margin-bottom: -5px;
-  }*/
+  }
 
 
   .android-navigation-container {
