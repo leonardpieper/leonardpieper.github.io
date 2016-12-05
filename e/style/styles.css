@@ -490,6 +490,9 @@ h2{
   color: rgba(0,0,0,.7) !important;
   /*font-size: 2em;*/
 }
+.android-layout{
+  min-height: 100vh;
+}
 .android-content{
   height: 200%;
 }
@@ -879,7 +882,7 @@ table.onlyInnerBorderTable tr td:last-child{
     z-index: 50;
     padding: 0 !important;
     height: 84px;
-    max-height: 84px !important;
+    max-height: 53px !important;
     width: 100%;
     background-color: #FFFFFF;
     box-shadow: 5px 0px 5px grey;
