@@ -875,7 +875,7 @@ table.onlyInnerBorderTable tr td:last-child{
     z-index: 50;
     padding: 0 !important;
     height: 84px;
-    max-height: 84px;
+    max-height: 84px !important;
     width: 100%;
     background-color: #FFFFFF;
     box-shadow: 5px 0px 5px grey;
@@ -886,16 +886,38 @@ table.onlyInnerBorderTable tr td:last-child{
   .nav-footer__icons ul {
     padding: 0;
     margin: 0;
+    width: 100%;
+  }
+  .nav-footer__icons ul li{
+    width: 32%;
+    display: inline-block;
+    margin: 0;
   }
   .nav-footer__icons * *{
-    width: 30%;
+    /*width: 30%;
     list-style-type: none;
-    display: inline-block;
-    text-align: center;
+    display: inline-block;*/
+    /*text-align: center;*/
   }
-  .nav-footer__icons * * div i{
+  .nav-footer__icons ul li div{
+    text-align: center;
+    width: 100%;
+  }
+  .nav-footer__icons ul li div i{
+    display: block;
+    width: 24%;
+    margin-left: auto;
+    margin-right: auto;
     align-content: center;
-    margin-bottom: -5px;
+    margin-bottom: 5px;
+    color: #607D8B;
+  }
+  .nav-footer__icons ul li div img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    margin-bottom: 5px;
   }
 
 
