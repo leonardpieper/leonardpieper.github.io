@@ -497,6 +497,10 @@ h2{
 	margin-left:auto;
 	margin-right:auto;
 }
+.android-title{
+  color: white;
+  text-decoration: none;
+}
 .nav-footer{
   display: none;
 }
@@ -903,7 +907,11 @@ table.onlyInnerBorderTable tr td:last-child{
     text-align: center;
     width: 100%;
   }
-  .nav-footer__icons ul li div i{
+  .nav-footer__icons ul li div a {
+    color: #607D8B;
+    text-decoration: none;
+  }
+  .nav-footer__icons ul li div a i{
     display: block;
     width: 24%;
     margin-left: auto;
@@ -912,7 +920,7 @@ table.onlyInnerBorderTable tr td:last-child{
     margin-bottom: 5px;
     color: #607D8B;
   }
-  .nav-footer__icons ul li div img{
+  .nav-footer__icons ul li div a img{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -929,9 +937,9 @@ table.onlyInnerBorderTable tr td:last-child{
     display: none;
   }
 
-  .android-title {
+  /*.android-title {
     display: none !important;
-  }
+  }*/
 
   .android-mobile-title {
     display: block !important;

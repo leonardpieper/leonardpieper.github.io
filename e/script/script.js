@@ -4,9 +4,20 @@ var currentPage="";
 $(document).ready(function() {
   // History Api
   var content = $('main');
+  var footer = $('footer');
   var nav = $('nav');
 
   nav.find('a').on('click', function (evt) {
+    var href = $(this).attr('href');
+    evt.preventDefault();
+    // Manipulate History
+    var adressBarHref = href.split('/').pop();
+    history.pushState(null, null, adressBarHref);
+    currentPage=adressBarHref;
+    //Fetch and insert
+    changePage(href);
+  });
+  footer.find('a').on('click', function (evt) {
     var href = $(this).attr('href');
     evt.preventDefault();
     // Manipulate History
