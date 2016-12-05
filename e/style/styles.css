@@ -919,6 +919,10 @@ table.onlyInnerBorderTable tr td:last-child{
     align-content: center;
     margin-bottom: 5px;
   }
+  .dashKurseDiv{
+    white-space: nowrap;
+    overflow: scroll;
+  }
 
 
   .android-navigation-container {
