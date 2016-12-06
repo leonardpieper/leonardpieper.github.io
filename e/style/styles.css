@@ -24,12 +24,12 @@ a img{
 }
 
 ::-moz-selection {
-  background-color: #009688;
+  background-color: #FF9800;
   color: #fff;
 }
 
 ::selection {
-  background-color: #009688;
+  background-color: #FF9800;
   color: #fff;
 }
 
@@ -128,7 +128,7 @@ a img{
   }
 
     .android-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid #009688;
+      border-bottom: 4px solid #FF9800;
     }
 
   .android-search-box {
@@ -484,7 +484,7 @@ a img{
    \/___/  \/____/ \/___/  \/_/\/_/ \/__/\/_/ \/_/ \/__,_ /
    */
 a{
-  color:#009688;
+  color:#FF9800;
 }
 h2{
   color: rgba(0,0,0,.7) !important;
@@ -541,11 +541,11 @@ h2{
   transition: .4s;
 }
 input:checked + .android-slider {
-  background-color: #009688;
+  background-color: #FF9800;
 }
 
 input:focus + .android-slider {
-  box-shadow: 0 0 1px #009688;
+  box-shadow: 0 0 1px #FF9800;
 }
 
 input:checked + .android-slider:before {
@@ -565,8 +565,8 @@ input:checked + .android-slider:before {
 
 /*Progress Loader*/
 .loader {
-    border: 5px solid #B2DFDB; /* Light teal */
-    border-top: 5px solid #009688; /* Teal */
+    border: 5px solid #FFF3E0; /* Light teal */
+    border-top: 5px solid #FF9800; /* Teal */
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -603,10 +603,10 @@ ul.android-tab {
 ul.android-tab li {float: left;}
 
 ul.android-tab li:hover{
-  border-bottom: 4px solid #009688;
+  border-bottom: 4px solid #FF9800;
 }
 ul.android-tab li a.active{
-  border-bottom: 4px solid #009688;
+  border-bottom: 4px solid #FF9800;
 }
 /* Style the links inside the list items */
 ul.android-tab li a {
@@ -628,7 +628,7 @@ ul.android-tab li a {
 }
 /*End Tabs*/
 .mdl-button--fab.mdl-button--colored{
-  background: #009688;
+  background: #FF9800;
 }
 .fab-top-right {
    position: absolute;
@@ -670,7 +670,7 @@ ul.android-tab li a {
      /* Could be more or less, depending on screen size */
 }
 .android-dialogBox__title{
-  color:#009688;
+  color:#FF9800;
   font-size: 2em;
 }
 .android-dialogBox__input{
@@ -730,7 +730,7 @@ ul.android-tab li a {
   display: none;
 }
 .uploadInputLabel{
-  color: #009688;
+  color: #FF9800;
   cursor:pointer;
 }
 .android-mediaCard{
@@ -784,7 +784,7 @@ ul.android-tab li a {
 
 /*Badges*/
 .mdl-badge[data-badge]:after{
-  background: #009688;
+  background: #FF9800;
 }
 div.mdl-layout__drawer-button.mdl-badge[data-badge]:after {
   right: 0px!important;
@@ -856,19 +856,19 @@ table.onlyInnerBorderTable tr td:last-child{
 
 /*Buttons*/
 .mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab{
-  background-color: #009688;
+  background-color: #FF9800;
 }
 .mdl-button--fab.mdl-button--colored:hover{
-  background-color: #009688;
+  background-color: #FF9800;
 }
 .mdl-button--fab.mdl-button--colored:active{
-  background-color: #009688;
+  background-color: #FF9800;
 }
 .mdl-button--fab.mdl-button--colored:focus{
-  background-color: #009688;
+  background-color: #FF9800;
 }
 .mdl-button--fab.mdl-button--colored:focus:not(:active){
-  background-color: #009688;
+  background-color: #FF9800;
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {
@@ -897,7 +897,7 @@ table.onlyInnerBorderTable tr td:last-child{
     width: 100%;
   }
   .nav-footer__icons ul li{
-    width: 32%;
+    width: 24%;
     display: inline-block;
     margin: 0;
   }

@@ -37,7 +37,7 @@ function getKurse(outputElementId){
           // }
       });
     });
-    $("#dashKurse").html(output);
+    $("#" + outputElementId).html(output);
   });
 }
 

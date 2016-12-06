@@ -1,215 +1,228 @@
 var uploadedFiles;
-var currentPage="";
+var currentPage = "";
 
 $(document).ready(function() {
-  // History Api
-  var content = $('main');
-  var footer = $('footer');
-  var nav = $('nav');
+    // History Api
+    var content = $('main');
+    var footer = $('footer');
+    var nav = $('nav');
 
-  nav.find('a').on('click', function (evt) {
-    var href = $(this).attr('href');
-    evt.preventDefault();
-    // Manipulate History
-    var adressBarHref = href.split('/').pop();
-    history.pushState(null, null, adressBarHref);
-    currentPage=adressBarHref;
-    //Fetch and insert
-    changePage(href);
-  });
-  footer.find('a').on('click', function (evt) {
-    var href = $(this).attr('href');
-    evt.preventDefault();
-    // Manipulate History
-    var adressBarHref = href.split('/').pop();
-    history.pushState(null, null, adressBarHref);
-    currentPage=adressBarHref;
-    //Fetch and insert
-    changePage(href);
-  });
-  // End History Api
-  isUserLoggedIn();
+    nav.find('a').on('click', function(evt) {
+        var href = $(this).attr('href');
+        evt.preventDefault();
+        // Manipulate History
+        var adressBarHref = href.split('/').pop();
+        history.pushState(null, null, adressBarHref);
+        currentPage = adressBarHref;
+        //Fetch and insert
+        changePage(href);
+    });
+
+    footer.find('a').on('click', function(evt) {
+        var href = $(this).attr('href');
+        evt.preventDefault();
+
+        //Resets Color of Bottombar Navigation
+        footer.find('a').css('color', '#607D8B');
+        footer.find('a').find('i').css('color', '#607D8B');
+        //Sets Color of Bottombar Navigation
+        evt.currentTarget.style.color = "#FF9800";
+        $(evt.currentTarget).find('i').css('color', '#FF9800');
+
+        // Manipulate History
+        var adressBarHref = href.split('/').pop();
+        history.pushState(null, null, adressBarHref);
+        currentPage = adressBarHref;
+        //Fetch and insert
+        changePage(href);
+    });
+    // End History Api
+    isUserLoggedIn();
 
 
-  //Service Worker
-  // if ('serviceWorker' in navigator) {
-  //   navigator.serviceWorker.register('/sw.js').then(function(registration) {
-  //     // Registration was successful
-  //     console.log('ServiceWorker registration successful with scope: ', registration.scope);
-  //   }).catch(function(err) {
-  //     // registration failed :(
-  //     console.log('ServiceWorker registration failed: ', err);
-  //   });
-  // }
+    //Service Worker
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.register('/sw.js').then(function(registration) {
+    //     // Registration was successful
+    //     console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    //   }).catch(function(err) {
+    //     // registration failed :(
+    //     console.log('ServiceWorker registration failed: ', err);
+    //   });
+    // }
 
 });
 
 function toggleDrawer() {
-  var layout = document.querySelector('.mdl-layout');
-  layout.MaterialLayout.toggleDrawer();
+    var layout = document.querySelector('.mdl-layout');
+    layout.MaterialLayout.toggleDrawer();
 }
 
-function changePage (href){
-  $("#waterfallHeader").addClass("is-casting-shadow");
-  // if(firebase.app().name !== '[DEFAULT]'){
-  //   firebase.initializeApp({
-  //     apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
-  //     authDomain: "test-e84e5.firebaseapp.com",
-  //     databaseURL: "https://test-e84e5.firebaseio.com",
-  //     storageBucket: "test-e84e5.appspot.com",
-  //   });
-  // }
-  $('main').load(href, function() {
-    if(href=="content/kurse.html"){
-      getKurse("kurs-liste");
-      getBadge();
-    }else if (href=="content/home.html") {
-      getKurse("dashKurse");
-      getBadge();
-      getVPlanForYear("EF", "home");
-      // getVPlanForToday();
-      // getVPlanForTomorrow();
-    }else if (href=="content/profile.html") {
-      getUserProfilePage();
-      isUserLoggedIn();
-    }else if (href=="content/vplan.html") {
-      getVPlanForYear("EF", "vplan");
-      setFirstOpen();
-    }
-  });
-  // var content = $('main');
-  // $.ajax({
-  //   url:'http://localhost/e/' + href.split('/').pop(),
-  //   method: 'GET',
-  //   success: function (data) {
-  //     content.html(data);
-  //   }});
+function changePage(href) {
+    $("#waterfallHeader").addClass("is-casting-shadow");
+    // if(firebase.app().name !== '[DEFAULT]'){
+    //   firebase.initializeApp({
+    //     apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
+    //     authDomain: "test-e84e5.firebaseapp.com",
+    //     databaseURL: "https://test-e84e5.firebaseio.com",
+    //     storageBucket: "test-e84e5.appspot.com",
+    //   });
+    // }
+    $('main').load(href, function() {
+        if (href == "content/kurse.html") {
+            getKurse("kurs-liste");
+            getBadge();
+        } else if (href == "content/home.html") {
+            getKurse("dashKurse");
+            getBadge();
+            getVPlanForYear("EF", "home");
+            // getVPlanForToday();
+            // getVPlanForTomorrow();
+        } else if (href == "content/profile.html") {
+            getUserProfilePage();
+            isUserLoggedIn();
+        } else if (href == "content/vplan.html") {
+            getVPlanForYear("EF", "vplan");
+            setFirstOpen();
+        }
+    });
+    // var content = $('main');
+    // $.ajax({
+    //   url:'http://localhost/e/' + href.split('/').pop(),
+    //   method: 'GET',
+    //   success: function (data) {
+    //     content.html(data);
+    //   }});
 }
 
-function addHistoryAPIToNewAnchors(changeClass){
-  $("."+changeClass).on('click', function (evt) {
-    var href = $(this).attr('href');
+function addHistoryAPIToNewAnchors(changeClass) {
+    $("." + changeClass).on('click', function(evt) {
+        var href = $(this).attr('href');
 
-    evt.preventDefault();
+        evt.preventDefault();
 
-    // Manipulate History
-    history.pushState(null, null, href);
+        // Manipulate History
+        history.pushState(null, null, href);
 
-    //Fetch and insert
-    changePage(href);
+        //Fetch and insert
+        changePage(href);
 
-  })
+    })
 }
 
-function firebaseLogin(){
-  var email = $("#firebaseEmail").val();
-  var pwd = $("#firebasePwd").val();
+function firebaseLogin() {
+    var email = $("#firebaseEmail").val();
+    var pwd = $("#firebasePwd").val();
 
-  firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // [START_EXCLUDE]
-    if (errorCode === 'auth/wrong-password') {
-    } else {
-      console.error(error);
-    }
-    // [END_EXCLUDE]
-  });
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user !== null){
-      history.pushState(null, null, "profile.html");
-      changePage('content/profile.html');
-    }
+    firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode === 'auth/wrong-password') {} else {
+            console.error(error);
+        }
+        // [END_EXCLUDE]
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user !== null) {
+            if (checkGAuth()) {
+                history.pushState(null, null, "profile.html");
+                changePage('content/profile.html');
+            } else {
+                changePage('content/g-auth.html');
+            }
 
-  });
+        }
+
+    });
 
 
 }
 
 function firebaseSignUp() {
-  var email = $("#firebaseEmail").val();
-  var pwd;
-  if ($("#firebasePwd").val() === $("#firebasePwdRepeat").val()){
-    pwd = $("#firebasePwd").val();
-  }else {
-    $(".android-login-err").html("Passwörter müssen identisch sein!");
-  }
-  if(email===""||pwd===""||$("#vPlanUname").val()===""||$("#vPlanPwd").val()===""){
-    $(".android-login-err").html("Du musst alle Felder angeben");
-  }else{
-    firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    switch (errorCode) {
-      case "auth/email-already-in-use":
-        $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
-        break;
-      case "auth/invalid-email":
-        $(".android-login-err").html("Ungültige E-Mail Adresse");
-        break;
-      case "auth/operation-not-allowed":
-        $(".android-login-err").html("Dieser Account wurde gesperrt");
-        break;
-      case "auth/weak-password":
-        $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
-        break;
-      default:
-        $(".android-login-err").html("Fehler bei der Anmeldung");
+    var email = $("#firebaseEmail").val();
+    var pwd;
+    if ($("#firebasePwd").val() === $("#firebasePwdRepeat").val()) {
+        pwd = $("#firebasePwd").val();
+    } else {
+        $(".android-login-err").html("Passwörter müssen identisch sein!");
     }
-    var errorMessage = error.message;
-    // ...
+    if (email === "" || pwd === "" || $("#vPlanUname").val() === "" || $("#vPlanPwd").val() === "") {
+        $(".android-login-err").html("Du musst alle Felder angeben");
+    } else {
+        firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            switch (errorCode) {
+                case "auth/email-already-in-use":
+                    $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
+                    break;
+                case "auth/invalid-email":
+                    $("#android-login-err").html("Ungültige E-Mail Adresse");
+                    break;
+                case "auth/operation-not-allowed":
+                    $("#android-login-err").html("Dieser Account wurde gesperrt");
+                    break;
+                case "auth/weak-password":
+                    $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+                    break;
+                default:
+                    $("#android-login-err").html("Fehler bei der Anmeldung");
+            }
+            var errorMessage = error.message;
+            // ...
+        });
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user !== null) {
+            var pwd = $("#firebasePwdTeacher").val();
+            var lehrerAbk = $("#firebaseAbkTeacher").val();
+            firebase.database().ref("Users/" + user.uid).update({
+                lehrerPwd: pwd,
+                abk: lehrerAbk
+            });
+            var vPlanUname = $("#vPlanUname").val();
+            var vPlanPwd = $("#vPlanPwd").val();
+            firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+                uname: vPlanUname,
+                pwd: vPlanPwd
+            });
+            history.pushState(null, null, "profile.html");
+            changePage('content/profile.html');
+        }
     });
 }
 
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user !== null) {
-      var pwd = $("#firebasePwdTeacher").val();
-      var lehrerAbk = $("#firebaseAbkTeacher").val();
-      firebase.database().ref("Users/" + user.uid).update({
-        lehrerPwd:pwd,
-        abk:lehrerAbk
-      });
-      var vPlanUname = $("#vPlanUname").val();
-      var vPlanPwd =  $("#vPlanPwd").val();
-      firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-        uname:vPlanUname,
-        pwd:vPlanPwd
-      });
-      history.pushState(null, null, "profile.html");
-      changePage('content/profile.html');
-    }
-  });
-}
-
 function signOut() {
-  firebase.auth().signOut().then(function() {
-    console.log('Signed Out');
-  }, function(error) {
-    console.error('Sign Out Error', error);
-  });
+    firebase.auth().signOut().then(function() {
+        console.log('Signed Out');
+    }, function(error) {
+        console.error('Sign Out Error', error);
+    });
 }
 
 function isUserLoggedIn() {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user === null){
-      history.pushState(null, null, "login.html");
-      changePage("content/login.html");
-      return true;
-    }else{
-      return false;
-    }
-  });
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user === null) {
+            history.pushState(null, null, "login.html");
+            changePage("content/login.html");
+            return true;
+        } else {
+            return false;
+        }
+    });
 }
 
 function changevPlanData() {
-  var uname = $("#vPlanChangeU").val();
-  var pwd = $("#vPlanChangeP").val();
-  firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/vPlan").update({
-    uname:uname,
-    pwd:pwd
-  });
-  $("#changeDone").show();
+    var uname = $("#vPlanChangeU").val();
+    var pwd = $("#vPlanChangeP").val();
+    firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/vPlan").update({
+        uname: uname,
+        pwd: pwd
+    });
+    $("#changeDone").show();
 }
 
 // function signInWithGoogle() {
@@ -259,15 +272,16 @@ function changevPlanData() {
 // }
 
 function showSignUp() {
-  $(".android-sign_up").show();
-  $(".android-logIn").hide();
+    $(".android-sign_up").show();
+    $(".android-logIn").hide();
 }
+
 function showSignUpTeacher() {
-  if(document.getElementById('teacherChckBx').checked){
-    $(".android-sign_up_teacher").show();
-  }else {
-    $(".android-sign_up_teacher").hide();
-  }
+    if (document.getElementById('teacherChckBx').checked) {
+        $(".android-sign_up_teacher").show();
+    } else {
+        $(".android-sign_up_teacher").hide();
+    }
 }
 
 // function getKurse(id) {
@@ -294,75 +308,83 @@ function showSignUpTeacher() {
 //   }
 // }
 
-function addKurs(){
-  var name = $("#kursTextfield").val();
-  var secret = $("#secretTextfield").val();
-  var auth = firebase.auth();
-  var uid = auth.currentUser.uid;
+function addKurs() {
+    var name = $("#kursTextfield").val();
+    var secret = $("#secretTextfield").val();
+    var auth = firebase.auth();
+    var uid = auth.currentUser.uid;
 
-  firebase.database().ref("Data/lehrerRead").once('value').then(function (snapshot) {
-    //  Benutzer ist Lehrer
-    firebase.database().ref('/Kurse/' + name  + "/secret").once('value').then(function(snapshot) {
-      alert("Kurs Existiert bereits!");
-    }, function (err) {
-      if(err != "Error: permission_denied at /Kurse/D EFa/secret: Client doesn't have permission to access the desired data."){
-        var username = snapshot.val().username;
-        firebase.database().ref("Kurse/" + name + "/secret").set(secret);
-      }else{
-        alert("Kurs Existiert bereits!");
-      }
+    firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+        //  Benutzer ist Lehrer
+        firebase.database().ref('/Kurse/' + name + "/secret").once('value').then(function(snapshot) {
+            alert("Kurs Existiert bereits!");
+        }, function(err) {
+            if (err != "Error: permission_denied at /Kurse/D EFa/secret: Client doesn't have permission to access the desired data.") {
+                var username = snapshot.val().username;
+                firebase.database().ref("Kurse/" + name + "/secret").set(secret);
+            } else {
+                alert("Kurs Existiert bereits!");
+            }
+        });
+    }, function(err) {});
+
+    firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
+        name: name,
+        secret: secret
     });
-  }, function (err) {
-  });
 
-  firebase.database().ref('Users/'+uid+'/Kurse/' + name).set({
-    name:name,
-    secret: secret
-  });
-
-  closeDialogBox("android-kurs-dialog");
+    closeDialogBox("android-kurs-dialog");
 }
 
-function delKurs(){
-  var name = $("#delFach").html();
-  var uid = firebase.auth().currentUser.uid;
-  firebase.database().ref('Users/'+uid+'/Kurse/' + name).remove();
-  closeDialogBox("android-delkurs-dialog");
+function delKurs() {
+    var name = $("#delFach").html();
+    var uid = firebase.auth().currentUser.uid;
+    firebase.database().ref('Users/' + uid + '/Kurse/' + name).remove();
+    closeDialogBox("android-delkurs-dialog");
 }
 
 function dialogBox(id) {
-  $("#"+id).css({'display':'block'});
-}
-function delDialogBox(id, name) {
-  $("#"+id).css({'display':'block'});
-  $("#delFach").html(name);
-}
-function closeDialogBox(id) {
-  $("#"+id).css({'display':'none'});
-}
-function setKurs(name) {
-  $('main').load("content/kurs.html", function () {
-    $("#card-kurs").html(name);
-    firebase.database().ref("Data/lehrerRead").once('value').then(function (snapshot) {
-       $(".operatorArea").show();
-    }, function (err) {
-      $(".operatorArea").hide();
+    $("#" + id).css({
+        'display': 'block'
     });
-    addListener();
-    checkAuth();
-    getKursMessage();
-    getKursMedia();
-    setTimeMillForKursLocal(name)
-    var i = document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge;
-    if(i!=1){
-      document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge = i-1;
-      document.getElementById("mobileNavKurse").dataset.badge = i-1;
-    }else{
-      $(".mdl-layout__drawer-button").removeClass("mdl-badge");
-      $("#mobileNavKurse").removeClass("mdl-badge");
-    }
+}
 
-  });
+function delDialogBox(id, name) {
+    $("#" + id).css({
+        'display': 'block'
+    });
+    $("#delFach").html(name);
+}
+
+function closeDialogBox(id) {
+    $("#" + id).css({
+        'display': 'none'
+    });
+}
+
+function setKurs(name) {
+    $('main').load("content/kurs.html", function() {
+        $("#card-kurs").html(name);
+        firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+            $(".operatorArea").show();
+        }, function(err) {
+            $(".operatorArea").hide();
+        });
+        addListener();
+        checkAuth();
+        getKursMessage();
+        getKursMedia();
+        setTimeMillForKursLocal(name)
+        var i = document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge;
+        if (i != 1) {
+            document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge = i - 1;
+            document.getElementById("mobileNavKurse").dataset.badge = i - 1;
+        } else {
+            $(".mdl-layout__drawer-button").removeClass("mdl-badge");
+            $("#mobileNavKurse").removeClass("mdl-badge");
+        }
+
+    });
 }
 // function getBadge() {
 //   var ref="Users/" + firebase.auth().currentUser.uid + "/Kurse";
@@ -392,20 +414,22 @@ function setKurs(name) {
 //   });
 // }
 function setTimeMillForKursLocal(kurs) {
-  var d = new Date();
-  var currTimeMill = d.getTime();
-  localStorage.setItem(kurs + "Mill", currTimeMill);
+    var d = new Date();
+    var currTimeMill = d.getTime();
+    localStorage.setItem(kurs + "Mill", currTimeMill);
 }
+
 function getTimeMillForKursLocal(kurs) {
-  var time = localStorage.getItem(kurs + "Mill");
-  return time;
+    var time = localStorage.getItem(kurs + "Mill");
+    return time;
 }
+
 function setTimeMillForKursOnline(kurs) {
-  var d = new Date();
-  var currTimeMill = d.getTime();
-  var currTimeMillNeg = currTimeMill;
-  var ref = "Kurse/" + kurs + "/timestamp";
-  firebase.database().ref(ref).set(currTimeMillNeg);
+    var d = new Date();
+    var currTimeMill = d.getTime();
+    var currTimeMillNeg = currTimeMill;
+    var ref = "Kurse/" + kurs + "/timestamp";
+    firebase.database().ref(ref).set(currTimeMillNeg);
 }
 // function getKursMedia() {
 //   var storage = firebase.storage();
@@ -480,87 +504,101 @@ function handleFileSelect(evt) {
 
     var uploadListElement = "<div class='uploadedItemsListElement'><i class='material-icons'>&#xE24D;</i>"
     var uploadListElements = "";
-    for(i=0;i<uploadedFiles.length;i++){
-      uploadListElements += uploadListElement+uploadedFiles[i].name+"</div>"
+    for (i = 0; i < uploadedFiles.length; i++) {
+        uploadListElements += uploadListElement + uploadedFiles[i].name + "</div>"
     }
     $("#uploadedItemsList").html(uploadListElements)
 
-  }
-  function handleFileDrop(evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
+}
 
-      $(".android-kurs-dropZone").css({"border-color": "rgba(0,0,0,0.8)","border-width":"4px","background-color": "rgba(0,0,0,0)"});
+function handleFileDrop(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
 
-      var files = evt.dataTransfer.files; // FileList object.
-      uploadedFiles = files;
+    $(".android-kurs-dropZone").css({
+        "border-color": "rgba(0,0,0,0.8)",
+        "border-width": "4px",
+        "background-color": "rgba(0,0,0,0)"
+    });
 
-      var uploadListElement = "<div class='uploadedItemsListElement'><i class='material-icons'>&#xE24D;</i>"
-      var uploadListElements = "";
-      for(i=0;i<uploadedFiles.length;i++){
-        uploadListElements += uploadListElement+uploadedFiles[i].name+"</div>"
-      }
-      $("#uploadedItemsList").html(uploadListElements)
+    var files = evt.dataTransfer.files; // FileList object.
+    uploadedFiles = files;
+
+    var uploadListElement = "<div class='uploadedItemsListElement'><i class='material-icons'>&#xE24D;</i>"
+    var uploadListElements = "";
+    for (i = 0; i < uploadedFiles.length; i++) {
+        uploadListElements += uploadListElement + uploadedFiles[i].name + "</div>"
+    }
+    $("#uploadedItemsList").html(uploadListElements)
+}
+
+function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
+    if (evt.target === document.getElementById('drop_zone')) {
+        $(".android-kurs-dropZone").css({
+            "border-color": "#81C784",
+            "border-width": "4px",
+            "background-color": "rgba(129,199,132,0.2)"
+        });
+    } else {
+        $(".android-kurs-dropZone").css({
+            "border-color": "rgba(0,0,0,0.8)",
+            "border-width": "4px",
+            "background-color": "rgba(0,0,0,0)"
+        });
     }
 
-    function handleDragOver(evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+}
 
-      if(evt.target === document.getElementById('drop_zone')){
-        $(".android-kurs-dropZone").css({"border-color": "#81C784","border-width":"4px","background-color": "rgba(129,199,132,0.2)"});
-      }else{
-        $(".android-kurs-dropZone").css({"border-color": "rgba(0,0,0,0.8)","border-width":"4px","background-color": "rgba(0,0,0,0)"});
-      }
+function sendKursMessage() {
+    var nachricht = $("#nachricht").val();
+    var sender;
 
-    }
-
-    function sendKursMessage() {
-      var nachricht = $("#nachricht").val();
-      var sender;
-
-      var abkRef = "Users/" + firebase.auth().currentUser.uid + "/abk";
-      firebase.database().ref(abkRef).on('value', function (snapshot) {
+    var abkRef = "Users/" + firebase.auth().currentUser.uid + "/abk";
+    firebase.database().ref(abkRef).on('value', function(snapshot) {
         sender = snapshot.val();
 
         var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
         firebase.database().ref(ref).push({
-          sender:sender,
-          message:nachricht
+            sender: sender,
+            message: nachricht
         });
         setTimeMillForKursOnline($("#card-kurs").text());
         setTimeMillForKursLocal($("#card-kurs").text());
         $("#nachricht").val("");
-      });
-    }
+    });
+}
 
-    function getKursMessage() {
-      var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
-      firebase.database().ref(ref).on('value', function(snapshot) {
+function getKursMessage() {
+    var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
+    firebase.database().ref(ref).on('value', function(snapshot) {
         var output = "";
-        snapshot.forEach(function (childSnapshot) {
-          output+=childSnapshot.val().sender;
-          output+=": "
-          output+=childSnapshot.val().message;
-          output+="<br />"
+        snapshot.forEach(function(childSnapshot) {
+            output += childSnapshot.val().sender;
+            output += ": "
+            output += childSnapshot.val().message;
+            output += "<br />"
         });
         $("#kursMessages").html(output);
         $("#kursMessages").scrollTop($("#kursMessages")[0].scrollHeight);
-      }, function (err) {
+    }, function(err) {
         $("#kursMessages").html("Dieser Kurs existiert nicht, oder das Passwort ist falsch!");
-      });
+    });
 
-    }
+}
 
 function getUserProfilePage() {
-  var user = firebase.auth().currentUser;
-  if(user != null){
-    var email = user.email;
-    var welcome = "Hallo, " + email
-    // ???
-    $("#profileHead").html(welcome);1
-  }
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+        var email = user.email;
+        var welcome = "Hallo, " + email
+            // ???
+        $("#profileHead").html(welcome);
+        1
+    }
 }
 
 // function notification() {
@@ -581,35 +619,39 @@ function getUserProfilePage() {
 
 
 function addListener() {
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-  // Setup the dnd listeners
-  var dropZone = document.getElementById('drop_zone');
-  window.addEventListener('dragover', handleDragOver, false);
-  dropZone.addEventListener('drop', handleFileDrop, false);
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    // Setup the dnd listeners
+    var dropZone = document.getElementById('drop_zone');
+    window.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileDrop, false);
 
-  $('#uploadButton').click(function () {
-    files = uploadedFiles;
-    for (var i = 0, f; f = files[i]; i++) {
-      uploadKursMediaDrive(f);
-    }
-  });
+    $('#uploadButton').click(function() {
+        files = uploadedFiles;
+        for (var i = 0, f; f = files[i]; i++) {
+            uploadKursMediaDrive(f);
+        }
+    });
 
-  $('#driveLogInButton').click(function () {
-    handleAuthClick();
-  });
+    $('#driveLogInButton').click(function() {
+        handleAuthClick();
+    });
 }
 
 /**Auto Function**/
 window.onclick = function(event) {
-    if (event.target == document.getElementById('android-kurs-dialog')){
-        $('#android-kurs-dialog').css({'display':'none'});
-    }else if (event.target == document.getElementById('android-delkurs-dialog')) {
-      $('#android-delkurs-dialog').css({'display':'none'});
+    if (event.target == document.getElementById('android-kurs-dialog')) {
+        $('#android-kurs-dialog').css({
+            'display': 'none'
+        });
+    } else if (event.target == document.getElementById('android-delkurs-dialog')) {
+        $('#android-delkurs-dialog').css({
+            'display': 'none'
+        });
     }
 }
 
 //User uses Back/Forward Button
 $(window).on('popstate', function() {
-  changePage("content/" + location.pathname.split('/').pop());
-  //  firebase.app().delete();
+    changePage("content/" + location.pathname.split('/').pop());
+    //  firebase.app().delete();
 });
