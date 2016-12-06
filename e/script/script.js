@@ -25,9 +25,11 @@ $(document).ready(function() {
         //Resets Color of Bottombar Navigation
         footer.find('a').css('color', '#607D8B');
         footer.find('a').find('i').css('color', '#607D8B');
+        footer.find('a').find('img').attr('src', 'resources/icons/vertretungsplan-logo-alpha-bluegray.svg');
         //Sets Color of Bottombar Navigation
         evt.currentTarget.style.color = "#FF9800";
         $(evt.currentTarget).find('i').css('color', '#FF9800');
+        $(evt.currentTarget).find('img').attr('src', 'resources/icons/vertretungsplan-logo-alpha-orange.svg')
 
         // Manipulate History
         var adressBarHref = href.split('/').pop();
