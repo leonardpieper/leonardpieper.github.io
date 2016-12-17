@@ -142,13 +142,68 @@ function firebaseLogin() {
 
 }
 
+var email;
+var pwd;
+
+function firebaseSignUp1() {
+  email = $("#firebaseEmail").val();
+  pwd = $("#firebasePwd").val();
+  if(email === "" || pwd === ""){
+    $("#android-login-err").html("Du musst alle Felder angeben");
+  }else{
+    changePage('content/vp-auth.html');
+  }
+}
+
+function firebaseSignUp2() {
+  firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      switch (errorCode) {
+          case "auth/email-already-in-use":
+              $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
+              break;
+          case "auth/invalid-email":
+              $("#android-login-err").html("Ungültige E-Mail Adresse");
+              break;
+          case "auth/operation-not-allowed":
+              $("#android-login-err").html("Dieser Account wurde gesperrt");
+              break;
+          case "auth/weak-password":
+              $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+              break;
+          default:
+              $("#android-login-err").html("Fehler bei der Anmeldung");
+      }
+      var errorMessage = error.message;
+      // ...
+  });
+
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user !== null) {
+          var pwd = $("#firebasePwdTeacher").val();
+          var lehrerAbk = $("#firebaseAbkTeacher").val();
+          firebase.database().ref("Users/" + user.uid).update({
+              lehrerPwd: pwd,
+              abk: lehrerAbk
+          });
+          var vPlanUname = $("#vPlanUname").val();
+          var vPlanPwd = $("#vPlanPwd").val();
+          firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+              uname: vPlanUname,
+              pwd: vPlanPwd
+          });
+          history.pushState(null, null, "profile.html");
+          changePage('content/g-auth.html');
+      }
+  });
+}
+
 function firebaseSignUp() {
     var email = $("#firebaseEmail").val();
     var pwd;
-    if ($("#firebasePwd").val() === $("#firebasePwdRepeat").val()) {
+    if ($("#firebasePwd").val()) {
         pwd = $("#firebasePwd").val();
-    } else {
-        $(".android-login-err").html("Passwörter müssen identisch sein!");
     }
     if (email === "" || pwd === "" || $("#vPlanUname").val() === "" || $("#vPlanPwd").val() === "") {
         $(".android-login-err").html("Du musst alle Felder angeben");
@@ -276,6 +331,8 @@ function changevPlanData() {
 function showSignUp() {
     $(".android-sign_up").show();
     $(".android-logIn").hide();
+
+    $("#card-login-basic").html("Registrieren");
 }
 
 function showSignUpTeacher() {
