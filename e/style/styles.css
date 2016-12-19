@@ -751,7 +751,7 @@ ul.android-tab li a {
 .android-sign_up_teacher{
   display: none;
 }
-.android-noAcc{
+.android-pointer{
   cursor: pointer;
 }
 .android-login-err{
@@ -779,6 +779,9 @@ ul.android-tab li a {
 }
 .trDate{
   height: 45px;
+}
+.noKurse{
+  text-align: center;
 }
 
 

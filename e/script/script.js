@@ -62,14 +62,6 @@ function toggleDrawer() {
 
 function changePage(href) {
     $("#waterfallHeader").addClass("is-casting-shadow");
-    // if(firebase.app().name !== '[DEFAULT]'){
-    //   firebase.initializeApp({
-    //     apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
-    //     authDomain: "test-e84e5.firebaseapp.com",
-    //     databaseURL: "https://test-e84e5.firebaseio.com",
-    //     storageBucket: "test-e84e5.appspot.com",
-    //   });
-    // }
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
@@ -88,13 +80,41 @@ function changePage(href) {
             setFirstOpen();
         }
     });
-    // var content = $('main');
-    // $.ajax({
-    //   url:'http://localhost/e/' + href.split('/').pop(),
-    //   method: 'GET',
-    //   success: function (data) {
-    //     content.html(data);
-    //   }});
+}
+function changePage(href, element) {
+  if(element!==null){
+    var href;
+
+    if($(element).attr('onclick')!==null){
+      href = $(element).attr('onclick');
+      href = href.split('\'')[1];
+    }else if ($(element).attr('href')!==null) {
+      href = $(element).attr('href');
+    }
+
+    var adressBarHref = href.split('/').pop();
+    history.pushState(null, null, adressBarHref);
+    currentPage = adressBarHref;
+  }
+    $("#waterfallHeader").addClass("is-casting-shadow");
+    $('main').load(href, function() {
+        if (href == "content/kurse.html") {
+            getKurse("kurs-liste");
+            getBadge();
+        } else if (href == "content/home.html") {
+            getKurse("dashKurse");
+            getBadge();
+            getVPlanForYear("EF", "home");
+            // getVPlanForToday();
+            // getVPlanForTomorrow();
+        } else if (href == "content/profile.html") {
+            getUserProfilePage();
+            isUserLoggedIn();
+        } else if (href == "content/vplan.html") {
+            getVPlanForYear("EF", "vplan");
+            setFirstOpen();
+        }
+    });
 }
 
 function addHistoryAPIToNewAnchors(changeClass) {
@@ -121,8 +141,18 @@ function firebaseLogin() {
         var errorCode = error.code;
         var errorMessage = error.message;
         // [START_EXCLUDE]
-        if (errorCode === 'auth/wrong-password') {} else {
-            console.error(error);
+        switch (errorCode) {
+            case "auth/user-not-found":
+                $(".android-login-err").html("Der Benutzer wurde nicht gefunden");
+                break;
+            case "auth/invalid-email":
+                $(".android-login-err").html("Ungültige E-Mail Adresse");
+                break;
+            case "auth/wrong-password":
+                $(".android-login-err").html("Passwort ungültig");
+                break;
+            default:
+                $(".android-login-err").html("Fehler bei der Anmeldung");
         }
         // [END_EXCLUDE]
     });
@@ -146,66 +176,9 @@ var email;
 var pwd;
 
 function firebaseSignUp1() {
-  email = $("#firebaseEmail").val();
-  pwd = $("#firebasePwd").val();
-  if(email === "" || pwd === ""){
-    $("#android-login-err").html("Du musst alle Felder angeben");
-  }else{
-    changePage('content/vp-auth.html');
-  }
-}
-
-function firebaseSignUp2() {
-  firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      switch (errorCode) {
-          case "auth/email-already-in-use":
-              $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
-              break;
-          case "auth/invalid-email":
-              $("#android-login-err").html("Ungültige E-Mail Adresse");
-              break;
-          case "auth/operation-not-allowed":
-              $("#android-login-err").html("Dieser Account wurde gesperrt");
-              break;
-          case "auth/weak-password":
-              $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
-              break;
-          default:
-              $("#android-login-err").html("Fehler bei der Anmeldung");
-      }
-      var errorMessage = error.message;
-      // ...
-  });
-
-  firebase.auth().onAuthStateChanged(function(user) {
-      if (user !== null) {
-          var pwd = $("#firebasePwdTeacher").val();
-          var lehrerAbk = $("#firebaseAbkTeacher").val();
-          firebase.database().ref("Users/" + user.uid).update({
-              lehrerPwd: pwd,
-              abk: lehrerAbk
-          });
-          var vPlanUname = $("#vPlanUname").val();
-          var vPlanPwd = $("#vPlanPwd").val();
-          firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-              uname: vPlanUname,
-              pwd: vPlanPwd
-          });
-          history.pushState(null, null, "profile.html");
-          changePage('content/g-auth.html');
-      }
-  });
-}
-
-function firebaseSignUp() {
-    var email = $("#firebaseEmail").val();
-    var pwd;
-    if ($("#firebasePwd").val()) {
-        pwd = $("#firebasePwd").val();
-    }
-    if (email === "" || pwd === "" || $("#vPlanUname").val() === "" || $("#vPlanPwd").val() === "") {
+    email = $("#firebaseEmail").val();
+    pwd = $("#firebasePwd").val();
+    if (email === "" || pwd === "") {
         $(".android-login-err").html("Du musst alle Felder angeben");
     } else {
         firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
@@ -213,44 +186,102 @@ function firebaseSignUp() {
             var errorCode = error.code;
             switch (errorCode) {
                 case "auth/email-already-in-use":
-                    $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
+                    $(".android-login-err").html("E-Mail Adresse wird bereits verwendet");
                     break;
                 case "auth/invalid-email":
-                    $("#android-login-err").html("Ungültige E-Mail Adresse");
+                    $(".android-login-err").html("Ungültige E-Mail Adresse");
                     break;
                 case "auth/operation-not-allowed":
-                    $("#android-login-err").html("Dieser Account wurde gesperrt");
+                    $(".android-login-err").html("Dieser Account wurde gesperrt");
                     break;
                 case "auth/weak-password":
-                    $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+                    $(".android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
                     break;
                 default:
-                    $("#android-login-err").html("Fehler bei der Anmeldung");
+                    $(".android-login-err").html("Fehler bei der Anmeldung");
             }
             var errorMessage = error.message;
             // ...
         });
-    }
 
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user !== null) {
-            var pwd = $("#firebasePwdTeacher").val();
-            var lehrerAbk = $("#firebaseAbkTeacher").val();
-            firebase.database().ref("Users/" + user.uid).update({
-                lehrerPwd: pwd,
-                abk: lehrerAbk
-            });
-            var vPlanUname = $("#vPlanUname").val();
-            var vPlanPwd = $("#vPlanPwd").val();
-            firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-                uname: vPlanUname,
-                pwd: vPlanPwd
-            });
-            history.pushState(null, null, "profile.html");
-            changePage('content/profile.html');
-        }
-    });
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user !== null) {
+                changePage('content/vp-auth.html');
+            }
+        });
+    }
 }
+
+function firebaseSignUp2() {
+  var user = firebase.auth().currentUser;
+    var pwd = $("#firebasePwdTeacher").val();
+    var lehrerAbk = $("#firebaseAbkTeacher").val();
+    firebase.database().ref("Users/" + user.uid).update({
+        lehrerPwd: pwd,
+        abk: lehrerAbk
+    });
+    var vPlanUname = $("#vPlanUname").val();
+    var vPlanPwd = $("#vPlanPwd").val();
+    firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+        uname: vPlanUname,
+        pwd: vPlanPwd
+    });
+    history.pushState(null, null, "profile.html");
+    changePage('content/g-auth.html');
+}
+
+// function firebaseSignUp() {
+//     var email = $("#firebaseEmail").val();
+//     var pwd;
+//     if ($("#firebasePwd").val()) {
+//         pwd = $("#firebasePwd").val();
+//     }
+//     if (email === "" || pwd === "" || $("#vPlanUname").val() === "" || $("#vPlanPwd").val() === "") {
+//         $(".android-login-err").html("Du musst alle Felder angeben");
+//     } else {
+//         firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+//             // Handle Errors here.
+//             var errorCode = error.code;
+//             switch (errorCode) {
+//                 case "auth/email-already-in-use":
+//                     $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
+//                     break;
+//                 case "auth/invalid-email":
+//                     $("#android-login-err").html("Ungültige E-Mail Adresse");
+//                     break;
+//                 case "auth/operation-not-allowed":
+//                     $("#android-login-err").html("Dieser Account wurde gesperrt");
+//                     break;
+//                 case "auth/weak-password":
+//                     $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
+//                     break;
+//                 default:
+//                     $("#android-login-err").html("Fehler bei der Anmeldung");
+//             }
+//             var errorMessage = error.message;
+//             // ...
+//         });
+//     }
+//
+//     firebase.auth().onAuthStateChanged(function(user) {
+//         if (user !== null) {
+//             var pwd = $("#firebasePwdTeacher").val();
+//             var lehrerAbk = $("#firebaseAbkTeacher").val();
+//             firebase.database().ref("Users/" + user.uid).update({
+//                 lehrerPwd: pwd,
+//                 abk: lehrerAbk
+//             });
+//             var vPlanUname = $("#vPlanUname").val();
+//             var vPlanPwd = $("#vPlanPwd").val();
+//             firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+//                 uname: vPlanUname,
+//                 pwd: vPlanPwd
+//             });
+//             history.pushState(null, null, "profile.html");
+//             changePage('content/profile.html');
+//         }
+//     });
+// }
 
 function signOut() {
     firebase.auth().signOut().then(function() {
