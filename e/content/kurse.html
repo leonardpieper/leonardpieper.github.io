@@ -12,6 +12,7 @@
     </ul>
   </div>
   <a class="android-pointer" onclick="dialogBox('android-kurs-dialog')">Kurs hinzufügen </a>
+  <a class="android-pointer" onclick="editKurse()">Kurse verwalten </a>
 </div>
 
 <div class="android-dialogBox" id="android-kurs-dialog">
@@ -36,11 +37,12 @@
   <div class="android-dialogBox__content">
     <i class="material-icons close-icon" onclick="closeDialogBox('android-delkurs-dialog')">close</i>
     <span class="android-dialogBox__title" id="delFach"></span>
-    <span class="android-dialogBox__title">wird gelöscht</span>
+    <span class="android-dialogBox__title"> wird gelöscht</span>
+    <br />
+    Hiermit verlassen Sie den Kurs, Ihre Nachrichten und hochgeladenen Dateien bleiben erhalten!
     <br />
     <br />
-    <br />
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="delKurs()">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="delKurs(this)">
       Bestätigen
     </button>
   </div>

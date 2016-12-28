@@ -81,7 +81,7 @@ function changePage(href) {
         }
     });
 }
-function changePage(href, element) {
+function changePageWithElement(href, element) {
   if(element!==null){
     var href;
 
@@ -426,12 +426,7 @@ function addKurs() {
     closeDialogBox("android-kurs-dialog");
 }
 
-function delKurs() {
-    var name = $("#delFach").html();
-    var uid = firebase.auth().currentUser.uid;
-    firebase.database().ref('Users/' + uid + '/Kurse/' + name).remove();
-    closeDialogBox("android-delkurs-dialog");
-}
+
 
 function dialogBox(id) {
     $("#" + id).css({

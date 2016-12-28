@@ -680,6 +680,14 @@ ul.android-tab li a {
   margin-left: auto;
   margin-right: 0;
 }
+.kurs-close-icon{
+  display: none;
+  margin-left: auto;
+}
+.kurs-close-icon i{
+  color: red;
+  font-size: 2em;
+}
 .close-icon{
   color: #aaa;
   float: right;

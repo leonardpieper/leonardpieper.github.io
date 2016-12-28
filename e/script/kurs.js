@@ -8,7 +8,7 @@ function getKurse(outputElementId) {
             var snapChildren = snapshot.numChildren();
 
             if (snapshot.val() === null && outputElementId!=="kurs-liste") {
-              $("#" + outputElementId).html("<p class='noKurse'>Keine Kurse gefunden<br /><a class='android-pointer' onclick=\"changePage(\'content/kurse.html\', this)\">Kurse hinzufügen</a></p>");
+              $("#" + outputElementId).html("<p class='noKurse'>Keine Kurse gefunden<br /><a class='android-pointer' onclick=\"changePageWithElement(\'content/kurse.html\', this)\">Kurse hinzufügen</a></p>");
             } else if (snapshot.val() === null) {
               $("#" + outputElementId).html("<p class='noKurse'>Keine Kurse gefunden</p>");
             }else {
@@ -25,7 +25,12 @@ function getKurse(outputElementId) {
                                 var kursID = name.replace(/ /g, "__");
                                 var timestamp = snapshot.val().timestamp;
                                 // output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img alt='"+name+" Icon' src='"+getIcon(name)+"'><span class='mdl-list__item-primary-content dash-kurs_span'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
-                                output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
+                                if(outputElementId==="kurs-liste"){
+                                  output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:removeKursDialog(\'"+kursID+"\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
+                                }else{
+                                  output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
+                                }
+
 
                                 $("#" + outputElementId).html(output);
 
@@ -69,4 +74,20 @@ function getKurse(outputElementId) {
         fach = fach.split(' ')[0];
         fach = fach.toLowerCase();
         return "resources/kurs-icons/" + fach + ".svg";
+    }
+
+    function editKurse() {
+      $(".kurs-close-icon").show();
+    }
+
+    function removeKursDialog(kursName) {
+      $("#android-delkurs-dialog").show();
+      $("#delFach").html(kursName.replace('__', " "));
+    }
+
+    function delKurs(delElement) {
+        var name = $("#delFach").html();
+        var uid = firebase.auth().currentUser.uid;
+        firebase.database().ref('Users/' + uid + '/Kurse/' + name).remove();
+        closeDialogBox("android-delkurs-dialog");
     }
