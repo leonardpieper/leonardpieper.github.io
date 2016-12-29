@@ -691,21 +691,25 @@ function getUserProfilePage() {
     }
 }
 
-// function notification() {
-//   const messaging = firebase.messaging();
-//
-//   messaging.requestPermission()
-//     .then(function () {
-//       console.log("Notification permission granted.");
-//       return messaging.getToken();
-//     })
-//     .then(function (token) {
-//       console.log(token);
-//     })
-//     .catch(function (err) {
-//       console.log("Unable to get permission to notify.", err);
-//     });
-// }
+function loadSetting(name) {
+  $(".firstShownCard").removeClass("firstShownCard");
+  $("#settingsCard").show();
+  switch (name) {
+    case "vplan":
+      $("#settingsTitle").html("Vertretungsplan");
+      $("#settingsContent").load("content/settings/vplan.html");
+      break;
+    case "gDrive":
+      $("#settingsTitle").html("<img src='resources/product32.png'>Google Drive");
+      $("#settingsContent").load("content/settings/g-auth.html");
+      break;
+    default:
+
+  }
+}
+function closeCard(element) {
+  $(element).parent().parent().hide();
+}
 
 
 function addListener() {

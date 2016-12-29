@@ -810,6 +810,9 @@ ul.android-tab li a {
 .noKurse{
   text-align: center;
 }
+.settingsCardMenu{
+  display: none;
+}
 
 
 /*Badges*/
@@ -901,6 +904,22 @@ table.onlyInnerBorderTable tr td:last-child{
 .dashThumbnailFiles img{
   max-height: 165px;
   max-width: 90%;
+}
+.profileListTable{
+  width: 100%;
+  border-collapse: collapse;
+}
+.profileList{
+  height: 75px;
+  min-width: 100%;
+  vertical-align: middle;
+  display: table-cell;
+  border-bottom: black 1px solid;
+  border-top: black 1px solid;
+  font-size: 1.2em;
+}
+.profileList a i{
+  float: right;
 }
 
 
@@ -1114,5 +1133,17 @@ table.onlyInnerBorderTable tr td:last-child{
   }
   .kursIcon{
     min-height: 50px;
+  }
+}
+@media (max-width: 680px) {
+  .settingsMain{
+    position: absolute;
+    width: 100% !important;
+  }
+  .firstShownCard{
+    display: none;
+  }
+  .settingsCardMenu{
+    display: block;
   }
 }
