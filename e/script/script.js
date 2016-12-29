@@ -684,10 +684,11 @@ function getUserProfilePage() {
     var user = firebase.auth().currentUser;
     if (user != null) {
         var email = user.email;
-        var welcome = "Hallo, " + email
+        name = email.split("@").shift();
+        var welcome = "Hallo, " + name
             // ???
         $("#profileHead").html(welcome);
-        1
+        $("#settingsEmail").html(firebase.auth().currentUser.email);
     }
 }
 
@@ -695,6 +696,13 @@ function loadSetting(name) {
   $(".firstShownCard").removeClass("firstShownCard");
   $("#settingsCard").show();
   switch (name) {
+    case "info":
+      $("#settingsTitle").html("Info");
+      $("#settingsContent").load("content/settings/info.html", function () {
+        $("#settingsEmail").html(firebase.auth().currentUser.email);
+      });
+
+      break;
     case "vplan":
       $("#settingsTitle").html("Vertretungsplan");
       $("#settingsContent").load("content/settings/vplan.html");
