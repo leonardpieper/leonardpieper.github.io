@@ -118,7 +118,7 @@ function uploadKursMediaDrive(fileData) {
             $("#uploadedItemsLoader").hide();
 
             var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
-            firebase.database().ref(ref).push({
+            firebase.database().ref(ref).child(driveFile.id).set({
                 downloadUrl: driveFile.downloadUrl.replace("?e=download&gd=true", ""),
                 id: driveFile.id,
                 title: driveFile.title
@@ -140,15 +140,16 @@ function getKursMedia() {
     firebase.database().ref(ref).on('value', function(snapshot) {
         output = "";
         snapshot.forEach(function(childSnapshot) {
+          var id = childSnapshot.val().id
             var request = gapi.client.drive.files.get({
-                'fileId': childSnapshot.val().id
+                'fileId': id
             });
 
             request.execute(function(resp) {
                 var downloadUrl = resp.downloadUrl;
                 var fileName = resp.title;
                 var thumbnail = resp.thumbnailLink;
-                output += "<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='" + thumbnail + "'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>" + fileName + "</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='" + downloadUrl + "' download><i class='material-icons'>file_download</i></a></button></div></div>";
+                output += "<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='" + thumbnail + "'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>" + fileName + "</span><button class='mdl-button mdl-button--icon' onclick=\"delMedia(\'"+id+"\')\"><i class='material-icons deleteMedia'>&#xE92B;</i></a></button></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='" + downloadUrl + "' download><i class='material-icons'>file_download</i></a></button></div></div>";
                 showMedia(output);
             });
 
@@ -163,6 +164,11 @@ function getKursMedia() {
 
 function showMedia(media) {
     $("#mediaDiv").html(media);
+}
+
+function delMedia(id) {
+  var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath/" + id;
+  firebase.database().ref(ref).remove();
 }
 
 function setNewestMedia(driveId) {

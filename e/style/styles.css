@@ -752,6 +752,10 @@ ul.android-tab li a {
   max-width: 100%;
   max-height: 100%;
 }
+.deleteMedia{
+  color: red;
+
+}
 .android-login-button{
   display: block;
   margin-left: auto;
