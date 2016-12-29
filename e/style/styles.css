@@ -688,6 +688,13 @@ ul.android-tab li a {
   color: red;
   font-size: 2em;
 }
+.kurs-rem-icon{
+  display: none;
+}
+.kurs-rem-icon i{
+  color: red;
+  font-size: 2em;
+}
 .close-icon{
   color: #aaa;
   float: right;
@@ -696,6 +703,7 @@ ul.android-tab li a {
 }
 .kurseMgmnt{
   width: 49%;
+  display: inline-block;;
 }
 .editKurse{
   float: right;

@@ -65,6 +65,11 @@ function changePage(href) {
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
+            firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+                $(".operatorArea").show();
+            }, function(err) {
+                $(".operatorArea").hide();
+            });
             getBadge();
         } else if (href == "content/home.html") {
             getKurse("dashKurse");
