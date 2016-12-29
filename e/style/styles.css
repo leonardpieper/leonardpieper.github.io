@@ -694,6 +694,13 @@ ul.android-tab li a {
   font-size: 28px;
   cursor: pointer;
 }
+.kurseMgmnt{
+  width: 49%;
+}
+.editKurse{
+  float: right;
+  text-align: right;
+}
 #kursMessages{
   max-height: 200px;
   overflow: auto;
@@ -804,6 +811,27 @@ div.mdl-layout__drawer-button.mdl-badge[data-badge]:after {
 a.mdl-navigation__link.mdl-badge[data-badge]:after {
   left: 50px!important;
   top: 7px!important;
+}
+
+div.badge{
+  border-radius:50%;
+  background-color: #FF9800;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  margin-top: -15px;
+  margin-left: 20px;
+  overflow: visible;
+  position: absolute;
+}
+#kurs-liste li div.badge{
+  width: 15px;
+  height: 15px;
+  margin-top: -15px;
+  margin-left: 20px;
 }
 .android-kursList-close{
   display: none;
@@ -945,6 +973,18 @@ table.onlyInnerBorderTable tr td:last-child{
   .dashKurseDiv{
     white-space: nowrap;
     overflow: scroll;
+  }
+  div.badge{
+    width: 10px;
+    height: 10px;
+    margin-top: 55px;
+    margin-left: -30px;
+  }
+  #kurs-liste li div.badge{
+    width: 15px;
+    height: 15px;
+    margin-top: -20px;
+    margin-left: 35px;
   }
 
 

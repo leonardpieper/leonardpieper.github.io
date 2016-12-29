@@ -64,8 +64,16 @@ function getKurse(outputElementId) {
             var offlineTimestamp = getTimeMillForKursLocal($(".android-kursList")[i].dataset.kurs);
 
             if (offlineTimestamp < onlineTimestamp) {
-                document.getElementsByClassName("kursLink")[i].setAttribute("data-badge", "*");
-                document.getElementsByClassName("kursLink")[i].className += " mdl-badge";
+              var list = document.getElementsByClassName("android-kursList")[i];
+              var badge = "<div class='badge'></div>"
+              $(badge).insertBefore(list.children[1]);
+              // list.insertBefore(badge, list.children[1]);
+
+                // var name = document.getElementsByClassName("kursLink")[0].innerHTML;
+                // name = name + "<div class='badge'></div>";
+                // document.getElementsByClassName("kursLink")[0].innerHTML = name;
+                // document.getElementsByClassName("kursLink")[i].setAttribute("data-badge", "*");
+                // document.getElementsByClassName("kursLink")[i].className += " mdl-badge";
             }
         }
     }
