@@ -492,7 +492,7 @@ h2{
 }
 .android-content{
   height: calc(100% - 53px);
-  margin-bottom: 53px;
+  /*margin-bottom: 53px;*/
 }
 .android-main{
 	margin-left:auto;
@@ -948,6 +948,9 @@ table.onlyInnerBorderTable tr td:last-child{
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {
+  .android-content{
+    margin-bottom: 53px;
+  }
   .mdl-mini-footer{
     padding:0;
   }

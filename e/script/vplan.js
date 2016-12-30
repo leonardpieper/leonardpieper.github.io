@@ -102,8 +102,8 @@ function setFirstOpen() {
   $(".tabcontent").hide();
   $(".tablinks").removeClass("active");
 
-  $("#EF").show();
-  $("#tabEF").addClass("active");
+  $("#" + jahrgang).show();
+  $("#tab" + jahrgang).addClass("active");
 
   $("#waterfallHeader").removeClass("is-casting-shadow");
 

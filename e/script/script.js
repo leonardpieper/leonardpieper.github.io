@@ -1,5 +1,6 @@
 var uploadedFiles;
 var currentPage = "";
+var jahrgang;
 
 $(document).ready(function() {
     // History Api
@@ -74,14 +75,14 @@ function changePage(href) {
         } else if (href == "content/home.html") {
             getKurse("dashKurse");
             getBadge();
-            getVPlanForYear("EF", "home");
+            getVPlanForYear(jahrgang, "home");
             // getVPlanForToday();
             // getVPlanForTomorrow();
         } else if (href == "content/profile.html") {
             getUserProfilePage();
             isUserLoggedIn();
         } else if (href == "content/vplan.html") {
-            getVPlanForYear("EF", "vplan");
+            getVPlanForYear(jahrgang, "vplan");
             setFirstOpen();
         }
     });
@@ -105,6 +106,11 @@ function changePageWithElement(href, element) {
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
+            firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+                $(".operatorArea").show();
+            }, function(err) {
+                $(".operatorArea").hide();
+            });
             getBadge();
         } else if (href == "content/home.html") {
             getKurse("dashKurse");
@@ -221,18 +227,29 @@ function firebaseSignUp2() {
   var user = firebase.auth().currentUser;
     var pwd = $("#firebasePwdTeacher").val();
     var lehrerAbk = $("#firebaseAbkTeacher").val();
-    firebase.database().ref("Users/" + user.uid).update({
-        lehrerPwd: pwd,
-        abk: lehrerAbk
-    });
+    var jahrgang = $("#vPlanYear option:selected").text();
     var vPlanUname = $("#vPlanUname").val();
     var vPlanPwd = $("#vPlanPwd").val();
-    firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-        uname: vPlanUname,
-        pwd: vPlanPwd
-    });
-    history.pushState(null, null, "profile.html");
-    changePage('content/g-auth.html');
+    var lehrer = $("#teacherChckBx").is(":checked");
+    if(vPlanUname !== "" || vPlanPwd!== "" || (jahrgang!=="Jahrgangsstufe") || lehrer===true){
+      firebase.database().ref("Users/" + user.uid).update({
+          lehrerPwd: pwd,
+          abk: lehrerAbk
+      });
+      firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+          uname: vPlanUname,
+          pwd: vPlanPwd
+      });
+      if(lehrer===true){jahrgang=0}
+      firebase.database().ref("Users/" + user.uid).update({
+          year: jahrgang
+      });
+      setJahrgangOffline(year);
+      history.pushState(null, null, "profile.html");
+      changePage('content/g-auth.html');
+    }else{
+      $("#firebaseSignUp2Err").html("Sie müssen Benutzername, Passwort und Jahrgang angeben.")
+    }
 }
 
 // function firebaseSignUp() {
@@ -476,33 +493,7 @@ function setKurs(name) {
 
     });
 }
-// function getBadge() {
-//   var ref="Users/" + firebase.auth().currentUser.uid + "/Kurse";
-//   // var count;
-//   firebase.database().ref(ref).on('value', function (snapshot) {
-//     var i=0;
-//     snapshot.forEach(function (childSnapshot) {
-//       var kurs = childSnapshot.val().name;
-//       var kursRef = "Kurse/" + kurs + "/timestamp";
-//       firebase.database().ref(kursRef).on('value', function (snapshot) {
-//         if(snapshot.val()>=getTimeMillForKursLocal(kurs)){
-//           kursID= kurs.replace(/ /g, "__");
-//           document.getElementById(kursID + "Id").dataset.badge = "✶";
-//           $("#" + kursID + "Id").addClass("mdl-badge");
-//           i = i+1;
-//           if(i!== 0){
-//             document.getElementsByClassName("mdl-layout__drawer-button")[0].dataset.badge = i;
-//             $(".mdl-layout__drawer-button").addClass("mdl-badge");
-//             document.getElementById("mobileNavKurse").dataset.badge = i;
-//             $("#mobileNavKurse").addClass("mdl-badge");
-//           }
-//
-//         }
-//       });
-//     });
-//     // $(".mdl-layout__drawer-button").addClass("mdl-badge--overlap");
-//   });
-// }
+
 function setTimeMillForKursLocal(kurs) {
     var d = new Date();
     var currTimeMill = d.getTime();
@@ -520,6 +511,23 @@ function setTimeMillForKursOnline(kurs) {
     var currTimeMillNeg = currTimeMill;
     var ref = "Kurse/" + kurs + "/timestamp";
     firebase.database().ref(ref).set(currTimeMillNeg);
+}
+
+function setJahrgangOffline(year) {
+  localStorage.setItem("Jahragang", year);
+}
+
+function getJahrgang() {
+  var year = localStorage.getItem("Jahragang");
+  if(year === null){
+    firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
+        year = snapshot.val();
+        setJahrgangOffline(year);
+        return year;
+    });
+  }else {
+    return year;
+  }
 }
 // function getKursMedia() {
 //   var storage = firebase.storage();
@@ -689,6 +697,14 @@ function getUserProfilePage() {
             // ???
         $("#profileHead").html(welcome);
         $("#settingsEmail").html(firebase.auth().currentUser.email);
+        firebase.database().ref("Users/"+firebase.auth().currentUser.uid+"/year").once("value").then(function (snapshot) {
+          if(snapshot.val()===0){
+            $("#settingsYear").html("Lehrer");
+          }else{
+            $("#settingsYear").html(snapshot.val());
+          }
+        });
+
     }
 }
 
@@ -700,6 +716,13 @@ function loadSetting(name) {
       $("#settingsTitle").html("Info");
       $("#settingsContent").load("content/settings/info.html", function () {
         $("#settingsEmail").html(firebase.auth().currentUser.email);
+        firebase.database().ref("Users/"+firebase.auth().currentUser.uid+"/year").once("value").then(function (snapshot) {
+          if(snapshot.val()===0){
+            $("#settingsYear").html("Lehrer");
+          }else{
+            $("#settingsYear").html(snapshot.val());
+          }
+        });
       });
 
       break;

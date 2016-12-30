@@ -132,7 +132,8 @@ limitations under the License
           firebase.auth().onAuthStateChanged(function () {
             getKurse("dashKurse");
             // getBadge();
-            getVPlanForYear("EF", "home");
+            jahrgang = getJahrgang();
+            getVPlanForYear(jahrgang, "home");
             checkAuth();
           });
         });

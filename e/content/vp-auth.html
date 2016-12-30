@@ -3,7 +3,7 @@
     <h2 class="mdl-card__title-text" id="card-kurs">Vertretungsplan authentifizieren</h2>
   </div>
   <div class="mdl-card__supporting-text android-kurs-media-card">
-    <div class="android-login-err"></div>
+    <div class="android-login-err" id="firebaseSignUp2Err"></div>
 
     <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col ">
       <input class="mdl-textfield__input" type="text" id="vPlanUname" placeholder="Vertretungsplan Benutzername">
@@ -12,12 +12,12 @@
       <input class="mdl-textfield__input" type="password" id="vPlanPwd" placeholder="Vertretungsplan Passwort">
     </div>
 
-    <select>
+    <select id="vPlanYear">
       <option selected disabled>Jahrgangsstufe</option>
-      <option value="sydney">Q2</option>
-      <option value="melbourne">Q1</option>
-      <option value="cromwell">EF</option>
-  </select>
+      <option value="Q2">Q2</option>
+      <option value="Q1">Q1</option>
+      <option value="EF">EF</option>
+    </select>
 
     <div class="android-drawer-separator"></div>
     <div class="android-is_teacher ">
