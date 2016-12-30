@@ -47,6 +47,11 @@ function getKurse(outputElementId) {
                                 getKurseReady(snapChildren, i);
                                 i++;
                                 // }
+                        }, function (err) {
+                          if(err.message.includes("permission_denied")){
+                            output += "Das Passwort für " + kurs + " ist falsch, bitte versuchen Sie es erneut<a class='kurs-false-icon' href=\"javascript:leaveKurs(\'this\')\"><i class='material-icons'>&#xE872;</i></a><br />"
+                            $("#" + outputElementId).html(output);
+                          }
                         });
                         $("#" + outputElementId).html(output);
                 });

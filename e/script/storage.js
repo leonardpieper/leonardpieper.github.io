@@ -32,6 +32,7 @@ function handleAuthResult(authResult) {
         $("#driveLogInButton").show();
         $("#uploadButton").attr("disabled", true);
         $("#uploadButton").removeClass("mdl-button--accent");
+        $("#dashFiles").html("<p class='noKurse'>Sie sind nicht bei Google Drive angemmeldet.<br />Um Downloads anzuzeigen benötigen Sie eine Google Drive Verknüpfung</p>")
         console.log("VPlan has no Google Drive permission");
     }
 }

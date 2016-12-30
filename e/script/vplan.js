@@ -75,6 +75,14 @@ function getVPlanForYear(year, location) {
 
         // $("#vPlanAll" + year + " tr:last").after(output);
         // document.getElementById("vPlanAll" + year).innerHTML = output;
+      }, function (err) {
+        if(err.message.includes("permission_denied")){
+          if(location==="vplan"){
+            $("#vPlanAll" + year).html("<p class='noKurse'>Sie sind nicht im Vertretungsplan angemeldet<br />Überprüfen Sie Ihren Benutzernamen und Passwort</p>");
+          }else if (location==="home") {
+            $("#vPlanToday").html("<p class='noKurse'>Sie sind nicht im Vertretungsplan angemeldet<br />Überprüfen Sie Ihren Benutzernamen und Passwort</p>");
+          }
+        }
       });
     // }
 }

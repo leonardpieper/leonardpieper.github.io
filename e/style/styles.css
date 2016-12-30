@@ -695,6 +695,10 @@ ul.android-tab li a {
   color: red;
   font-size: 2em;
 }
+.kurs-false-icon i{
+  color: black;
+  font-size: 2em;
+}
 .close-icon{
   color: #aaa;
   float: right;
@@ -813,7 +817,9 @@ ul.android-tab li a {
 .settingsCardMenu{
   display: none;
 }
-
+.settingsContent{
+  font-size: 1.1em;
+}
 
 /*Badges*/
 .mdl-badge[data-badge]:after{
@@ -1003,7 +1009,8 @@ table.onlyInnerBorderTable tr td:last-child{
   }
   .dashKurseDiv{
     white-space: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
+    width: 100%;
   }
   div.badge{
     width: 10px;
@@ -1100,7 +1107,9 @@ table.onlyInnerBorderTable tr td:last-child{
     width: 100% !important;
   }
   .android-kurs_nav * li{
-    display: inline;
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   /*.android-kurs_nav * li .mdl-list__item, .mdl-list__item .mdl-list__item-primary-content{
     display: inline;
@@ -1126,7 +1135,8 @@ table.onlyInnerBorderTable tr td:last-child{
   }
 
   .kursLink{
-    display: none;
+    display: block;
+    text-align: center;
   }
   .kurs-liste{
     display: block !important;
