@@ -1,36 +1,36 @@
 {
-  "manifest_version": 2,
-  "name": "Ceci Vertretungsplan",
-  "version": "1.0",
+    "manifest_version": 2,
+    "name": "Ceci Vertretungsplan",
+    "version": "1.0",
 
-  "default_locale": "de",
-  "icons":[{
-    "src":"resources/icons/icon16.png",
-    "sizes": "16x16",
-    "type":"image/png"
-  },{
-    "src":"resources/icons/icon32.png",
-    "sizes": "32x32",
-    "type":"image/png"
-  },{
-    "src":"resources/icons/icon48.png",
-    "sizes": "48x48",
-    "type":"image/png"
-  },{
-    "src":"resources/icons/icon128.png",
-    "sizes": "128x128",
-    "type":"image/png"
-  },{
-    "src":"resources/icons/icon256.png",
-    "sizes": "256x256",
-    "type":"image/png"
+    "default_locale": "de",
+    "icons": [{
+        "src": "resources/icons/icon16.png",
+        "sizes": "16x16",
+        "type": "image/png"
+    }, {
+        "src": "resources/icons/icon32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+    }, {
+        "src": "resources/icons/icon48.png",
+        "sizes": "48x48",
+        "type": "image/png"
+    }, {
+        "src": "resources/icons/icon128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+    }, {
+        "src": "resources/icons/icon256.png",
+        "sizes": "256x256",
+        "type": "image/png"
     }],
 
-  "short_name": "Ceci Vertretungsplan",
-  "start_url": "index.html?launcher=true",
-  "display": "standalone",
-  "orientation":"natural",
+    "short_name": "Ceci Vertretungsplan",
+    "start_url": "index.html?launcher=true",
+    "display": "standalone",
+    "orientation": "natural",
 
-  "background_color": "#ffffff",
-  "theme_color": "#607D8B"
+    "background_color": "#ffffff",
+    "theme_color": "#607D8B"
 }

@@ -1,43 +1,43 @@
 <div class="mdl-card mdl-cell mdl-cell--5-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" id="card-kurs">Vertretungsplan authentifizieren</h2>
-  </div>
-  <div class="mdl-card__supporting-text android-kurs-media-card">
-    <div class="android-login-err" id="firebaseSignUp2Err"></div>
-
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col ">
-      <input class="mdl-textfield__input" type="text" id="vPlanUname" placeholder="Vertretungsplan Benutzername">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text" id="card-kurs">Vertretungsplan authentifizieren</h2>
     </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col ">
-      <input class="mdl-textfield__input" type="password" id="vPlanPwd" placeholder="Vertretungsplan Passwort">
-    </div>
+    <div class="mdl-card__supporting-text android-kurs-media-card">
+        <div class="android-login-err" id="firebaseSignUp2Err"></div>
 
-    <select id="vPlanYear">
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col ">
+            <input class="mdl-textfield__input" type="text" id="vPlanUname" placeholder="Vertretungsplan Benutzername">
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col ">
+            <input class="mdl-textfield__input" type="password" id="vPlanPwd" placeholder="Vertretungsplan Passwort">
+        </div>
+
+        <select id="vPlanYear">
       <option selected disabled>Jahrgangsstufe</option>
       <option value="Q2">Q2</option>
       <option value="Q1">Q1</option>
       <option value="EF">EF</option>
     </select>
 
-    <div class="android-drawer-separator"></div>
-    <div class="android-is_teacher ">
-      <label class="android-switch">
+        <div class="android-drawer-separator"></div>
+        <div class="android-is_teacher ">
+            <label class="android-switch">
         <input type="checkbox" id="teacherChckBx" onclick="showSignUpTeacher()">
         <div class="android-slider round"></div>
       </label>
-      <span class="mdl-switch__label">Ich bin ein Lehrer</span>
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
-      <input class="mdl-textfield__input" type="password" id="firebasePwdTeacher" placeholder="Lehrer-Passwort">
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
-      <input class="mdl-textfield__input" type="text" id="firebaseAbkTeacher" placeholder="Lehrer-Kürzel">
-    </div>
+            <span class="mdl-switch__label">Ich bin ein Lehrer</span>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
+            <input class="mdl-textfield__input" type="password" id="firebasePwdTeacher" placeholder="Lehrer-Passwort">
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--11-col android-sign_up_teacher">
+            <input class="mdl-textfield__input" type="text" id="firebaseAbkTeacher" placeholder="Lehrer-Kürzel">
+        </div>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button" onclick="firebaseSignUp2()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--10-col-desktop mdl-cell--10-col-tablet android-login-button" onclick="firebaseSignUp2()">
       Weiter
     </button>
 
-  </div>
-  </div>
+    </div>
+</div>
 </div>

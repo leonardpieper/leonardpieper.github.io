@@ -1,87 +1,85 @@
 <div class="mdl-card mdl-cell mdl-cell--5-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab">
-  <!-- Colored FAB button with ripple -->
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right" onclick="dialogBox('android-joinkurs-dialog')">
+    <!-- Colored FAB button with ripple -->
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right" onclick="dialogBox('android-joinkurs-dialog')">
     <i class="material-icons">add</i>
   </button>
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right operatorArea" onclick="dialogBox('android-kurs-dialog')">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-top-right operatorArea" onclick="dialogBox('android-kurs-dialog')">
     <i class="material-icons">add</i>
   </button>
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Kurse</h2>
-  </div>
-  <div class="mdl-card__supporting-text android-login-card">
-    <ul class='mdl-list' id='kurs-liste'>
-      <div class="loader"></div>
-    </ul>
-  </div>
-  <div>
-    <a class="android-pointer kurseMgmnt" onclick="dialogBox('android-joinkurs-dialog')">Kurs beitreten </a>
-    <a class="android-pointer kurseMgmnt editKurse" onclick="editKurse()">Kurse verwalten </a>
-    <a class="android-pointer kurseMgmnt operatorArea" onclick="dialogBox('android-kurs-dialog')">Kurs hinzufügen </a>
-  </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Kurse</h2>
+    </div>
+    <div class="mdl-card__supporting-text android-login-card">
+        <ul class='mdl-list' id='kurs-liste'>
+            <div class="loader"></div>
+        </ul>
+    </div>
+    <div>
+        <a class="android-pointer kurseMgmnt" onclick="dialogBox('android-joinkurs-dialog')">Kurs beitreten </a>
+        <a class="android-pointer kurseMgmnt editKurse" onclick="editKurse()">Kurse verwalten </a>
+        <a class="android-pointer kurseMgmnt operatorArea" onclick="dialogBox('android-kurs-dialog')">Kurs hinzufügen </a>
+    </div>
 </div>
 
 <div class="android-dialogBox" id="android-kurs-dialog">
-  <div class="android-dialogBox__content">
-    <i class="material-icons close-icon" onclick="closeDialogBox('android-kurs-dialog')">close</i>
-    <h3 class="android-dialogBox__title">Neuen Kurs erstellen</h3>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
-      <input class="mdl-textfield__input" type="text" id="kursTextfield" placeholder="Kursabkürzung">
-    </div>
-    <br />
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
-      <input class="mdl-textfield__input" type="text" id="secretTextfield" placeholder="Passwort">
-    </div>
-    <div class="android-dialogBox__footer">
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="addKurs()">
+    <div class="android-dialogBox__content">
+        <i class="material-icons close-icon" onclick="closeDialogBox('android-kurs-dialog')">close</i>
+        <h3 class="android-dialogBox__title">Neuen Kurs erstellen</h3>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
+            <input class="mdl-textfield__input" type="text" id="kursTextfield" placeholder="Kursabkürzung">
+        </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
+            <input class="mdl-textfield__input" type="text" id="secretTextfield" placeholder="Passwort">
+        </div>
+        <div class="android-dialogBox__footer">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="addKurs()">
         Hinzufügen
       </button>
+        </div>
     </div>
-  </div>
 </div>
 <div class="android-dialogBox" id="android-joinkurs-dialog">
-  <div class="android-dialogBox__content">
-    <i class="material-icons close-icon" onclick="closeDialogBox('android-joinkurs-dialog')">close</i>
-    <h3 class="android-dialogBox__title">Kurs Beitreten</h3>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
-      <input class="mdl-textfield__input" type="text" id="joinKursTextfield" placeholder="Kursabkürzung">
-    </div>
-    <br />
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
-      <input class="mdl-textfield__input" type="text" id="joinSecretTextfield" placeholder="Passwort">
-    </div>
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="joinKurs()">
+    <div class="android-dialogBox__content">
+        <i class="material-icons close-icon" onclick="closeDialogBox('android-joinkurs-dialog')">close</i>
+        <h3 class="android-dialogBox__title">Kurs Beitreten</h3>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
+            <input class="mdl-textfield__input" type="text" id="joinKursTextfield" placeholder="Kursabkürzung">
+        </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
+            <input class="mdl-textfield__input" type="text" id="joinSecretTextfield" placeholder="Passwort">
+        </div>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="joinKurs()">
       Beitreten
     </button>
-  </div>
+    </div>
 </div>
 <div class="android-dialogBox" id="android-leavekurs-dialog">
-  <div class="android-dialogBox__content">
-    <i class="material-icons close-icon" onclick="closeDialogBox('android-leavekurs-dialog')">close</i>
-    <span class="android-dialogBox__title">Sie verlassen </span>
-    <span class="android-dialogBox__title" id="leaveFach"></span>
+    <div class="android-dialogBox__content">
+        <i class="material-icons close-icon" onclick="closeDialogBox('android-leavekurs-dialog')">close</i>
+        <span class="android-dialogBox__title">Sie verlassen </span>
+        <span class="android-dialogBox__title" id="leaveFach"></span>
 
-    <br />
-    Hiermit verlassen Sie den Kurs, Ihre Nachrichten und hochgeladenen Dateien bleiben erhalten!
-    <br />
-    <br />
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="leaveKurs(this)">
+        <br /> Hiermit verlassen Sie den Kurs, Ihre Nachrichten und hochgeladenen Dateien bleiben erhalten!
+        <br />
+        <br />
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="leaveKurs(this)">
       Bestätigen
     </button>
-  </div>
+    </div>
 </div>
 <div class="android-dialogBox" id="android-delkurs-dialog">
-  <div class="android-dialogBox__content">
-    <i class="material-icons close-icon" onclick="closeDialogBox('android-delkurs-dialog')">close</i>
-    <span class="android-dialogBox__title" id="delFach"></span>
-    <span class="android-dialogBox__title"> wird gelöscht</span>
+    <div class="android-dialogBox__content">
+        <i class="material-icons close-icon" onclick="closeDialogBox('android-delkurs-dialog')">close</i>
+        <span class="android-dialogBox__title" id="delFach"></span>
+        <span class="android-dialogBox__title"> wird gelöscht</span>
 
-    <br />
-    Alle Nachrichten und hochgeladenen Dateien werden gelöscht.
-    <br />
-    <br />
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="delKurs(this)">
+        <br /> Alle Nachrichten und hochgeladenen Dateien werden gelöscht.
+        <br />
+        <br />
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="delKurs(this)">
       Bestätigen
     </button>
-  </div>
+    </div>
 </div>

@@ -1,52 +1,50 @@
-
 <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" id="card-kurs">Kurs</h2>
-  </div>
-  <div class="mdl-card__supporting-text android-kurs-media-card">
-    <div id="kursMessages"></div>
-    <div class="mdl-grid operatorArea">
-      <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--10-col">
-        <input class="mdl-textfield__input" type="email" id="nachricht" placeholder="Nachricht schreiben">
-      </div>
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="sendKursMessage()">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text" id="card-kurs">Kurs</h2>
+    </div>
+    <div class="mdl-card__supporting-text android-kurs-media-card">
+        <div id="kursMessages"></div>
+        <div class="mdl-grid operatorArea">
+            <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--10-col">
+                <input class="mdl-textfield__input" type="email" id="nachricht" placeholder="Nachricht schreiben">
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="sendKursMessage()">
         <i class="material-icons">send</i>
       </button>
+        </div>
     </div>
-  </div>
 </div>
 <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main android-card-fab operatorArea">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" id="card-kurs">Upload</h2>
-  </div>
-  <div class="mdl-card__supporting-text android-kurs-media-card">
-    <div class="android-kurs-dropZone"id="drop_zone">
-      <span class="uploadDescription">Dateien hier hineinziehen, um sie hinzuzufügen</span>
-      <br />
-      <br />
-      Oder
-      <input class="android-kurs-fileInput"type="file" id="files" name="files[]" multiple=""/>
-      <label class="uploadInputLabel" for="files">Dateien auswählen</label>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text" id="card-kurs">Upload</h2>
     </div>
+    <div class="mdl-card__supporting-text android-kurs-media-card">
+        <div class="android-kurs-dropZone" id="drop_zone">
+            <span class="uploadDescription">Dateien hier hineinziehen, um sie hinzuzufügen</span>
+            <br />
+            <br /> Oder
+            <input class="android-kurs-fileInput" type="file" id="files" name="files[]" multiple="" />
+            <label class="uploadInputLabel" for="files">Dateien auswählen</label>
+        </div>
 
-    <br />
-    <div class="android-uploaded-items-list" id="uploadedItemsList"></div>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="uploadButton">
+        <br />
+        <div class="android-uploaded-items-list" id="uploadedItemsList"></div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="uploadButton">
       Hochladen  <i class="material-icons">&#xE2C3;</i>
     </button>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent driveLoggedIn" id="driveLogInButton">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent driveLoggedIn" id="driveLogInButton">
       Anmelden für Drive
     </button>
-    <span>Powered by Google Drive™<img src="resources/product32.png"/></span>
-    <div class="loader" id="uploadedItemsLoader"></div>
+        <span>Powered by Google Drive™<img src="resources/product32.png"/></span>
+        <div class="loader" id="uploadedItemsLoader"></div>
 
-    <!-- <span class="maxDatei">Maximale Dateigröße: 2MB</span>
+        <!-- <span class="maxDatei">Maximale Dateigröße: 2MB</span>
     <progress class="android-kurs-uploader mdl-cell--12-col"value="0" max="100" id="kursUploader">0%</progress> -->
-  </div>
+    </div>
 </div>
 <div class="mdl-cell mdl-cell--9-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone android-main">
-  <div id="mediaDiv" class="mdl-grid"></div>
+    <div id="mediaDiv" class="mdl-grid"></div>
 </div>
 <script>
-// componentHander.upgradeElement("#nachricht");
+    // componentHander.upgradeElement("#nachricht");
 </script>

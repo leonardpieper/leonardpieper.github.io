@@ -1,28 +1,28 @@
 <div class="mdl-grid">
-  <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text" id="profileHead">Hallo</h2>
-    </div>
-    <div class="mdl-card__supporting-text android-login-card">
+    <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp android-main">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text" id="profileHead">Hallo</h2>
+        </div>
+        <div class="mdl-card__supporting-text android-login-card">
 
-      <table class="profileListTable">
-        <tr>
-          <td class="profileList">
-            <a href="javascript:loadSetting('info')">
-              Info
-              <i class="material-icons">&#xE409;</i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="profileList">
-            <a href="javascript:loadSetting('vplan')">
-              Vertretungsplan
-              <i class="material-icons">&#xE409;</i>
-            </a>
-          </td>
-        </tr>
-        <!-- <tr>
+            <table class="profileListTable">
+                <tr>
+                    <td class="profileList">
+                        <a href="javascript:loadSetting('info')">
+                          Info
+                          <i class="material-icons">&#xE409;</i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="profileList">
+                        <a href="javascript:loadSetting('vplan')">
+                          Vertretungsplan
+                          <i class="material-icons">&#xE409;</i>
+                        </a>
+                    </td>
+                </tr>
+                <!-- <tr>
           <td class="profileList">
             <a>
               Kurse
@@ -30,37 +30,40 @@
             </a>
           </td>
         </tr> -->
-        <tr>
-          <td class="profileList">
-            <a href="javascript:loadSetting('gDrive')">
-              Google Drive
-              <i class="material-icons">&#xE409;</i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="profileList">
-            <a href="javascript:signOut()">
-              Abmelden
-            </a>
-          </td>
-        </tr>
-      </table>
+                <tr>
+                    <td class="profileList">
+                        <a href="javascript:loadSetting('gDrive')">
+                          Google Drive
+                          <i class="material-icons">&#xE409;</i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="profileList">
+                        <a href="javascript:signOut()">
+                          Abmelden
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-  </div>
 
-  <div class="mdl-card mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp settingsMain firstShownCard" id="settingsCard">
-    <div class='mdl-card__menu settingsCardMenu'>
-      <button class="mdl-button" onclick="closeCard(this)"><i class="material-icons">&#xE5CD;</i></button>
+    <div class="mdl-card mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-shadow--4dp settingsMain firstShownCard" id="settingsCard">
+        <div class='mdl-card__menu settingsCardMenu'>
+            <button class="mdl-button" onclick="closeCard(this)"><i class="material-icons">&#xE5CD;</i></button>
+        </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text" id="settingsTitle">Info</h2>
+        </div>
+        <div class="mdl-card__supporting-text settingsContent" id="settingsContent">
+            Ihre Email ist:
+            </br />
+            <div id="settingsEmail"></div>
+            </br /> Ihr Jahrgang ist:
+            </br />
+            <div id="settingsYear"></div>
+            </br />
+        </div>
     </div>
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text" id="settingsTitle">Info</h2>
-    </div>
-    <div class="mdl-card__supporting-text settingsContent" id="settingsContent">
-      Ihre Email ist:</br />
-      <div id="settingsEmail"></div></br />
-      Ihr Jahrgang ist:</br />
-      <div id="settingsYear"></div></br />
-    </div>
-  </div>
 </div>

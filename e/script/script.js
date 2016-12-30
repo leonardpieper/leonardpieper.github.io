@@ -76,8 +76,6 @@ function changePage(href) {
             getKurse("dashKurse");
             getBadge();
             getVPlanForYear(jahrgang, "home");
-            // getVPlanForToday();
-            // getVPlanForTomorrow();
         } else if (href == "content/profile.html") {
             getUserProfilePage();
             isUserLoggedIn();
@@ -87,21 +85,22 @@ function changePage(href) {
         }
     });
 }
+
 function changePageWithElement(href, element) {
-  if(element!==null){
-    var href;
+    if (element !== null) {
+        var href;
 
-    if($(element).attr('onclick')!==null){
-      href = $(element).attr('onclick');
-      href = href.split('\'')[1];
-    }else if ($(element).attr('href')!==null) {
-      href = $(element).attr('href');
+        if ($(element).attr('onclick') !== null) {
+            href = $(element).attr('onclick');
+            href = href.split('\'')[1];
+        } else if ($(element).attr('href') !== null) {
+            href = $(element).attr('href');
+        }
+
+        var adressBarHref = href.split('/').pop();
+        history.pushState(null, null, adressBarHref);
+        currentPage = adressBarHref;
     }
-
-    var adressBarHref = href.split('/').pop();
-    history.pushState(null, null, adressBarHref);
-    currentPage = adressBarHref;
-  }
     $("#waterfallHeader").addClass("is-casting-shadow");
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
@@ -224,31 +223,33 @@ function firebaseSignUp1() {
 }
 
 function firebaseSignUp2() {
-  var user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
     var pwd = $("#firebasePwdTeacher").val();
     var lehrerAbk = $("#firebaseAbkTeacher").val();
     var jahrgang = $("#vPlanYear option:selected").text();
     var vPlanUname = $("#vPlanUname").val();
     var vPlanPwd = $("#vPlanPwd").val();
     var lehrer = $("#teacherChckBx").is(":checked");
-    if(vPlanUname !== "" || vPlanPwd!== "" || (jahrgang!=="Jahrgangsstufe") || lehrer===true){
-      firebase.database().ref("Users/" + user.uid).update({
-          lehrerPwd: pwd,
-          abk: lehrerAbk
-      });
-      firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-          uname: vPlanUname,
-          pwd: vPlanPwd
-      });
-      if(lehrer===true){jahrgang=0}
-      firebase.database().ref("Users/" + user.uid).update({
-          year: jahrgang
-      });
-      setJahrgangOffline(year);
-      history.pushState(null, null, "profile.html");
-      changePage('content/g-auth.html');
-    }else{
-      $("#firebaseSignUp2Err").html("Sie müssen Benutzername, Passwort und Jahrgang angeben.")
+    if (vPlanUname !== "" || vPlanPwd !== "" || (jahrgang !== "Jahrgangsstufe") || lehrer === true) {
+        firebase.database().ref("Users/" + user.uid).update({
+            lehrerPwd: pwd,
+            abk: lehrerAbk
+        });
+        firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+            uname: vPlanUname,
+            pwd: vPlanPwd
+        });
+        if (lehrer === true) {
+            jahrgang = 0
+        }
+        firebase.database().ref("Users/" + user.uid).update({
+            year: jahrgang
+        });
+        setJahrgangOffline(year);
+        history.pushState(null, null, "profile.html");
+        changePage('content/g-auth.html');
+    } else {
+        $("#firebaseSignUp2Err").html("Sie müssen Benutzername, Passwort und Jahrgang angeben.")
     }
 }
 
@@ -514,20 +515,20 @@ function setTimeMillForKursOnline(kurs) {
 }
 
 function setJahrgangOffline(year) {
-  localStorage.setItem("Jahragang", year);
+    localStorage.setItem("Jahragang", year);
 }
 
 function getJahrgang() {
-  var year = localStorage.getItem("Jahragang");
-  if(year === null){
-    firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
-        year = snapshot.val();
-        setJahrgangOffline(year);
+    var year = localStorage.getItem("Jahragang");
+    if (year === null) {
+        firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
+            year = snapshot.val();
+            setJahrgangOffline(year);
+            return year;
+        });
+    } else {
         return year;
-    });
-  }else {
-    return year;
-  }
+    }
 }
 // function getKursMedia() {
 //   var storage = firebase.storage();
@@ -697,49 +698,50 @@ function getUserProfilePage() {
             // ???
         $("#profileHead").html(welcome);
         $("#settingsEmail").html(firebase.auth().currentUser.email);
-        firebase.database().ref("Users/"+firebase.auth().currentUser.uid+"/year").once("value").then(function (snapshot) {
-          if(snapshot.val()===0){
-            $("#settingsYear").html("Lehrer");
-          }else{
-            $("#settingsYear").html(snapshot.val());
-          }
+        firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once("value").then(function(snapshot) {
+            if (snapshot.val() === 0) {
+                $("#settingsYear").html("Lehrer");
+            } else {
+                $("#settingsYear").html(snapshot.val());
+            }
         });
 
     }
 }
 
 function loadSetting(name) {
-  $(".firstShownCard").removeClass("firstShownCard");
-  $("#settingsCard").show();
-  switch (name) {
-    case "info":
-      $("#settingsTitle").html("Info");
-      $("#settingsContent").load("content/settings/info.html", function () {
-        $("#settingsEmail").html(firebase.auth().currentUser.email);
-        firebase.database().ref("Users/"+firebase.auth().currentUser.uid+"/year").once("value").then(function (snapshot) {
-          if(snapshot.val()===0){
-            $("#settingsYear").html("Lehrer");
-          }else{
-            $("#settingsYear").html(snapshot.val());
-          }
-        });
-      });
+    $(".firstShownCard").removeClass("firstShownCard");
+    $("#settingsCard").show();
+    switch (name) {
+        case "info":
+            $("#settingsTitle").html("Info");
+            $("#settingsContent").load("content/settings/info.html", function() {
+                $("#settingsEmail").html(firebase.auth().currentUser.email);
+                firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once("value").then(function(snapshot) {
+                    if (snapshot.val() === 0) {
+                        $("#settingsYear").html("Lehrer");
+                    } else {
+                        $("#settingsYear").html(snapshot.val());
+                    }
+                });
+            });
 
-      break;
-    case "vplan":
-      $("#settingsTitle").html("Vertretungsplan");
-      $("#settingsContent").load("content/settings/vplan.html");
-      break;
-    case "gDrive":
-      $("#settingsTitle").html("<img src='resources/product32.png'>Google Drive");
-      $("#settingsContent").load("content/settings/g-auth.html");
-      break;
-    default:
+            break;
+        case "vplan":
+            $("#settingsTitle").html("Vertretungsplan");
+            $("#settingsContent").load("content/settings/vplan.html");
+            break;
+        case "gDrive":
+            $("#settingsTitle").html("<img src='resources/product32.png'>Google Drive");
+            $("#settingsContent").load("content/settings/g-auth.html");
+            break;
+        default:
 
-  }
+    }
 }
+
 function closeCard(element) {
-  $(element).parent().parent().hide();
+    $(element).parent().parent().hide();
 }
 
 
