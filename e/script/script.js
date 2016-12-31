@@ -245,7 +245,7 @@ function firebaseSignUp2() {
         firebase.database().ref("Users/" + user.uid).update({
             year: jahrgang
         });
-        setJahrgangOffline(year);
+        setJahrgangOffline(jahrgang);
         history.pushState(null, null, "profile.html");
         changePage('content/g-auth.html');
     } else {
@@ -515,11 +515,11 @@ function setTimeMillForKursOnline(kurs) {
 }
 
 function setJahrgangOffline(year) {
-    localStorage.setItem("Jahragang", year);
+    localStorage.setItem("Jahrgang", year);
 }
 
 function getJahrgang() {
-    var year = localStorage.getItem("Jahragang");
+    var year = localStorage.getItem("Jahrgang");
     if (year === null) {
         firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
             year = snapshot.val();
