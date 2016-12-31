@@ -1,7 +1,7 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
 var CLIENT_ID = '558271828003-i708b43f1q94ls9vi1lris2dg0k7mmdm.apps.googleusercontent.com';
-var SCOPES = ['https://www.googleapis.com/auth/drive.file'];
+var SCOPES = ['https://www.googleapis.com/auth/drive'];
 
 /**
  * Check if current user has authorized this application.
