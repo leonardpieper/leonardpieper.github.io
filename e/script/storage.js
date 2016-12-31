@@ -116,6 +116,15 @@ function uploadKursMediaDrive(fileData) {
 
         request.execute(function(driveFile) {
             console.log("Wrote to file " + driveFile.name + " id: " + driveFile.id);
+            var patch = gapi.client.drive.permissions.insert({
+                'fileId': driveFile.id,
+                'resource': {
+                    "role": "reader",
+                    "type": "anyone",
+                    "withLink": true
+                }
+            });
+
             $("#uploadedItemsLoader").hide();
 
             var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
