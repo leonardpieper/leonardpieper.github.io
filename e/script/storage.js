@@ -124,17 +124,20 @@ function uploadKursMediaDrive(fileData) {
                     "withLink": true
                 }
             });
+            patch.execute(function () {
+              $("#uploadedItemsLoader").hide();
 
-            $("#uploadedItemsLoader").hide();
-
-            var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
-            firebase.database().ref(ref).child(driveFile.id).set({
-                downloadUrl: driveFile.downloadUrl.replace("?e=download&gd=true", ""),
-                id: driveFile.id,
-                title: driveFile.title
+              var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
+              firebase.database().ref(ref).child(driveFile.id).set({
+                  downloadUrl: driveFile.downloadUrl.replace("?e=download&gd=true", ""),
+                  id: driveFile.id,
+                  title: driveFile.title
+              });
+              setTimeMillForKursOnline($("#card-kurs").text());
+              setNewestMedia(driveFile.id);
             });
-            setTimeMillForKursOnline($("#card-kurs").text());
-            setNewestMedia(driveFile.id);
+
+
         });
 
         // });
