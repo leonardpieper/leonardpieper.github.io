@@ -1034,7 +1034,7 @@ table.onlyInnerBorderTable tr td:last-child{
   div.badge{
     width: 10px;
     height: 10px;
-    margin-top: 55px;
+    margin-top: -7px;
     margin-left: -30px;
   }
   #kurs-liste li div.badge{
