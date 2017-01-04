@@ -1,0 +1,6 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app",
+      "package_name": "com.github.leonardpieper.ceciVPlan",
+                 "sha256_cert_fingerprints": ["10f561a980608345fe40e117b6bcd58f24db0fd6"] }
+  }]
