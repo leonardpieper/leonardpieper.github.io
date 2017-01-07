@@ -101,9 +101,15 @@ function joinKurs() {
 }
 
 function getIcon(fach) {
+    var alleFacherIcons = ["bi", "ch", "d", "e", "ek", "el", "ew", "f", "ge", "if", "ku", "m", "mu", "ph", "pl", "s", "sp", "sw"];
     fach = fach.split(' ')[0];
     fach = fach.toLowerCase();
-    return "resources/kurs-icons/" + fach + ".svg";
+    if(alleFacherIcons.indexOf(fach)>-1){
+      return "resources/kurs-icons/" + fach + ".svg";
+    }else{
+      return "resources/kurs-icons/default.svg";
+    }
+
 }
 
 function editKurse() {
