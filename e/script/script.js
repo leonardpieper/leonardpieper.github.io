@@ -430,7 +430,7 @@ function addKurs() {
     firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
         //  Benutzer ist Lehrer
         firebase.database().ref('/Kurse/' + name + "/secret").once('value').then(function(snapshot) {
-            alert("Kurs Existiert bereits!");
+            alert("Kurs existiert bereits!");
         }, function(err) {
             if (err != "Error: permission_denied at /Kurse/D EFa/secret: Client doesn't have permission to access the desired data.") {
                 var username = snapshot.val().username;

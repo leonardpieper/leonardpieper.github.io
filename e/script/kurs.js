@@ -49,7 +49,7 @@ function getKurse(outputElementId) {
                     // }
                 }, function(err) {
                     if (err.message.includes("permission_denied")) {
-                        output += "Das Passwort für " + kurs + " ist falsch, bitte versuchen Sie es erneut<a class='kurs-false-icon' href=\"javascript:leaveKurs(\'this\')\"><i class='material-icons'>&#xE872;</i></a><br />"
+                        output += "Das Passwort für " + kurs + " ist falsch, bitte versuchen Sie es erneut<a class='kurs-false-icon' href=\"javascript:wrongKurs(\'" + kurs + "\')\"><i class='material-icons'>&#xE872;</i></a><br />"
                         $("#" + outputElementId).html(output);
                     }
                 });
@@ -132,4 +132,9 @@ function delKurs(delElement) {
     var name = $("#delFach").html();
     firebase.database().ref('Kurse/' + name).remove();
     closeDialogBox("android-delkurs-dialog");
+}
+
+function wrongKurs(kurs) {
+  var uid = firebase.auth().currentUser.uid;
+  firebase.database().ref('Users/' + uid + '/Kurse/' + kurs).remove();
 }
