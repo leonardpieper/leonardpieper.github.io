@@ -103,6 +103,9 @@ function setFirstOpen() {
     $(".tabcontent").hide();
     $(".tablinks").removeClass("active");
 
+    if(jahrgang === undefined){
+      jahrgang = getJahrgang();
+    }
     $("#" + jahrgang).show();
     $("#tab" + jahrgang).addClass("active");
 

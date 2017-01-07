@@ -253,59 +253,6 @@ function firebaseSignUp2() {
     }
 }
 
-// function firebaseSignUp() {
-//     var email = $("#firebaseEmail").val();
-//     var pwd;
-//     if ($("#firebasePwd").val()) {
-//         pwd = $("#firebasePwd").val();
-//     }
-//     if (email === "" || pwd === "" || $("#vPlanUname").val() === "" || $("#vPlanPwd").val() === "") {
-//         $(".android-login-err").html("Du musst alle Felder angeben");
-//     } else {
-//         firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
-//             // Handle Errors here.
-//             var errorCode = error.code;
-//             switch (errorCode) {
-//                 case "auth/email-already-in-use":
-//                     $("#android-login-err").html("E-Mail Adresse wird bereits verwendet");
-//                     break;
-//                 case "auth/invalid-email":
-//                     $("#android-login-err").html("Ungültige E-Mail Adresse");
-//                     break;
-//                 case "auth/operation-not-allowed":
-//                     $("#android-login-err").html("Dieser Account wurde gesperrt");
-//                     break;
-//                 case "auth/weak-password":
-//                     $("#android-login-err").html("Zu schwaches Passwort. Bitte mit einem neuen versuchen (mind. 6 Zeichen!)");
-//                     break;
-//                 default:
-//                     $("#android-login-err").html("Fehler bei der Anmeldung");
-//             }
-//             var errorMessage = error.message;
-//             // ...
-//         });
-//     }
-//
-//     firebase.auth().onAuthStateChanged(function(user) {
-//         if (user !== null) {
-//             var pwd = $("#firebasePwdTeacher").val();
-//             var lehrerAbk = $("#firebaseAbkTeacher").val();
-//             firebase.database().ref("Users/" + user.uid).update({
-//                 lehrerPwd: pwd,
-//                 abk: lehrerAbk
-//             });
-//             var vPlanUname = $("#vPlanUname").val();
-//             var vPlanPwd = $("#vPlanPwd").val();
-//             firebase.database().ref("Users/" + user.uid + "/vPlan").update({
-//                 uname: vPlanUname,
-//                 pwd: vPlanPwd
-//             });
-//             history.pushState(null, null, "profile.html");
-//             changePage('content/profile.html');
-//         }
-//     });
-// }
-
 function signOut() {
     firebase.auth().signOut().then(function() {
         console.log('Signed Out');
@@ -435,6 +382,7 @@ function addKurs() {
             if (err != "Error: permission_denied at /Kurse/D EFa/secret: Client doesn't have permission to access the desired data.") {
                 var username = snapshot.val().username;
                 firebase.database().ref("Kurse/" + name + "/secret").set(secret);
+                setKurs(name);
             } else {
                 alert("Kurs Existiert bereits!");
             }
@@ -516,11 +464,12 @@ function setTimeMillForKursOnline(kurs) {
 
 function setJahrgangOffline(year) {
     localStorage.setItem("Jahrgang", year);
+    Jahrgang = year;
 }
 
 function getJahrgang() {
     var year = localStorage.getItem("Jahrgang");
-    if (year === null) {
+    if (year === null || year === "null") {
         firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
             year = snapshot.val();
             setJahrgangOffline(year);
@@ -530,72 +479,6 @@ function getJahrgang() {
         return year;
     }
 }
-// function getKursMedia() {
-//   var storage = firebase.storage();
-//   var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
-//   // var output = "";
-//   var i = 0;
-//
-//   firebase.database().ref(ref).on('value', function (snapshot) {
-//     output="";
-//     snapshot.forEach(function (childSnapshot) {
-//       // var gsPath = childSnapshot.val().p;
-//       // var fileName = gsPath.split('/').pop();
-//       // var pathRef = storage.refFromURL(gsPath);
-//       // pathRef.getDownloadURL().then(function (url) {
-//       //   // output += "<img src='"+url+"'/>";
-//       //   output+="<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+url+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+url+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-//       //   showMedia(output);
-//       // });
-//
-//       var downloadUrl = childSnapshot.val().downloadUrl;
-//       var fileName = childSnapshot.val().title;
-//       output += "<div class='mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-shadow--4dp'><div class='mdl-card__title mdl-card--expand'></div><div class='mdl-card__supporting-text'><img class='android-mediaCard'src='"+downloadUrl+"'/></div><div class='mdl-card__actions'><span class='demo-card-image__filename'>"+fileName+"</span></div><div class='mdl-card__menu'><button class='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect'><a href='"+downloadUrl+"' download><i class='material-icons'>file_download</i></a></button></div></div>";
-//       showMedia(output);
-//
-//     });
-//   });
-//   //pathRef.getDownloadURL().then(function (url) {
-//     // $("#teso").html(output);
-//   //})
-// }
-// function showMedia(media){
-//   $("#mediaDiv").html(media);
-// }
-
-// function setKursMedia(file) {
-//   var storage = firebase.storage();
-//   var storageRef = storage.ref();
-//
-//   var kurs = $("#card-kurs").html();
-//   var kurseRef = storageRef.child('kurse');
-//   var kursRef = kurseRef.child(kurs);
-//
-//   var uploadTask = kursRef.child(file.name).put(file);
-//   uploadTask.on('state_changed',
-//   function progress (snapshot) {
-//     var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//     document.getElementById("kursUploader").value=percentage;
-//   }, function error (err) {
-//     switch (err.code) {
-//       case 'storage/unauthorized':
-//           $(".maxDatei").css({'color': 'red', 'font-size':'1.5rem'});
-//         break;
-//       default:
-//         alert("Upload abgebrochen/abgelehnt");
-//     }
-//   }, function complete() {
-//     $(".maxDatei").css({'color': 'rgba(0,0,0,.54)', 'font-size':'1rem'});
-//     var downLoadUrl = uploadTask.snapshot.downLoadUrl;
-//     var gs = kursRef.toString() + "/"+ file.name;
-//     var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
-//     firebase.database().ref(ref).push({
-//       p:gs
-//     });
-//     setTimeMillForKursOnline(kurs);
-//     setTimeMillForKursLocal(kurs);
-//   });
-// }
 
 function handleFileSelect(evt) {
     //var files = evt.target.files; // FileList object
