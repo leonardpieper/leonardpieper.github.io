@@ -857,12 +857,13 @@ div.badge{
   display: inline-block;
   text-align: center;
   border-radius: 100%;
+  top: -15px;
+  min-width: 15px;
+  min-height: 15px;
   width: 15px;
   height: 15px;
-  margin-top: -15px;
-  margin-left: 20px;
   overflow: visible;
-  position: absolute;
+  position: relative;;
 }
 #kurs-liste li div.badge{
   width: 15px;
@@ -1032,10 +1033,12 @@ table.onlyInnerBorderTable tr td:last-child{
     width: 100%;
   }
   div.badge{
+    min-width: 10px;
+    min-height: 10px;
     width: 10px;
     height: 10px;
-    margin-top: -7px;
-    margin-left: -30px;
+    top: -15px;
+    right: 10px;
   }
   #kurs-liste li div.badge{
     width: 15px;
