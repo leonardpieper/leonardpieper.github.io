@@ -537,21 +537,23 @@ function handleDragOver(evt) {
 
 function sendKursMessage() {
     var nachricht = $("#nachricht").val();
-    var sender;
+    var sender = firebase.auth().currentUser.email;
+    var uid = firebase.auth().currentUser.uid;
 
-    var abkRef = "Users/" + firebase.auth().currentUser.uid + "/abk";
-    firebase.database().ref(abkRef).on('value', function(snapshot) {
-        sender = snapshot.val();
+    // var abkRef = "Users/" + firebase.auth().currentUser.uid + "/abk";
+    // firebase.database().ref(abkRef).on('value', function(snapshot) {
+    //     sender = snapshot.val();
 
         var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
         firebase.database().ref(ref).push({
             sender: sender,
-            message: nachricht
+            body: nachricht,
+            uid: uid
         });
         setTimeMillForKursOnline($("#card-kurs").text());
         setTimeMillForKursLocal($("#card-kurs").text());
         $("#nachricht").val("");
-    });
+    // });
 }
 
 function getKursMessage() {
@@ -561,7 +563,7 @@ function getKursMessage() {
         snapshot.forEach(function(childSnapshot) {
             output += childSnapshot.val().sender;
             output += ": "
-            output += childSnapshot.val().message;
+            output += childSnapshot.val().body;
             output += "<br />"
         });
         $("#kursMessages").html(output);
