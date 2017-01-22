@@ -88,6 +88,43 @@ function getVPlanForYear(year, location) {
     // }
 }
 
+function getVPlanForTeacher(location){
+  firebase.database().ref("vPlan").on("value", function(snapshot) {
+    var tage = {"Mo":"","Di":"","Mi":"","Do":"","Fr":""}
+    var datumTage = new Object();
+    var output = "<table class='android-vPlan-Table'>";
+    var iDatum;
+    snapshot.forEach(function (childSnapshot) {
+      childSnapshot.forEach(function(babySnapshot) {
+          var datum = babySnapshot.val().Datum;
+          if(babySnapshot.val().Vertreter !== undefined && babySnapshot.val().Vertreter.toLowerCase()===firebase.auth().currentUser.displayName.toLowerCase()){
+            currTag = babySnapshot.val().Tag
+            tage[currTag] += "<tr><td class='tdNonText vTd'>" + babySnapshot.val().Fach + "</td>";
+            tage[currTag] += "<td class='tdNonText vTd'>" + babySnapshot.val().Stunde + "</td>";
+            tage[currTag] += "<td class='tdNonText vTd'>" + babySnapshot.val().Vertreter + "</td>";
+            tage[currTag] += "<td class='tdNonText vTd'>" + babySnapshot.val().Raum + "</td>";
+            tage[currTag] += "<td class='tdNonText vTd'>" + babySnapshot.val()['Vertretungs-Text'] + "</td>";
+            datumTage[currTag] = babySnapshot.val().Datum
+          }
+        });
+    });
+    for(obj in tage){
+      if(datumTage[obj]!==undefined){
+        output += "<tr class='trDate'><td class='tdDate' colspan='3'>" + obj + "</td>";
+        output += "<td class='tdDate' colspan='2'>" + datumTage[obj]+ "</td></tr>";
+        output += tage[obj];
+      }
+    }
+    output += "</table>"
+    if (location === "vplan") {
+        $("#vPlanMe").html(output);
+    } else if (location === "home") {
+        $("#vPlanToday").html(output);
+    }
+
+  });
+}
+
 function changeVPlanYear(evt, year) {
     var i, tabcontent, tablins;
 
