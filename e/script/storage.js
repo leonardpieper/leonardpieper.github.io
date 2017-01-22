@@ -149,10 +149,11 @@ function uploadKursMediaDrive(fileData) {
 function getKursMedia() {
     // var storage = firebase.storage();
     var ref = "Kurse/" + $("#card-kurs").text() + "/storagePath";
+
     // var output = "";
     var i = 0;
 
-    firebase.database().ref(ref).orderByChild('date').on('value', function(snapshot) {
+    firebase.database().ref(ref).orderByChild('date').limitToLast(5).on('value', function(snapshot) {
         output = "";
         snapshot.forEach(function(childSnapshot) {
             var id = childSnapshot.val().id
