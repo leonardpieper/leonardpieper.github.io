@@ -80,8 +80,9 @@ function changePage(href) {
             getUserProfilePage();
             isUserLoggedIn();
         } else if (href == "content/vplan.html") {
-            getVPlanForYear(jahrgang, "vplan");
             setFirstOpen();
+            getVPlanForYear(jahrgang, "vplan");
+
         }
     });
 }
@@ -480,6 +481,27 @@ function getJahrgang() {
     }
 }
 
+function setLehrerAbkOffline(abk) {
+    localStorage.setItem("lehrer-abk", abk);
+}
+
+function getLehrerAbk() {
+    if (getJahrgang() == 0) {
+        var abk = localStorage.getItem("lehrer-abk");
+        if (abk === null || abk === "null") {
+            firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/abk").once('value').then(function(snapshot) {
+                abk = snapshot.val();
+                setLehrerAbkOffline(abk);
+                return abk;
+            });
+        } else {
+            return abk;
+        }
+    } else {
+        return -1;
+    }
+}
+
 function handleFileSelect(evt) {
     //var files = evt.target.files; // FileList object
     uploadedFiles = evt.target.files;
@@ -544,15 +566,15 @@ function sendKursMessage() {
     // firebase.database().ref(abkRef).on('value', function(snapshot) {
     //     sender = snapshot.val();
 
-        var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
-        firebase.database().ref(ref).push({
-            sender: sender,
-            body: nachricht,
-            uid: uid
-        });
-        setTimeMillForKursOnline($("#card-kurs").text());
-        setTimeMillForKursLocal($("#card-kurs").text());
-        $("#nachricht").val("");
+    var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
+    firebase.database().ref(ref).push({
+        sender: sender,
+        body: nachricht,
+        uid: uid
+    });
+    setTimeMillForKursOnline($("#card-kurs").text());
+    setTimeMillForKursLocal($("#card-kurs").text());
+    $("#nachricht").val("");
     // });
 }
 
@@ -583,14 +605,16 @@ function getUserProfilePage() {
             // ???
         $("#profileHead").html(welcome);
         $("#settingsEmail").html(firebase.auth().currentUser.email);
-        firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once("value").then(function(snapshot) {
-            if (snapshot.val() === 0) {
-                $("#settingsYear").html("Lehrer");
-            } else {
-                $("#settingsYear").html(snapshot.val());
-            }
-        });
-
+        var year = getJahrgang();
+        var abk = getLehrerAbk();
+        if (year == 0) {
+            $("#settingsYear").html("Lehrer");
+        } else {
+            $("#settingsYear").html(year);
+            $("#settingsKrzlDesc").hide();
+            $("#settingsKrzl").hide();
+        }
+        $("#settingsKrzl").html(abk);
     }
 }
 
@@ -602,13 +626,17 @@ function loadSetting(name) {
             $("#settingsTitle").html("Info");
             $("#settingsContent").load("content/settings/info.html", function() {
                 $("#settingsEmail").html(firebase.auth().currentUser.email);
-                firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once("value").then(function(snapshot) {
-                    if (snapshot.val() === 0) {
-                        $("#settingsYear").html("Lehrer");
-                    } else {
-                        $("#settingsYear").html(snapshot.val());
-                    }
-                });
+
+                var year = getJahrgang();
+                var abk = getLehrerAbk();
+                if (year == 0) {
+                    $("#settingsYear").html("Lehrer");
+                } else {
+                    $("#settingsYear").html(year);
+                    $("#settingsKrzlDesc").hide();
+                    $("#settingsKrzl").hide();
+                }
+                $("#settingsKrzl").html(abk);
             });
 
             break;

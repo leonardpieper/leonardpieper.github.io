@@ -49,6 +49,14 @@ function getVPlanForTomorrow() {
 function getVPlanForYear(year, location) {
     // var years = ["EF", "Q1", "Q2"];
     // for(var i = 0; i<years.length; i++){
+    if(year==0){
+      getVPlanForTeacher(location);
+      // $(".tabcontent").hide();
+      // $(".tablinks").removeClass("active");
+
+      $("#me").show();
+      return;
+    }
     firebase.database().ref("vPlan" + "/" + year).on("value", function(snapshot) {
         var output = "<table class='android-vPlan-Table'>";
         var iDatum;
@@ -97,7 +105,7 @@ function getVPlanForTeacher(location){
     snapshot.forEach(function (childSnapshot) {
       childSnapshot.forEach(function(babySnapshot) {
           var datum = babySnapshot.val().Datum;
-          if(babySnapshot.val().Vertreter !== undefined && babySnapshot.val().Vertreter.toLowerCase()===firebase.auth().currentUser.displayName.toLowerCase()){
+          if(babySnapshot.val().Vertreter !== undefined && babySnapshot.val().Vertreter.toLowerCase()===getLehrerAbk().toLowerCase()){
             currTag = babySnapshot.val().Tag
             tage[currTag] += "<tr><td class='tdNonText vTd'>" + babySnapshot.val().Fach + "</td>";
             tage[currTag] += "<td class='tdNonText vTd'>" + babySnapshot.val().Stunde + "</td>";

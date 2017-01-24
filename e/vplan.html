@@ -131,8 +131,9 @@ limitations under the License
             <script>
                 $('main').load('content/vplan.html', function() {
                     firebase.auth().onAuthStateChanged(function() {
-                        getVPlanForYear(getJahrgang(), "vplan");
                         setFirstOpen();
+                        getVPlanForYear(getJahrgang(), "vplan");
+
                     });
                 });
             </script>
