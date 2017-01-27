@@ -96,8 +96,8 @@ function getKurse(outputElementId) {
 }
 var cacheKurse = {
     newCache: function() {
-        localStorage.setItem("kurse", undefined);
-    },
+          localStorage.setItem("kurse", undefined);
+      },
 
     addcache: function(newKurs, timestamp) {
         var d = new Date();
@@ -141,6 +141,19 @@ var cacheKurse = {
         }else{
           return cache.mill;
         }
+    },
+    removeFromCache: function (fach) {
+        var oldCache = localStorage.getItem("kurse");
+        var cache = JSON.parse(oldCache);
+
+        for(var element in cache.kurse){
+          if(cache.kurse[element].kurs==fach){
+            cache.kurse.splice(element, 1);
+          }
+        }
+
+        localStorage.setItem("kurse", JSON.stringify(cache));
+
     }
 }
 
@@ -183,6 +196,8 @@ function joinKurs() {
     });
 
     closeDialogBox("android-joinkurs-dialog");
+
+    cacheKurse.addcache(name, 0)
 }
 
 function getIcon(fach) {
@@ -217,15 +232,21 @@ function leaveKurs(delElement) {
     var uid = firebase.auth().currentUser.uid;
     firebase.database().ref('Users/' + uid + '/Kurse/' + name).remove();
     closeDialogBox("android-leavekurs-dialog");
+
+    cacheKurse.removeFromCache(name);
 }
 
 function delKurs(delElement) {
     var name = $("#delFach").html();
     firebase.database().ref('Kurse/' + name).remove();
     closeDialogBox("android-delkurs-dialog");
+
+    cacheKurse.removeFromCache(name);
 }
 
 function wrongKurs(kurs) {
     var uid = firebase.auth().currentUser.uid;
     firebase.database().ref('Users/' + uid + '/Kurse/' + kurs).remove();
+
+    cacheKurse.removeFromCache(name);
 }
