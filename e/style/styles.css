@@ -659,7 +659,7 @@ ul.android-tab li a {
   margin-top: 40px;
 }
 .operatorArea{
-  display: none;
+  display: none !important;
 }
 .driveLoggedIn{
   display: none;

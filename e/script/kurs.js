@@ -37,7 +37,7 @@ function getKurse(outputElementId) {
                           var timestamp = snapshot.val().timestamp;
                           // output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img alt='"+name+" Icon' src='"+getIcon(name)+"'><span class='mdl-list__item-primary-content dash-kurs_span'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
                           if (outputElementId === "kurs-liste") {
-                              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
+                              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon operatorArea' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
                           } else {
                               output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
                           }
@@ -67,9 +67,9 @@ function getKurse(outputElementId) {
                     }else {
                       var kursID = kurs.replace(/ /g, "__");
                       if (outputElementId === "kurs-liste") {
-                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
+                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</p><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
                       } else {
-                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</a></li>";
+                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</p></li>";
                       }
                       cacheKurse.addcache(kurs, 0, "offline");
                     }
@@ -88,15 +88,15 @@ function getKurse(outputElementId) {
         // var timestamp = snapshot.val().timestamp;
         if(cache[kurs].type==="online"){
           if (outputElementId === "kurs-liste") {
-              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
+              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon operatorArea' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
           } else {
               output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
           }
         }else {
           if (outputElementId === "kurs-liste") {
-              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
+              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</p><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
           } else {
-              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</a></li>";
+              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</p></li>";
           }
         }
       }
