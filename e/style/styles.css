@@ -700,6 +700,9 @@ ul.android-tab li a {
   display: none;
   margin-left: auto;
 }
+#joinSecretTextfield:disabled{
+  display: none;
+}
 .kurs-close-icon i{
   color: red;
   font-size: 2em;

@@ -7,7 +7,7 @@ function getKurse(outputElementId) {
     var d = new Date();
     var currTimeMill = d.getTime();
 
-    if (cacheKurse.getTime() > currTimeMill + 604800000 || cacheKurse.getTime() === -1) {
+    if (cacheKurse.getTime() + 604800000 < currTimeMill || cacheKurse.getTime() === -1) {
 
 
         firebase.database().ref(ref).on('value', function(snapshot) {
@@ -26,42 +26,53 @@ function getKurse(outputElementId) {
                     var kurs = childSnapshot.val().name;
                     var kursRef = "Kurse/" + kurs;
 
-                    firebase.database().ref(kursRef).once('value').then(function(snapshot) {
-                        // if(snapshot.val()>=getTimeMillForKursLocal(kurs)){
-                        // var kurs = snapshot.getKey();
+                    if(childSnapshot.val().type==="online"){
 
-                        var name = snapshot.getKey();
-                        var kursID = name.replace(/ /g, "__");
-                        var timestamp = snapshot.val().timestamp;
-                        // output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img alt='"+name+" Icon' src='"+getIcon(name)+"'><span class='mdl-list__item-primary-content dash-kurs_span'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
-                        if (outputElementId === "kurs-liste") {
-                            output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
-                        } else {
-                            output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
-                        }
+                      firebase.database().ref(kursRef).once('value').then(function(snapshot) {
+                          // if(snapshot.val()>=getTimeMillForKursLocal(kurs)){
+                          // var kurs = snapshot.getKey();
+
+                          var name = snapshot.getKey();
+                          var kursID = name.replace(/ /g, "__");
+                          var timestamp = snapshot.val().timestamp;
+                          // output += "<li class='mdl-list__item android-kursList' data-timestamp='"+timestamp+"' data-kurs='"+name+"'><img alt='"+name+" Icon' src='"+getIcon(name)+"'><span class='mdl-list__item-primary-content dash-kurs_span'><a id='"+kursID+"Id' class='kursLink' href=\"javascript:setKurs(\'"+name+"\')\">"+name+"</a></span></li>";
+                          if (outputElementId === "kurs-liste") {
+                              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
+                          } else {
+                              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
+                          }
 
 
-                        $("#" + outputElementId).html(output);
+                          $("#" + outputElementId).html(output);
 
-                        $("#d" + outputElementId).find(".android-kursList").sort(function(a, b) {
-                            a.dataset.timestamp = a.dataset.timestamp * -1;
-                            b.dataset.timestamp = b.dataset.timestamp * -1;
-                            return +a.dataset.timestamp - +b.dataset.timestamp;
-                        }).appendTo("#" + outputElementId);
+                          $("#d" + outputElementId).find(".android-kursList").sort(function(a, b) {
+                              a.dataset.timestamp = a.dataset.timestamp * -1;
+                              b.dataset.timestamp = b.dataset.timestamp * -1;
+                              return +a.dataset.timestamp - +b.dataset.timestamp;
+                          }).appendTo("#" + outputElementId);
 
-                        getBadge();
-                        kurse.push(snapshot);
-                        getKurseReady(snapChildren, i);
-                        i++;
+                          getBadge();
+                          kurse.push(snapshot);
+                          getKurseReady(snapChildren, i);
+                          i++;
 
-                        cacheKurse.addcache(name, timestamp)
-                        // }
-                    }, function(err) {
-                        if (err.message.includes("permission_denied")) {
-                            output += "Das Passwort für " + kurs + " ist falsch, bitte versuchen Sie es erneut<a class='kurs-false-icon' href=\"javascript:wrongKurs(\'" + kurs + "\')\"><i class='material-icons'>&#xE872;</i></a><br />"
-                            $("#" + outputElementId).html(output);
-                        }
-                    });
+                          cacheKurse.addcache(name, timestamp, "online");
+                          // }
+                      }, function(err) {
+                          if (err.message.includes("permission_denied")) {
+                              output += "Das Passwort für " + kurs + " ist falsch, bitte versuchen Sie es erneut<a class='kurs-false-icon' href=\"javascript:wrongKurs(\'" + kurs + "\')\"><i class='material-icons'>&#xE872;</i></a><br />"
+                              $("#" + outputElementId).html(output);
+                          }
+                      });
+                    }else {
+                      var kursID = kurs.replace(/ /g, "__");
+                      if (outputElementId === "kurs-liste") {
+                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
+                      } else {
+                          output += "<li class='mdl-list__item android-kursList' data-kurs='" + kurs + "'><img class='kursIcon' alt='" + kurs + " Icon' src='" + getIcon(kurs) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + kurs + "</a></li>";
+                      }
+                      cacheKurse.addcache(kurs, 0, "offline");
+                    }
                     $("#" + outputElementId).html(output);
                 });
             }
@@ -75,10 +86,18 @@ function getKurse(outputElementId) {
         var kursID = name.replace(/ /g, "__");
 
         // var timestamp = snapshot.val().timestamp;
-        if (outputElementId === "kurs-liste") {
-            output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
-        } else {
-            output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
+        if(cache[kurs].type==="online"){
+          if (outputElementId === "kurs-liste") {
+              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a><a class='kurs-rem-icon' href=\"javascript:removeKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE92B;</i></a></li>";
+          } else {
+              output += "<li class='mdl-list__item android-kursList' data-timestamp='" + timestamp + "' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><a id='" + kursID + "Id' class='kursLink " + outputElementId + "' href=\"javascript:setKurs(\'" + name + "\')\">" + name + "</a></li>";
+          }
+        }else {
+          if (outputElementId === "kurs-liste") {
+              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</a><a class='kurs-close-icon' href=\"javascript:leaveKursDialog(\'" + kursID + "\')\"><i class='material-icons'>&#xE879;</i></a></li>";
+          } else {
+              output += "<li class='mdl-list__item android-kursList' data-kurs='" + name + "'><img class='kursIcon' alt='" + name + " Icon' src='" + getIcon(name) + "'><p id='" + kursID + "Id' class='kursLink " + outputElementId + "' >" + name + "</a></li>";
+          }
         }
       }
       $("#" + outputElementId).html(output);
@@ -99,7 +118,7 @@ var cacheKurse = {
           localStorage.setItem("kurse", undefined);
       },
 
-    addcache: function(newKurs, timestamp) {
+    addcache: function(newKurs, timestamp, type) {
         var d = new Date();
         var currTimeMill = d.getTime();
         var oldCache = localStorage.getItem("kurse");
@@ -109,7 +128,8 @@ var cacheKurse = {
             cache.mill = currTimeMill;
             cache["kurse"].push({
                 "kurs": newKurs,
-                "timestamp": timestamp
+                "timestamp": timestamp,
+                "type":type
             });
 
             localStorage.setItem("kurse", JSON.stringify(cache));
@@ -169,7 +189,7 @@ function getBadge() {
         var offlineTimestamp = getTimeMillForKursLocal($(".android-kursList")[i].dataset.kurs);
         onlineTimestamp = onlineTimestamp * -1;
 
-        if (offlineTimestamp < onlineTimestamp || (offlineTimestamp === null && onlineTimestamp !== null)) {
+        if (offlineTimestamp < onlineTimestamp && (offlineTimestamp !== null || offlineTimestamp!="NaN")) {
             var list = document.getElementsByClassName("android-kursList")[i];
             var badge = "<div class='badge'></div>"
             $(badge).insertBefore(list.children[1]);
@@ -190,14 +210,39 @@ function joinKurs() {
     var auth = firebase.auth();
     var uid = auth.currentUser.uid;
 
-    firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
-        name: name,
-        secret: secret
-    });
+    var isOffline = $("#checkboxOfflineKurs").is(":checked");
+    var type;
+
+    if(isOffline==true){
+      type="offline";
+    }else {
+      type="online";
+    }
+    if(isOffline==true){
+      firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
+          name: name,
+          type: "offline"
+      });
+    }else if (isOffline==false) {
+      firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
+          name: name,
+          secret: secret,
+          type: "online"
+      });
+    }
 
     closeDialogBox("android-joinkurs-dialog");
 
-    cacheKurse.addcache(name, 0)
+    cacheKurse.addcache(name, 0, type);
+}
+
+function offlineKursCheckbox() {
+  var isOffline = $("#checkboxOfflineKurs").is(":checked");
+  if(isOffline==true){
+    $("#joinSecretTextfield").prop( "disabled", true );
+  }else{
+    $("#joinSecretTextfield").prop( "disabled", false );
+  }
 }
 
 function getIcon(fach) {

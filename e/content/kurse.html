@@ -50,6 +50,13 @@
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
             <input class="mdl-textfield__input" type="text" id="joinSecretTextfield" placeholder="Passwort">
         </div>
+        <div>
+          <label class="android-switch">
+            <input type="checkbox" id="checkboxOfflineKurs" onclick="offlineKursCheckbox()">
+            <div class="android-slider round"></div>
+          </label>
+          <span class="mdl-switch__label">Offline-Kurs (Ohne Passwort)</span>
+        </div>
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="joinKurs()">
       Beitreten
     </button>
