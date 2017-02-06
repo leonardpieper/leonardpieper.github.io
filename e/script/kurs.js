@@ -228,6 +228,10 @@ function joinKurs() {
           name: name,
           secret: secret,
           type: "online"
+      }, function (error) {
+        if(error){
+          cacheKurse.removeFromCache(name)
+        };
       });
     }
 
