@@ -392,8 +392,11 @@ function addKurs() {
 
     firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
         name: name,
-        secret: secret
+        secret: secret,
+        type: "online"
     });
+
+    cacheKurse.addcache(name, 0, "online");
 
     closeDialogBox("android-kurs-dialog");
 }

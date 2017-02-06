@@ -284,6 +284,7 @@ function leaveKurs(delElement) {
 function delKurs(delElement) {
     var name = $("#delFach").html();
     firebase.database().ref('Kurse/' + name).remove();
+    firebase.database().ref('Users/' + firebase.auth().currentUser.uid + '/Kurse/' + name).remove();
     closeDialogBox("android-delkurs-dialog");
 
     cacheKurse.removeFromCache(name);
