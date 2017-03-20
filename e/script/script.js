@@ -41,6 +41,9 @@ $(document).ready(function() {
     });
     // End History Api
     isUserLoggedIn();
+    if(LocalUser.getTeacherStatus()=="true"){
+      $(".operatorArea").show();
+    }
 
 
     //Service Worker
@@ -66,11 +69,6 @@ function changePage(href) {
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
-            firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
-                $(".operatorArea").show();
-            }, function(err) {
-                $(".operatorArea").hide();
-            });
             getBadge();
         } else if (href == "content/home.html") {
             getKurse("dashKurse");
@@ -83,6 +81,9 @@ function changePage(href) {
             setFirstOpen();
             getVPlanForYear(jahrgang, "vplan");
 
+        }
+        if(LocalUser.getTeacherStatus()=="true"){
+          $(".operatorArea").show();
         }
     });
 }
@@ -106,11 +107,6 @@ function changePageWithElement(href, element) {
     $('main').load(href, function() {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
-            firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
-                $(".operatorArea").show();
-            }, function(err) {
-                $(".operatorArea").hide();
-            });
             getBadge();
         } else if (href == "content/home.html") {
             getKurse("dashKurse");
@@ -124,6 +120,9 @@ function changePageWithElement(href, element) {
         } else if (href == "content/vplan.html") {
             getVPlanForYear("EF", "vplan");
             setFirstOpen();
+        }
+        if(LocalUser.getTeacherStatus()=="true"){
+          $(".operatorArea").show();
         }
     });
 }
@@ -247,6 +246,7 @@ function firebaseSignUp2() {
             year: jahrgang
         });
         setJahrgangOffline(jahrgang);
+        LocalUser.setTeacherStatus(true);
         history.pushState(null, null, "profile.html");
         changePage('content/g-auth.html');
     } else {
@@ -425,11 +425,11 @@ function closeDialogBox(id) {
 function setKurs(name) {
     $('main').load("content/kurs.html", function() {
         $("#card-kurs").html(name);
-        firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
-            $(".operatorArea").show();
-        }, function(err) {
-            $(".operatorArea").hide();
-        });
+        // firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+        //     $(".operatorArea").show();
+        // }, function(err) {
+        //     $(".operatorArea").hide();
+        // });
         addListener();
         checkAuth();
         getKursMessage();
@@ -658,6 +658,34 @@ function loadSetting(name) {
 
 function closeCard(element) {
     $(element).parent().parent().hide();
+}
+
+var LocalUser = {
+    setJahrgangText: function(jahrgang) {
+        localStorage.setItem("LU_jahrgang", jahrgang);
+    },
+    getJahrgangText: function() {
+        return localStorage.getItem("LU_jahrgang");
+    },
+    setJahrgang: function(jahrgang) {
+        localStorage.setItem("LU_jahrgangNumber", jahrgang);
+    },
+    getJahrgang: function() {
+        return localStorage.getItem("LU_jahrgangNumber");
+    },
+    setTeacherStatus: function(isTrue) {
+        localStorage.setItem("LU_isTeacher", isTrue);
+    },
+    getTeacherStatus: function() {
+        return localStorage.getItem("LU_isTeacher");
+    },
+    setTeacherName: function(teacherName) {
+        localStorage.setItem("LU_lehrer-abk", teacherName);
+    },
+    getTeacherName: function() {
+        return localStorage.getItem("LU_lehrer-abk");
+    }
+
 }
 
 

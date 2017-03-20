@@ -658,9 +658,6 @@ ul.android-tab li a {
   z-index: 9;
   margin-top: 40px;
 }
-.operatorArea{
-  display: none !important;
-}
 .driveLoggedIn{
   display: none;
 }
@@ -812,7 +809,7 @@ ul.android-tab li a {
   text-decoration: none;
 }
 .android-vPlan-Table{
-  width:100%;
+  width:98%;
   border-collapse: collapse;
 }
 .android-vPlan-Table tr .vTd{
@@ -965,6 +962,9 @@ table.onlyInnerBorderTable tr td:last-child{
 }
 .mdl-button--fab.mdl-button--colored:focus:not(:active){
   background-color: #FF9800;
+}
+.operatorArea{
+  display: none;
 }
 /**** Mobile layout ****/
 @media (max-width: 900px) {

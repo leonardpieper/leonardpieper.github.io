@@ -181,6 +181,9 @@ function getKursMedia() {
 
 function showMedia(media) {
     $("#mediaDiv").html(media);
+    if(LocalUser.getTeacherStatus()=="true"){
+      $(".operatorArea").show();
+    }
 }
 
 function delMedia(id) {
