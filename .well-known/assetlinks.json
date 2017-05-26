@@ -1,6 +1,9 @@
 [{
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target" : { "namespace": "android_app",
-      "package_name": "com.github.leonardpieper.ceciVPlan",
-                 "sha256_cert_fingerprints": ["10f561a980608345fe40e117b6bcd58f24db0fd6"] }
-  }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.github.leonardpieper.ceciVPlan",
+    "sha256_cert_fingerprints":
+    ["0A:2D:74:A2:7E:9E:DB:A5:38:2F:B0:BD:80:4A:6D:B7:B9:D7:1C:E1:31:69:30:17:51:80:6F:74:8C:AA:29:09"]
+  }
+}]
