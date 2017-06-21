@@ -486,6 +486,18 @@ a img{
 a{
   color:#FF9800;
 }
+/*Buttons*/
+.mdl-button--accent.mdl-button--accent{
+  color: #FF9800;
+}
+
+/*
+OLD
+Content
+ |
+ |
+ V
+*/
 h2{
   color: rgba(0,0,0,.7) !important;
   /*font-size: 2em;*/

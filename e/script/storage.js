@@ -52,7 +52,7 @@ function handleAuthClick() {
 
 // function loadDriveApi() {
 //   gapi.client.load('drive', 'v2', function () {
-//     if(currentPage==="home.html"||currentPage==="index.html"){
+//     if(currentPage==="index.html"||currentPage==="index.html"){
 //       showRecentMedia();
 //     }
 //   });
@@ -60,7 +60,7 @@ function handleAuthClick() {
 function loadDriveApi() {
     var load = gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v2/rest');
     load.then(function(callback) {
-        if (currentPage === "home.html" || currentPage === "index.html") {
+        if (currentPage === "index.html" || currentPage === "index.html") {
             showRecentMedia();
         }
     });

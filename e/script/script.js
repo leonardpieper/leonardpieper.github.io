@@ -70,7 +70,7 @@ function changePage(href) {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
             getBadge();
-        } else if (href == "content/home.html") {
+        } else if (href == "content/index.html") {
             getKurse("dashKurse");
             getBadge();
             getVPlanForYear(jahrgang, "home");
@@ -108,7 +108,7 @@ function changePageWithElement(href, element) {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
             getBadge();
-        } else if (href == "content/home.html") {
+        } else if (href == "content/index.html") {
             getKurse("dashKurse");
             getBadge();
             getVPlanForYear("EF", "home");
