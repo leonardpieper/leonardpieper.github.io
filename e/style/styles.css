@@ -491,6 +491,11 @@ a{
   color: #FF9800;
 }
 
+/*Cards*/
+.card-basic{
+  min-width: 350px;
+}
+
 /*
 OLD
 Content
