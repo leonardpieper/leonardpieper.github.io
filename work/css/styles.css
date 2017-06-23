@@ -182,6 +182,7 @@ main{
     }
     .galleryImg.wide{
       max-width: 100%;
-      height: initial;
+      height: auto;
+      max-height: 300px;
     }
 }
