@@ -44,7 +44,7 @@ var auth = {
     },
 
     signInWithPhone: function () {
-        var phoneNumber = $("#login_input_phone").val();
+        var phoneNumber = "+49" + $("#login_input_phone").val();
         var appVerifier = window.recaptchaVerifier;
 
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
@@ -56,6 +56,32 @@ var auth = {
             // Error; SMS not sent
             // ...
         });
+    },
+
+    signInWithEmail: function(){
+        var email = $("#login_input_email").val();
+        var password = $("#login_input_password").val();
+
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+            var errorCode = error.code;
+            if(errorCode==="auth/user-not-found"){
+                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (createError) {
+                    if(createError==="auth/operation-not-allowed"){
+                        $("#login_div_err").html("Anmeldung per E-Mail-Adresse sind derzeit nicht erlaubt");
+                    }else if(createError==="auth/weak-password"){
+                        $("#login_div_err").html("Zu schwaches Passwort (mind. 6 Zeichen)");
+                    }
+                });
+            }else if(errorCode==="auth/invalid-email"){
+                $("#login_div_err").html("Bitte gültige E-Mail-Adresse eingeben");
+            }else if(errorCode==="auth/user-disabled"){
+                $("#login_div_err").html("Dieser Nutzer wurde gelöscht");
+            }else if(errorCode==="auth/wrong-password"){
+                $("#login_div_err").html("Falsches Passwort");
+            }else{
+                $("#login_div_err").html("Bei der Anmeldung ist ein Fehler unterlaufen.<br>Bitte versuchen Sie es später erneut.");
+            }
+        });
     }
 }
 
@@ -64,8 +90,21 @@ function phoneBtnClicked() {
     $("#login_div_datenschutz").hide();
     $("#login_btn_email").hide();
 
+    $("#login_input_phoneCountryCode").show();
     $("#login_input_phone").show();
     $("#login_btn_proove").show();
 
     auth.setreCAPTCHA();
+}
+
+function emailBtnClicked() {
+    $("#login_btn_phone").hide();
+    $("#login_div_datenschutz").hide();
+    $("#login_btn_email").hide();
+
+    $("#login_input_email").show();
+    $("#login_input_password").show();
+    $("#login_btn_ready").show();
+
+    $("#login_div_err").html("");
 }

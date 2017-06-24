@@ -4,12 +4,34 @@
     </div>
     
     <div class="mdl-card__supporting-text">
-        <div class="android-login-err"></div>
+        <div class="android-login-err" id="login_div_err"></div>
+        <div class="mdl-grid">
+            <input  class="mdl-textfield__input mdl-cell mdl-cell--2-col mdl-cell--1-col-phone"
+                    disabled="disabled"
+                    placeholder="+49"
+                    value="+49"
+                    style="display:none"
+                    id="login_input_phoneCountryCode">
+            <input class="mdl-textfield__input mdl-cell mdl-cell--10-col mdl-cell--6-col-tablet mdl-cell--3-col-phone"
+                    type="tel"
+                    placeholder="Telefonnummer"
+                    style="display:none"
+                    id="login_input_phone">
+        </div>
+
         <input class="mdl-textfield__input"
-                type="tel"
-                placeholder="Telefonnummer"
-                style="display:none"
-                id="login_input_phone">
+                    type="email"
+                    placeholder="E-Mail-Adresse"
+                    style="display:none"
+                    id="login_input_email">
+        <br>
+        <input class="mdl-textfield__input"
+                    type="password"
+                    placeholder="Passwort"
+                    style="display:none"
+                    id="login_input_password">
+
+
         
         <button class="mdl-button mdl-button--raised mdl-button--accent mdl-cell mdl-cell--12-col"
                 onclick="phoneBtnClicked();"
@@ -22,18 +44,43 @@
                 id="login_btn_proove">
             Bestätigen
         </button>
+        <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
+                style="display:none"
+                id="login_btn_ready"
+                onclick="auth.signInWithEmail()">
+            Fertig
+        </button>
 
         <!--Text und Bild sollen nebeneinander stehen-->
         <div class="mdl-grid" id="login_div_datenschutz">
             <p class="mdl-cell mdl-cell--11-col mdl-cell--6-col-tablet mdl-cell--3-col-phone">Wozu benötigt Ceciplan meine Telefonnummer?</p>
-            <i class="material-icons mdl-cell mdl-cell--1-col">help_outline</i>
+            <i class="material-icons mdl-cell mdl-cell--1-col" onclick="alert()">help_outline</i>
         </div>
 
         <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
                 style="margin-top:200px"
+                onclick="emailBtnClicked()"
                 id="login_btn_email">
             Lieber mit E-Mail-Adresse anmelden
         </button>
     </div>
+
+    <dialog open id="favDialog">
+        <form method="dialog">
+            <section>
+            <p><label for="favAnimal">Favorite animal:</label>
+            <select id="favAnimal">
+                <option></option>
+                <option>Brine shrimp</option>
+                <option>Red panda</option>
+                <option>Spider monkey</option>
+            </select></p>
+            </section>
+            <menu>
+            <button id="cancel" type="reset">Cancel</button>
+            <button type="submit">Confirm</button>
+            </menu>
+        </form>
+    </dialog>
 </div>
 </div>
