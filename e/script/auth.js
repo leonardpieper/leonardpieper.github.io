@@ -108,3 +108,10 @@ function emailBtnClicked() {
 
     $("#login_div_err").html("");
 }
+
+function showDataprotection() {
+    alert("Ceciplan benötigt Ihre Anmeldedaten in Form von Telefonnummer oder E-Mail-Adresse um Missbrauch des Service zu vermindern."
+    + "Da es möglich ist nutzergenerierte Inhalte innerhalb der App zu erstellen, wird zum Schutz aller Benutzer eine Kontaktmöglichkeit vorausgesetzt. "
+    + "Die App soll keine Möglichkeit für anonymes Mobbing geben. Ferner soll sichergestellt werden, dass gesetzeswidrige Medien oder Schriften nicht über diese Plattform verbreitet werden."
+    + "Sollten Sie Datenschutzbedenken haben lesen Sie sich bitte die Datenschutzbestimmungen unter http://leonardpieper.github.io/ceciplan/content/datenschutz.html durch");
+}
