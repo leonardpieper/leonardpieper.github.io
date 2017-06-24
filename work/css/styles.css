@@ -4,8 +4,13 @@ body{
 }
 main{
     max-width: 1300px;
+    background: #D7CCC8;
     margin-left: auto;
     margin-right: auto;
+}
+hr{
+  margin: 0;
+  border: 0.5px solid #4d1a00;
 }
 .headline{
     text-align: center;
