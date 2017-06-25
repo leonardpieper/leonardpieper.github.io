@@ -136,7 +136,6 @@ function getVPlanForTeacher(location){
 function changeVPlanYear(evt, year) {
     var i, tabcontent, tablins;
 
-    // getVPlanForYear(year, "vplan");
     vplan.getVPlanForYear(year, function (vertretungsplan) {
         $("#vPlanAll" + year).html(vertretungsplan)
     });
@@ -163,7 +162,6 @@ function setFirstOpen() {
 var vplan = {
     getVPlanForYear: function (jahrgang, fn) {
         firebase.database().ref("vPlan" + "/" + jahrgang).on("value", function(snapshot) {
-        console.log(snapshot.key)
         var output = "<table class='android-vPlan-Table'>";
         var iDatum;
         snapshot.forEach(function(childSnapshot) {

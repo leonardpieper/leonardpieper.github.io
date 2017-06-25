@@ -12,7 +12,7 @@
         </div>
         <div class="mdl-grid vplan-card_grid">
             <div class="mdl-cell mdl-cell--12-col android-main">
-                <div class="mdl-card__supporting-text android-vertretung android-vPlan-card" id="vPlanToday">
+                <div class="mdl-card__supporting-text android-vertretung android-vPlan-card" id="vPlanDash">
                     <div class="loader"></div>
                 </div>
             </div>
@@ -70,3 +70,11 @@
 </div>
 </div>
 </div>
+
+
+<script>
+  var authJahrgang = auth.getJahrgang();
+  vplan.getVPlanForYear(authJahrgang, function (vertretungsplan) {
+       $("#vPlanDash").html(vertretungsplan);
+    });
+</script>
