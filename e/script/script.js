@@ -77,11 +77,12 @@ function changePage(href) {
         } else if (href == "content/profile.html") {
             getUserProfilePage();
             isUserLoggedIn();
-        } else if (href == "content/vplan.html") {
-            setFirstOpen();
-            getVPlanForYear(jahrgang, "vplan");
+        } 
+        // else if (href == "content/vplan.html") {
+        //     setFirstOpen();
+        //     getVPlanForYear(jahrgang, "vplan");
 
-        }
+        // }
         if(LocalUser.getTeacherStatus()=="true"){
           $(".operatorArea").show();
         }

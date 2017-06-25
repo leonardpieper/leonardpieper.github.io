@@ -46,12 +46,6 @@ limitations under the License
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/client.js"></script>
 
-    <script src="script/script.js"></script>
-    <script src="script/vplan.js"></script>
-    <script src="script/auth.js"></script>
-    <script src="script/storage.js"></script>
-    <script src="script/kurs.js"></script>
-
     <!-- Firebase -->
     <!-- <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
@@ -68,6 +62,12 @@ limitations under the License
         };
         firebase.initializeApp(config);
     </script>
+
+    <script src="script/script.js"></script>
+    <script src="script/vplan.js"></script>
+    <script src="script/auth.js"></script>
+    <script src="script/storage.js"></script>
+    <script src="script/kurs.js"></script>
 
 </head>
 
@@ -132,7 +132,7 @@ limitations under the License
                 $('main').load('content/vplan.html', function() {
                     firebase.auth().onAuthStateChanged(function() {
                         setFirstOpen();
-                        getVPlanForYear(getJahrgang(), "vplan");
+                        // getVPlanForYear(getJahrgang(), "vplan");
 
                     });
                 });

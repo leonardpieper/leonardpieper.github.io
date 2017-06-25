@@ -1,8 +1,8 @@
 <ul class="android-tab">
   <li><a class="tablinks" onclick="changeVPlanYear(event, 'me');getVPlanForTeacher('vplan')"><i class="material-icons">person</i></a></li>
-    <li><a class="tablinks" onclick="changeVPlanYear(event, 'EF');getVPlanForYear('EF')" id="tabEF">EF</a></li>
-    <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q1');getVPlanForYear('Q1')">Q1</a></li>
-    <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q2');getVPlanForYear('Q2')">Q2</a></li>
+    <li><a class="tablinks" onclick="changeVPlanYear(event, 'EF');" id="tabEF">EF</a></li>
+    <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q1');">Q1</a></li>
+    <li><a class="tablinks" onclick="changeVPlanYear(event, 'Q2');">Q2</a></li>
 </ul>
 
 <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--4dp android-main">
@@ -28,3 +28,14 @@
         </section>
     </div>
 </div>
+
+<script>
+    var authJahrgang = auth.getJahrgang();
+    setFirstOpen();
+
+    vplan.getVPlanForYear(authJahrgang, function (vertretungsplan) {
+       $("#vPlanAll" + authJahrgang).html(vertretungsplan);
+       $("#" + authJahrgang).show();
+    });
+    
+</script>
