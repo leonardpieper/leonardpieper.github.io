@@ -76,5 +76,6 @@
   var authJahrgang = auth.getJahrgang();
   vplan.getVPlanForYear(authJahrgang, function (vertretungsplan) {
        $("#vPlanDash").html(vertretungsplan);
+       $("#" + authJahrgang).show();
     });
 </script>
