@@ -1,34 +1,3 @@
-// function checkGAuth() {
-//     if (gapi.auth.getToken() !== null) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-// function doGAuth(place) {
-//     gapi.auth.authorize({
-//         client_id: CLIENT_ID,
-//         scope: SCOPES,
-//         immediate: false
-//     }, function() {
-//         switch (place) {
-//             case "login":
-//                 history.pushState(null, null, "index.html");
-//                 changePage('content/index.html');
-//                 break;
-//             default:
-//                 console.log("G-LoggedIn");
-//         }
-//     });
-// }
-
-// function noGAuth() {
-//     history.pushState(null, null, "index.html");
-//     changePage('content/index.html');
-//     localStorage.setItem("noGAuth", true);
-// }
-
 var auth = {
     setreCAPTCHA: function () {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('login_btn_proove', {
@@ -52,6 +21,7 @@ var auth = {
                 // SMS sent. Prompt user to type the code from the message, then sign the
                 // user in with confirmationResult.confirm(code).
                 window.confirmationResult = confirmationResult;
+                changePage("content/home.html");
             }).catch(function (error) {
                 // Error; SMS not sent
                 // ...
@@ -62,10 +32,14 @@ var auth = {
         var email = $("#login_input_email").val();
         var password = $("#login_input_password").val();
 
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+            changePage("content/home.html");
+        }).catch(function (error) {
             var errorCode = error.code;
             if (errorCode === "auth/user-not-found") {
-                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (createError) {
+                firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+                    changePage("content/home.html");
+                }).catch(function (createError) {
                     if (createError === "auth/operation-not-allowed") {
                         $("#login_div_err").html("Anmeldung per E-Mail-Adresse sind derzeit nicht erlaubt");
                     } else if (createError === "auth/weak-password") {
@@ -84,7 +58,7 @@ var auth = {
         });
     },
 
-    setJahrgang: function (jahrgang){
+    setJahrgang: function (jahrgang) {
         localStorage.setItem("jahrgang", jahrgang);
     },
 

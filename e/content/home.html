@@ -1,29 +1,29 @@
 <div class="mdl-grid">
-    <div class="mdl-card mdl-cell mdl-cell--2-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--4dp android-main android-kurs_nav">
-        <div class="mdl-card__supporting-text">
-            <div id="dashKurse" class="dashKurseDiv">
-                <div class="loader"></div>
-            </div>
-        </div>
+  <div class="mdl-card mdl-cell mdl-cell--2-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--4dp android-main android-kurs_nav">
+    <div class="mdl-card__supporting-text">
+      <div id="dashKurse" class="dashKurseDiv">
+        <div class="loader"></div>
+      </div>
     </div>
-    <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--4dp android-main">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text" onclick="alert('Hi')'">Vertretungen</h2>
+  </div>
+  <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--4dp android-main">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text" onclick="alert('Hi')'">Vertretungen</h2>
+    </div>
+    <div class="mdl-grid vplan-card_grid">
+      <div class="mdl-cell mdl-cell--12-col android-main">
+        <div class="mdl-card__supporting-text android-vertretung android-vPlan-card" id="vPlanDash">
+          <div class="loader"></div>
         </div>
-        <div class="mdl-grid vplan-card_grid">
-            <div class="mdl-cell mdl-cell--12-col android-main">
-                <div class="mdl-card__supporting-text android-vertretung android-vPlan-card" id="vPlanDash">
-                    <div class="loader"></div>
-                </div>
-            </div>
-            <!-- <div class="mdl-cell mdl-cell--4-col">
+      </div>
+      <!-- <div class="mdl-cell mdl-cell--4-col">
           <table id="dashFiles" class="onlyInnerBorderTable">
           </table>
         <div id="dashKlausuren"></div>
       </div> -->
-        </div>
     </div>
-    <!-- <div class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--4dp android-main">
+  </div>
+  <!-- <div class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--4dp android-main">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">Vertretungen morgen</h2>
     </div>
@@ -31,7 +31,7 @@
         <div class="loader"></div>
       </div>
   </div> -->
-    <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-shadow--4dp android-main">
+  <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-shadow--4dp android-main">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">Aktuelle Kurse</h2>
     </div>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div> -->
-    <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-cell--7-col-tablet mdl-shadow--4dp android-main">
+  <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-cell--7-col-tablet mdl-shadow--4dp android-main">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text" onclick="alert('Hi')'">Downloads</h2>
         </div>
@@ -49,7 +49,7 @@
         </table>
         <div id="dashKlausuren"></div>
     </div> -->
-    <!-- <div class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--4dp android-main">
+  <!-- <div class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--4dp android-main">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Vertretungen morgen</h2>
   </div>
@@ -57,7 +57,7 @@
       <div class="loader"></div>
     </div>
 </div> -->
-    <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-shadow--4dp android-main">
+  <!-- <div class="mdl-card mdl-cell mdl-cell--3-col mdl-shadow--4dp android-main">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Aktuelle Kurse</h2>
   </div>
@@ -75,7 +75,16 @@
 <script>
   var authJahrgang = auth.getJahrgang();
   vplan.getVPlanForYear(authJahrgang, function (vertretungsplan) {
-       $("#vPlanDash").html(vertretungsplan);
-       $("#" + authJahrgang).show();
-    });
+    $("#vPlanDash").html(vertretungsplan);
+  });
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      kurse.getKurse(function (kurse) {
+        $("#dashKurse").html(kurse);
+      });
+    } else {
+      console.log("No user signed in")
+    }
+  });
+
 </script>

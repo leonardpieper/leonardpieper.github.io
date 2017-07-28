@@ -2,6 +2,8 @@ var uploadedFiles;
 var currentPage = "";
 var jahrgang;
 
+var mAuth = firebase.auth();
+
 $(document).ready(function() {
     // History Api
     var content = $('main');
