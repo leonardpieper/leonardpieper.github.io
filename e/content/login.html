@@ -1,10 +1,31 @@
-<div class="mdl-card mdl-shadow--4dp android-main card-basic android-card-fab mdl-cell--3-col-desktop mdl-cell-5-tablet">
+<div class="mdl-card mdl-shadow--4dp android-main card-basic mdl-cell--3-col-desktop mdl-cell--5-tablet mdl-cell--4-col-phone">
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Anmelden</h2>
     </div>
     
     <div class="mdl-card__supporting-text">
         <div class="android-login-err" id="login_div_err"></div>
+        
+        <div class="mdl-grid" id="login_div_vplan">
+            <input  class="mdl-textfield__input mdl-cell mdl-cell--12-col mdl-cell--4-col-phone"
+                    placeholder="Vertretungsplan-Benutzername"
+                    id="login_input_vplan-uname">
+            <input class="mdl-textfield__input mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone"
+                    type="password"
+                    placeholder="Vertretungsplan-Passwort"
+                    id="login_input_vplan-pwd">
+            <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
+                onclick="vplanBtnClicked()"
+                id="login_btn_vplan"
+                style="text-align:right">
+                Anmelden  <i class="material-icons">&#xE5C8;</i>
+            </button>
+            <hr style="margin-top:100px;
+                        width:100vw">
+        </div>
+    
+        
+
         <div class="mdl-grid">
             <input  class="mdl-textfield__input mdl-cell mdl-cell--2-col mdl-cell--1-col-phone"
                     disabled="disabled"
@@ -51,17 +72,16 @@
             Fertig
         </button>
 
-        <!--Text und Bild sollen nebeneinander stehen-->
-        <div class="mdl-grid" id="login_div_datenschutz">
+         <!-- Text und Bild sollen nebeneinander stehen -->
+        <!-- <div class="mdl-grid" id="login_div_datenschutz">
             <p class="mdl-cell mdl-cell--11-col mdl-cell--6-col-tablet mdl-cell--3-col-phone">Wozu benötigt Ceciplan meine Telefonnummer?</p>
             <i class="material-icons mdl-cell mdl-cell--1-col" onclick="showDataprotection()">help_outline</i>
-        </div>
+        </div>  -->
 
         <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
-                style="margin-top:200px"
                 onclick="emailBtnClicked()"
                 id="login_btn_email">
-            Lieber mit E-Mail-Adresse anmelden
+           <i class="material-icons">&#xE0E1;</i>   Mit E-Mail-Adresse anmelden
         </button>
     </div>
 </div>

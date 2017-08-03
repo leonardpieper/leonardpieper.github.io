@@ -486,6 +486,9 @@ a img{
 a{
   color:#FF9800;
 }
+hr{
+  border-top: #FF9800 solid 1px;
+}
 /*Buttons*/
 .mdl-button--accent.mdl-button--accent{
   color: #FF9800;
@@ -493,7 +496,7 @@ a{
 
 /*Cards*/
 .card-basic{
-  min-width: 350px;
+  margin-top: 16px;
 }
 
 /*
@@ -529,11 +532,8 @@ h2{
 .android-switch{
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-.android-switch input{
-  /*display: none;*/
+  width: 50px;
+  height: 24px;
 }
 .android-slider{
   position: absolute;
@@ -549,8 +549,8 @@ h2{
 .android-slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 16px;
+  width: 16px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -572,7 +572,7 @@ input:checked + .android-slider:before {
 }
 /* Rounded sliders */
 .android-slider.round {
-  border-radius: 34px;
+  border-radius: 24px;
 }
 
 .android-slider.round:before {
@@ -1179,6 +1179,7 @@ table.onlyInnerBorderTable tr td:last-child{
   .kursLink{
     display: block;
     text-align: center;
+    margin: 0;
   }
   .kurs-liste{
     display: block !important;

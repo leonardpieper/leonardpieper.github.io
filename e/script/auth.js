@@ -67,7 +67,31 @@ var auth = {
     }
 }
 
+function vplanBtnClicked() {
+    mAuth.signInAnonymously().then(function (user) {
+        var uname = $("#login_input_vplan-uname").val();
+        var pwd = $("#login_input_vplan-pwd").val();
+        firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+            uname: uname,
+            pwd: pwd
+        }, function (error) {
+            if(error){
+                console.error(error);
+            }else{
+                changePage("content/home.html");
+            }
+        });
+    }).catch(function (error) {
+        if (error.code === 'auth/operation-not-allowed') {
+            alert('Temporäre Störung! Bitte melde dich mit deiner Telefonnummer oder E-Mail-Adresse an.');
+        } else {
+            console.error(error);
+        }
+    });
+}
+
 function phoneBtnClicked() {
+    $("#login_div_vplan").hide();
     $("#login_btn_phone").hide();
     $("#login_div_datenschutz").hide();
     $("#login_btn_email").hide();
@@ -80,6 +104,7 @@ function phoneBtnClicked() {
 }
 
 function emailBtnClicked() {
+    $("#login_div_vplan").hide();
     $("#login_btn_phone").hide();
     $("#login_div_datenschutz").hide();
     $("#login_btn_email").hide();
