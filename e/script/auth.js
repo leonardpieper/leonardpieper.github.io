@@ -71,10 +71,12 @@ function vplanBtnClicked() {
     mAuth.signInAnonymously().then(function (user) {
         var uname = $("#login_input_vplan-uname").val();
         var pwd = $("#login_input_vplan-pwd").val();
-        firebase.database().ref("Users/" + user.uid + "/vPlan").update({
+        var jahrgang = $("#login_input_jahrgang").val();
+        firebase.database().ref("Users/" + user.uid + "/vPlan").set({
             uname: uname,
             pwd: pwd
         }, function (error) {
+            auth.setJahrgang(jahrgang);
             if(error){
                 console.error(error);
             }else{
