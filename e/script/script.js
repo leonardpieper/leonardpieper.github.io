@@ -48,7 +48,7 @@ $(document).ready(function() {
     }
 
     //Apple Add to Homescreen annotation
-    if(window.navigator.standalone == false || getAppleHomescrennAnnotation()==null){
+    if(window.navigator.standalone == true || getAppleHomescrennAnnotation()==null){
          $("#main_div_addToHomescreenAnnotation").show();
     }
    
