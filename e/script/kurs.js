@@ -313,6 +313,12 @@ var kurse = {
         } else {
             var cacheKurse = kursCache.getCache().kurse;
             output = "";
+            if(cacheKurse == undefined){
+                fn("<p class='noKurse'>Keine Kurse gefunden</p>");
+                kursCache.setCacheTime(new Date().getTime());
+                return;
+            }
+
             for (var kurs in cacheKurse) {
                 var name = cacheKurse[kurs].kurs;
                 var timestamp = cacheKurse[kurs].timestamp;
@@ -334,7 +340,9 @@ var kurse = {
             var output = "";
 
             if (snapshot.val() === null) {
-                return "<p class='noKurse'>Keine Kurse gefunden</p>";
+                fn("<p class='noKurse'>Keine Kurse gefunden</p>");
+                kursCache.setCacheTime(new Date().getTime());
+                return;
             } else {
                 kursCache.newCache();
 
@@ -423,6 +431,20 @@ var kursCache = {
             return cache.mill;
         }
     },
+
+    setCacheTime: function (timeInMillis) {
+        var oldCache = localStorage.getItem("kurse");
+        var cache = JSON.parse(oldCache)
+        if (oldCache == undefined || oldCache == "undefined") {
+            this.newCache();
+            cache = new Object();
+        } 
+        
+        cache.mill = timeInMillis;
+
+        localStorage.setItem("kurse", JSON.stringify(cache));
+        
+    }
 
 
 }

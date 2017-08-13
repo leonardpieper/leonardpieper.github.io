@@ -47,6 +47,12 @@ $(document).ready(function() {
       $(".operatorArea").show();
     }
 
+    //Apple Add to Homescreen annotation
+    if(window.navigator.standalone == false || getAppleHomescrennAnnotation()==null){
+         $("#main_div_addToHomescreenAnnotation").show();
+    }
+   
+
 
     //Service Worker
     // if ('serviceWorker' in navigator) {
@@ -69,10 +75,7 @@ function toggleDrawer() {
 function changePage(href) {
     $("#waterfallHeader").addClass("is-casting-shadow");
     $('main').load(href, function() {
-        if (href == "content/kurse.html") {
-            getKurse("kurs-liste");
-            getBadge();
-        } else if (href == "content/index.html") {
+        if (href == "content/index.html") {
             getKurse("dashKurse");
             getBadge();
             getVPlanForYear(jahrgang, "home");
@@ -143,6 +146,15 @@ function addHistoryAPIToNewAnchors(changeClass) {
         changePage(href);
 
     })
+}
+
+function setAppleHomescrennAnnotation(showAnnotation) {
+    localStorage.setItem("showAnnotation", showAnnotation);
+    $("#main_div_addToHomescreenAnnotation").hide();
+}
+
+function getAppleHomescrennAnnotation() {
+    return localStorage.getItem("showAnnotation");
 }
 
 function firebaseLogin() {
@@ -631,14 +643,18 @@ function loadSetting(name) {
         case "info":
             $("#settingsTitle").html("Info");
             $("#settingsContent").load("content/settings/info.html", function() {
+                
                 $("#settingsEmail").html(firebase.auth().currentUser.email);
+                if(firebase.auth().currentUser.isAnonymous){
+                    $("#settingsEmail").html("Keine E-Mail-Adresse angegeben");
+                }
 
-                var year = getJahrgang();
+                var jahrgang = getJahrgang();
                 var abk = getLehrerAbk();
-                if (year == 0) {
+                if (jahrgang == "lehrer") {
                     $("#settingsYear").html("Lehrer");
                 } else {
-                    $("#settingsYear").html(year);
+                    $("#settingsYear").html(jahrgang);
                     $("#settingsKrzlDesc").hide();
                     $("#settingsKrzl").hide();
                 }

@@ -39,7 +39,7 @@ limitations under the License
     <!-- Apple Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="resources/icons/logo.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="apple-touch-startup-image" href="resources/icons/logo.png">
 
     <!-- JQuery -->
@@ -127,6 +127,19 @@ limitations under the License
                 <a class="mdl-navigation__link" href="content/profile.html" onclick="toggleDrawer()">Profil</a>
                 <!-- <a class="mdl-navigation__link" href="content/signout.html" onclick="toggleDrawer()">Logout</a> -->
             </nav>
+        </div>
+
+        <div style="align-self:center; display:none" id="main_div_addToHomescreenAnnotation">
+            <h4>App installieren
+                <button class="mdl-button mdl-button--accent"
+                        onclick="setAppleHomescrennAnnotation(false)"
+                        style="color:black;
+                                float:right">
+                    <i class="material-icons">close</i>
+                </button>
+            </h4>
+            Bitte installiere die App mit Klick auf <img src="resources/icons/action_icon_ios.png" height="20"/> und dann 'Zum Home-Bildschirm'
+            <br />
         </div>
 
         <main class="android-content mdl-layout__content">
