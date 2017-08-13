@@ -280,8 +280,7 @@ function signOut() {
 function isUserLoggedIn() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user === null) {
-            history.pushState(null, null, "login.html");
-            changePage("content/login.html");
+            $('main').load('content/login.html');
             return true;
         } else {
             return false;

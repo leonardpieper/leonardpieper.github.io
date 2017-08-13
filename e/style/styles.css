@@ -499,6 +499,10 @@ hr{
   margin-top: 16px;
 }
 
+#login_div_card_vplan{
+  min-width: 400px;
+}
+
 /*
 OLD
 Content
@@ -1186,6 +1190,10 @@ table.onlyInnerBorderTable tr td:last-child{
   }
   .kursIcon{
     min-height: 50px;
+  }
+
+  #login_div_card_vplan{
+    min-width: 0;
   }
 }
 @media (max-width: 680px) {
