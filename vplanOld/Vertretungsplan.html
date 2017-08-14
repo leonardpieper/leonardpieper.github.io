@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)https://vertretungsplan.cf/ -->
+<html class="ui-mobile"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="https://vertretungsplan.cf/">--><base href=".">
+	<title>Vertretungsplan</title>
+	
+
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+
+	<link rel="icon" type="image/png" href="https://vertretungsplan.cf/favicon.png" sizes="32x32">
+
+	<!--Apple Stuff-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="apple-touch-icon" href="./Vertretungsplan_files/iOS_ico.png">
+	<!--/Apple Stuff-->
+
+	<!--Android Stuff-->
+	<link rel="manifest" href="https://vertretungsplan.cf/manifest.json">
+	<!--/Android Stuff-->
+
+	<!--Windows-Phone Stuff-->
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/iOS_ico.png">
+	<!--/Windows-Phone Stuff-->
+
+	<link rel="stylesheet" href="./Vertretungsplan_files/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="./Vertretungsplan_files/dark.min.css">
+	<script src="./Vertretungsplan_files/cb=gapi.loaded_0" async=""></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="./Vertretungsplan_files/jquery.min.js.Download"></script>
+	<!--<script src="demos/_assets/js/index.js"></script>-->
+	<script src="./Vertretungsplan_files/jquery.mobile-1.4.5.min.js.Download"></script>
+
+	<!--If Nothing Works enable!-->
+	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>-->
+	<script src="./Vertretungsplan_files/firebase.js.Download"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyBLeRUwjrRDXdVyqdXK9SBQ7jR2ZziGP8w",
+		authDomain: "ceci-vertretungsplan.firebaseapp.com",
+		databaseURL: "https://ceci-vertretungsplan.firebaseio.com",
+		storageBucket: "ceci-vertretungsplan.appspot.com",
+	  };
+	  firebase.initializeApp(config);
+	  var rootRef = firebase.database().ref();
+
+
+	</script>
+<script type="text/javascript" charset="UTF-8" src="./Vertretungsplan_files/api.js.Download" gapi_processed="true"></script></head>
+<body class="ui-mobile-viewport ui-overlay-a">
+
+<div data-role="page" data-url="/" tabindex="0" class="ui-page ui-page-theme-a ui-page-footer-fixed ui-page-active" style="padding-bottom: 48px; min-height: 853px;">
+
+	<div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+		<h1 class="ui-title" role="heading" aria-level="1">Vertretungsplan</h1>
+		<!--<a href="#leftpanel1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-mini">Overlay</a>-->
+		<a href="https://vertretungsplan.cf/#leftpanel1" data-role="none" class="ui-btn-left"><img src="./Vertretungsplan_files/nav.png" height="33"></a>
+
+
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<div id="conWarn"><h2>Login</h2>Bitte log dich mit deinen Zugangsdaten ein.</div>
+
+		<div id="conTable">
+			<table id="table"></table>
+		<div id="first"><h2>App installieren: </h2>Bitte installiere diese App mit Klick auf <img src="./Vertretungsplan_files/action-icon-ios7.png" height="20"> und dann 'Zum Home-Bildschirm'<br> <a onclick="disableFirst()">Ich möchte diese Nachricht nicht mehr sehen</a></div></div>
+
+		<div id="conAcc" style="display: none;">
+			<h2>Login</h2>
+			<p style="border: 1px solid rgba(0,0,0,.8)">In der Testphase kann es passieren, dass es ein paar Stunden dauert, bis die Daten aktualisieren!</p>
+			<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" id="uName" placeholder="Benutzername"></div>
+			<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="password" id="pwd" placeholder="Passwort"></div>
+			<div class="ui-select"><div id="dropJahrgang-button" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow"><span>Jahrgangsstufe</span><select id="dropJahrgang">
+				<option selected="" disabled="">null</option>
+				<option>ef</option>
+				<option>q1</option>
+				<option>q2</option>
+			</select></div></div>
+			<button id="subBtn" onclick="signIn(&#39;ef&#39;, false)" class=" ui-btn ui-shadow ui-corner-all">Login</button>
+
+			<br>
+			<h2>Fächer</h2>
+			<div id="conFacher"></div>
+			<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input id="addFachInput" type="text" placeholder="Kurskurzel: z.B. &#39;E EFa&#39;"></div>
+			<button id="addFach" onclick="addFach()" class=" ui-btn ui-shadow ui-corner-all">Hinzufügen</button>
+		</div>
+
+		<div id="conInfo" style="display:none">
+			<h2>Info</h2>
+			Bei Fragen bitte an cecivplan[at]outlook.com schreiben.<br>
+
+			Diese Webseite stellt den Vertretungsplan des Ceciliengymnasiums dar.<br>
+			Der/Die Eigentümer oder der/die Verantwortliche/n von <a href="http://ceciliengymnasium.de/index.php/vertretungsplan" class="ui-link">http://ceciliengymnasium.de/</a> sind nicht Eigentümer dieser Webseite!
+			<br>
+			Es ist nicht garantiert, dass die Daten dieser Seite aktuell sind. Die Daten können mittlerweile veraltet sein (siehe Zeitstempel).
+			<br>
+
+			<h3>Benutzung</h3>
+			Diese Web-App ist für iOS(Apple) ausgerichtet, kann allerdings auch von jedem anderen Betriebssystem benutzt werden.<br>
+			Für android installier dir bitte die App vom <a href="https://play.google.com/store/apps/details?id=com.github.leonardpieper.ceciVPlan" class="ui-link">Google Play Store</a>.<br>
+			Um die App zu installieren drücke auf den Action-Button in Safari und wähle "zum Home-Bildschirm".<br>
+			Der Benutzername sowie das Passwort von <a href="http://ceciliengymnasium.de/index.php/vertretungsplan" class="ui-link">http://ceciliengymnasium.de/</a> werden zum Anmelden benötigt.
+			<br>
+
+			<h3>Lizenz</h3>
+			<i>
+				Ceci Vertretungsplan<br>
+				Copyright (C) 2016 Leonard Pieper<br><br>
+
+				Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.<br>
+
+				Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License
+			</i>
+		</div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed" data-tap-toggle="false" role="contentinfo" class="ui-footer ui-bar-inherit ui-footer-fixed slideup">
+		<div data-role="navbar" class="ui-navbar" role="navigation">
+			<ul class="ui-grid-c">
+				<li class="ui-block-a"><a onclick="signIn(getStufe(), true)" class="ui-link ui-btn"><img src="./Vertretungsplan_files/ic_person_black_24dp_1x.png"></a></li>
+				<li class="ui-block-b"><a onclick="signIn(&#39;ef&#39;, false)" class="ui-btn-active ui-link ui-btn" style="font-size:17px">EF</a></li>
+				<li class="ui-block-c"><a onclick="signIn(&#39;q1&#39;, false)" style="font-size:17px" class="ui-link ui-btn">Q1</a></li>
+				<li class="ui-block-d"><a onclick="signIn(&#39;q2&#39;, false)" style="font-size:17px" class="ui-link ui-btn">Q2</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div>
+
+	<!-- leftpanel1  -->
+	<div data-role="panel" id="leftpanel1" data-position="left" data-display="overlay" data-theme="a" class="panelBtn ui-panel ui-panel-position-left ui-panel-display-overlay ui-panel-closed ui-body-a ui-panel-animate">
+
+        <div class="ui-panel-inner"><div class="panelHead">
+		<img src="./Vertretungsplan_files/iOS_ico.png" style="height:100px">
+			<h3>Vertretungsplan</h3>
+		</div><a onclick="signIn(&#39;ef&#39;, false)" class="panelBtn ui-link" data-rel="close">Vertretungsplan</a><br><hr><a onclick="loginForm(); showFacher()" class="panelBtn ui-link" data-rel="close">Account</a><br><hr><a onclick="info()" class="panelBtn ui-link" data-rel="close">Info</a></div>
+		
+		
+		
+		
+		
+        <!--<a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ui-btn-inline">Close panel</a>-->
+
+	</div><!-- /leftpanel1 -->
+
+</div><!-- /page -->
+
+<script type="text/javascript">
+	function signIn(jahrgang, personal){
+
+		document.getElementById("conAcc").style.display="none";
+		document.getElementById("conInfo").style.display="none";
+
+		//firebase.auth().signOut();
+
+		var uName = document.getElementById('uName').value;
+		var email= document.getElementById('uName').value + "@example.com";
+        var pwd = document.getElementById('pwd').value;
+		var stufe = $("#dropJahrgang :selected").text();
+
+		if(email==null||pwd==null||email=="@example.com"||pwd==""){
+			uName=localStorage.getItem("email");
+			email= uName+"@example.com";
+			pwd= localStorage.getItem("pwd");
+			stufe = getStufe();
+
+			if(email==null||pwd==null){
+				document.getElementById('conWarn').innerHTML = "<h2>Login</h2>Bitte log dich mit deinen Zugangsdaten ein.";
+			}
+
+			document.getElementById('uName').value=uName;
+			document.getElementById('pwd').value=pwd;
+
+			$("#dropJahrgang :selected").text(stufe);
+
+		}
+
+		if(stufe=="Jahrgangsstufe"||stufe==""||stufe=="null"){
+				alert("Bitte gib deine Jahrgangsstufe an.");
+				document.getElementById('conWarn').innerHTML += "<h2> Fehler</h2>Gib deine Jahrgangsstufe an";
+		}
+
+
+		firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+
+		var auth = firebase.auth();
+
+
+		if(navigator.onLine){
+			auth.onAuthStateChanged(function(user) {
+				if (user) {
+				//alert('Geht');
+				var uid = user.uid;
+
+				if(user){
+					uid = user.uid;
+				}
+				firebase.database().ref('users/' + uid + '/').on('value', function(snapshot) {
+				var data = snapshot.val();
+
+					var myTable = "";
+					switch(jahrgang){
+						case "ef":
+							var stufe = data.EF;
+							break;
+						case "q1":
+							var stufe = data.Q1;
+							break;
+						case "q2":
+							var stufe = data.Q2;
+							break;
+					}
+
+					var datum = "99.99";
+					//stufe.length-1 weil das Letzte Feld das Aktualisierungsdatum ist
+					for(var i=1;i<=stufe.length-2; i++){
+						var obj = stufe[i];
+						if(personal){
+							var facher = [];
+							facher = JSON.parse(localStorage.getItem("facher"));
+
+							if(facher==null || facher.length == 0){
+								myTable ="<tr><td>Füge deine Fächer unter Account hinzu!</td></tr>";
+							}else{
+
+								for(var j=0;j<facher.length;j++){
+									var fach = facher[j];
+									if(obj.Fach.toUpperCase() == fach.toUpperCase()){
+										if(datum != obj.Datum){
+											myTable+= "<tr><td colspan='3' id='date'>"+obj.Tag+"</td>";
+											myTable+= "<td colspan='2' id='date'>"+obj.Datum+"</td></tr>";
+
+											myTable+= "<tr><td class='fach'>"+obj.Fach+"</td>";
+											myTable+= "<td class='stunde'>"+obj.Stunde+"</td>";
+											myTable+= "<td>"+obj.Vertreter+"</td>";
+											myTable+= "<td>"+obj.Raum+"</td>";
+											if(isNaN(obj['Vertretungs-Text']) || obj['Vertretungs-Text'] == " " || obj['Vertretungs-Text'] == "&nbsp"){
+												myTable+= "<td>"+obj['Vertretungs-Text']+"</td></tr>";
+											}else{
+												myTable+= "<td>&nbsp</td></tr>";
+											}
+										}
+										else{
+											myTable+= "<tr><td class='fach'>"+obj.Fach+"</td>";
+											myTable+= "<td class='stunde'>"+obj.Stunde+"</td>";
+											myTable+= "<td>"+obj.Vertreter+"</td>";
+											myTable+= "<td>"+obj.Raum+"</td>";
+											if(isNaN(obj['Vertretungs-Text']) || obj['Vertretungs-Text'] == " " || obj['Vertretungs-Text'] == "&nbsp"){
+												myTable+= "<td>"+obj['Vertretungs-Text']+"</td></tr>";
+											}else{
+												myTable += "<td>&nbsp</td></tr>";
+											}
+										}
+										datum = obj.Datum;
+									}
+								}
+							}
+						}else{
+							if(datum != obj.Datum){
+									myTable+= "<tr><td colspan='3' id='date'>"+obj.Tag+"</td>";
+									myTable+= "<td colspan='2' id='date'>"+obj.Datum+"</td></tr>";
+
+									myTable+= "<tr><td class='fach'>"+obj.Fach+"</td>";
+									myTable+= "<td class='stunde'>"+obj.Stunde+"</td>";
+									myTable+= "<td>"+obj.Vertreter+"</td>";
+									myTable+= "<td>"+obj.Raum+"</td>";
+									if(isNaN(obj['Vertretungs-Text']) || obj['Vertretungs-Text'] == " " || obj['Vertretungs-Text'] == "&nbsp"){
+										myTable+= "<td>"+obj['Vertretungs-Text']+"</td></tr>";
+									}else{
+										myTable+= "<td>&nbsp</td></tr>";
+									}
+								}
+								else{
+									myTable+= "<tr><td class='fach'>"+obj.Fach+"</td>";
+									myTable+= "<td class='stunde'>"+obj.Stunde+"</td>";
+									myTable+= "<td>"+obj.Vertreter+"</td>";
+									myTable+= "<td>"+obj.Raum+"</td>";
+									if(isNaN(obj['Vertretungs-Text']) || obj['Vertretungs-Text'] == " " || obj['Vertretungs-Text'] == "&nbsp"){
+										myTable+= "<td>"+obj['Vertretungs-Text']+"</td></tr>";
+									}else{
+										myTable+= "<td>&nbsp</td></tr>";
+									}
+								}
+								datum = obj.Datum;
+								datum = obj.Datum;
+						}
+
+					}
+
+
+					myTable+="<tr><td id='aktStand'>"+stufe[stufe.length-1].Date+"</td></tr>";
+					document.getElementById("table").innerHTML = myTable;
+					document.getElementById("table").style.display="table";
+					document.getElementById("conWarn").style.display="none";
+
+					localStorage.setItem("vPlan" + jahrgang, myTable);
+
+					setStorage();
+				});
+
+			} else {
+				// User logged out
+			}
+			});
+		//Ende Online-Mode
+
+
+
+		}
+		else{
+			document.getElementById("table").innerHTML = localStorage.getItem("vPlan"+jahrgang);
+		}
+	}
+
+
+
+
+	function showFacher(){
+		var output = "Aktuelle Fächer:<ul>";
+		var facher=[];
+		facher=JSON.parse(localStorage.getItem("facher"));
+		if(facher!=null){
+			for(var i=0;i<facher.length;i++){
+				var fach=facher[i];
+				//output+="<li>"+fach+"<button class='delButton' onclick=removeFach("+fach+")>LÖSCHEN</button></li>";
+				output+="<li>"+fach+"<button class='delButton' onclick=\"removeFach(\'"+fach+"\')\">LÖSCHEN</button></li>";
+			}
+		}
+		output += "</ul>"
+		document.getElementById("conFacher").innerHTML=output;
+	}
+
+	function addFach(){
+		var facher=[];
+		facher=JSON.parse(localStorage.getItem("facher"));
+
+		if(facher==null){
+			facher=[document.getElementById('addFachInput').value];
+		}else{
+			facher.push(document.getElementById('addFachInput').value);
+		}
+		localStorage.setItem("facher", JSON.stringify(facher));
+		showFacher();
+
+	}
+
+	function removeFach(kurs){
+		var facher=[];
+		facher=JSON.parse(localStorage.getItem("facher"));
+		if(facher!=null){
+			for(var i=0;i<facher.length;i++){
+				var fach=facher[i];
+				if(fach==kurs){
+					facher.splice(i, 1);
+					localStorage.setItem("facher", JSON.stringify(facher));
+				}
+			}
+		}
+		showFacher();
+	}
+
+	function loginForm(){
+		document.getElementById("conAcc").style.display="block";
+		document.getElementById("table").style.display="none";
+		document.getElementById("conInfo").style.display="none";
+	}
+
+	function setStorage(){
+		localStorage.setItem("email", document.getElementById('uName').value);
+		localStorage.setItem("pwd", document.getElementById('pwd').value);
+
+		if($("#dropJahrgang :selected").text()=="Jahrgangsstufe"){
+		}else{
+		localStorage.setItem("stufe", $("#dropJahrgang :selected").text());
+		}
+	}
+
+	function getStufe(){
+		stufe=localStorage.getItem("stufe");
+		return stufe;
+	}
+
+	function disableFirst(){
+		localStorage.setItem("first", "first");
+		document.getElementById("first").style.display="none";
+	}
+
+	function info(){
+		document.getElementById("table").style.display="none";
+		document.getElementById("conAcc").style.display="none";
+		document.getElementById("conInfo").style.display="block";
+	}
+
+	$(document).ready(function(){
+		//Apple Cache Stuff
+		//if (window.applicationCache.status == window.applicationCache.UPDATEREADY){
+		//	window.applicationCache.update();
+		//	window.applicationCache.swapCache();
+		//}
+
+
+		//first Start:
+		var first=localStorage.getItem("first");
+		if(window.navigator.standalone == true) {
+		}else{
+			if(first != "first"){
+				document.getElementById("conAcc").style.display="none";
+				var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				//if(iOS){
+					document.getElementById("conTable").innerHTML += "<div id='first'><h2>App installieren: </h2>Bitte installiere diese App mit Klick auf <img src='action-icon-ios7.png' height='20'/> und dann \'Zum Home-Bildschirm\'<br /> <a onclick='disableFirst()'>Ich möchte diese Nachricht nicht mehr sehen</a></div";
+				//}
+			}
+		}
+
+
+		signIn("ef");
+		});
+
+
+
+
+	</script>
+
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74404417-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon-loading"></span><h1>loading</h1></div><div class="ui-panel-dismiss"></div><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" tabindex="0" vspace="0" width="100%" id="I0_1502734523785" name="I0_1502734523785" src="./Vertretungsplan_files/iframe.html" style="position: absolute; top: -100px; width: 1px; height: 1px;"></iframe></body></html>
