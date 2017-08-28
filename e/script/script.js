@@ -48,7 +48,10 @@ $(document).ready(function () {
     }
 
     //Apple Add to Homescreen annotation
-    if (window.navigator.standalone == true || getAppleHomescrennAnnotation() == null) {
+    if(window.navigator.standalone == true){
+        $("#main_div_addToHomescreenAnnotation").hide();
+    }
+    else if (getAppleHomescrennAnnotation() == null) {
         $("#main_div_addToHomescreenAnnotation").show();
     }
 
