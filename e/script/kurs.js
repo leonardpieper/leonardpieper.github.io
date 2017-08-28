@@ -243,9 +243,9 @@ function getBadge() {
 function offlineKursCheckbox() {
     var isOffline = $("#checkboxOfflineKurs").is(":checked");
     if (isOffline == true) {
-        $("#joinSecretTextfield").prop("disabled", true);
+        $("#joinSecretTextfield").hide();
     } else {
-        $("#joinSecretTextfield").prop("disabled", false);
+        $("#joinSecretTextfield").show();
     }
 }
 
@@ -363,6 +363,42 @@ var kurse = {
             }
             fn(output);
         });
+    },
+    joinKurs: function (fn) {
+        var name = $("#joinKursTextfield").val();
+        var refName = name.replace(".", "%2e").toLowerCase();
+        var secret = $("#joinSecretTextfield").val();
+        var auth = firebase.auth();
+        var uid = auth.currentUser.uid;
+
+        var isOffline = $("#checkboxOfflineKurs").is(":checked");
+        var type;
+
+        if (isOffline == true) {
+            type = "offline";
+        } else {
+            type = "online";
+        }
+        
+        
+            if (isOffline == true) {
+                firebase.database().ref('Users/' + uid + '/Kurse/' + refName).set({
+                    name: name,
+                    type: "offline"
+                });
+            } else if (isOffline == false) {
+                firebase.database().ref('Users/' + uid + '/Kurse/' + refName).set({
+                    name: name,
+                    secret: secret,
+                    type: "online"
+                }, function (error) {
+                    if (error) {
+                        kursCache.removeFromCache(name)
+                    };
+                });
+            }
+            kursCache.addCache(name, type);
+        closeDialogBox("android-joinkurs-dialog");
     }
 }
 var kursCache = {

@@ -1199,7 +1199,7 @@ table.onlyInnerBorderTable tr td:last-child{
 @media (max-width: 680px) {
   .settingsMain{
     position: absolute;
-    width: 100% !important;
+    margin: 0;
   }
   .firstShownCard{
     display: none;

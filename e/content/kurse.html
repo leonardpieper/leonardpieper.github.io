@@ -45,21 +45,21 @@
     <div class="android-dialogBox__content">
         <i class="material-icons close-icon" onclick="closeDialogBox('android-joinkurs-dialog')">close</i>
         <h3 class="android-dialogBox__title">Kurs Beitreten</h3>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
+        <div class="android-dialogBox__input">
             <input class="mdl-textfield__input" type="text" id="joinKursTextfield" placeholder="Kursabkürzung">
         </div>
         <br />
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label android-dialogBox__input">
-            <input class="mdl-textfield__input" type="text" id="joinSecretTextfield" placeholder="Passwort">
+        <div class="android-dialogBox__input">
+            <input class="mdl-textfield__input" type="text" id="joinSecretTextfield" placeholder="Passwort" style="display:none">
         </div>
         <div>
           <label class="android-switch">
-            <input type="checkbox" id="checkboxOfflineKurs" onclick="offlineKursCheckbox()">
+            <input type="checkbox" id="checkboxOfflineKurs" onclick="offlineKursCheckbox()" checked disabled>
             <div class="android-slider round"></div>
           </label>
           <span class="mdl-switch__label">Offline-Kurs (Ohne Passwort)</span>
         </div>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="joinKurs()">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect android-dialogBox__Button" onclick="kurse.joinKurs()">
       Beitreten
     </button>
     </div>

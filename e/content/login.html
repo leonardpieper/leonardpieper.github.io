@@ -47,6 +47,12 @@
                     style="display:none"
                     id="login_input_phone">
         </div>
+        
+        <input class="mdl-textfield__input"
+                    type="number"
+                    placeholder="Bestätigungscode"
+                    style="display:none"
+                    id="login_input_code">
 
         <input class="mdl-textfield__input"
                     type="email"
@@ -71,6 +77,12 @@
         <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
                 style="display:none"
                 id="login_btn_proove">
+            Bestätigen
+        </button>
+        <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"
+                style="display:none"
+                id="login_btn_codeReady"
+                onclick="auth.completeTel()">
             Bestätigen
         </button>
         <button class="mdl-button mdl-button--accent mdl-cell mdl-cell--12-col"

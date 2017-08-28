@@ -4,13 +4,13 @@ var jahrgang;
 
 var mAuth = firebase.auth();
 
-$(document).ready(function() {
+$(document).ready(function () {
     // History Api
     var content = $('main');
     var footer = $('footer');
     var nav = $('nav');
 
-    nav.find('a').on('click', function(evt) {
+    nav.find('a').on('click', function (evt) {
         var href = $(this).attr('href');
         evt.preventDefault();
         // Manipulate History
@@ -21,7 +21,7 @@ $(document).ready(function() {
         changePage(href);
     });
 
-    footer.find('a').on('click', function(evt) {
+    footer.find('a').on('click', function (evt) {
         var href = $(this).attr('href');
         evt.preventDefault();
 
@@ -43,15 +43,15 @@ $(document).ready(function() {
     });
     // End History Api
     isUserLoggedIn();
-    if(LocalUser.getTeacherStatus()=="true"){
-      $(".operatorArea").show();
+    if (LocalUser.getTeacherStatus() == "true") {
+        $(".operatorArea").show();
     }
 
     //Apple Add to Homescreen annotation
-    if(window.navigator.standalone == true || getAppleHomescrennAnnotation()==null){
-         $("#main_div_addToHomescreenAnnotation").show();
+    if (window.navigator.standalone == true || getAppleHomescrennAnnotation() == null) {
+        $("#main_div_addToHomescreenAnnotation").show();
     }
-   
+
 
 
     //Service Worker
@@ -74,7 +74,7 @@ function toggleDrawer() {
 
 function changePage(href) {
     $("#waterfallHeader").addClass("is-casting-shadow");
-    $('main').load(href, function() {
+    $('main').load(href, function () {
         if (href == "content/index.html") {
             getKurse("dashKurse");
             getBadge();
@@ -82,14 +82,14 @@ function changePage(href) {
         } else if (href == "content/profile.html") {
             getUserProfilePage();
             isUserLoggedIn();
-        } 
+        }
         // else if (href == "content/vplan.html") {
         //     setFirstOpen();
         //     getVPlanForYear(jahrgang, "vplan");
 
         // }
-        if(LocalUser.getTeacherStatus()=="true"){
-          $(".operatorArea").show();
+        if (LocalUser.getTeacherStatus() == "true") {
+            $(".operatorArea").show();
         }
     });
 }
@@ -110,7 +110,7 @@ function changePageWithElement(href, element) {
         currentPage = adressBarHref;
     }
     $("#waterfallHeader").addClass("is-casting-shadow");
-    $('main').load(href, function() {
+    $('main').load(href, function () {
         if (href == "content/kurse.html") {
             getKurse("kurs-liste");
             getBadge();
@@ -127,14 +127,14 @@ function changePageWithElement(href, element) {
             getVPlanForYear("EF", "vplan");
             setFirstOpen();
         }
-        if(LocalUser.getTeacherStatus()=="true"){
-          $(".operatorArea").show();
+        if (LocalUser.getTeacherStatus() == "true") {
+            $(".operatorArea").show();
         }
     });
 }
 
 function addHistoryAPIToNewAnchors(changeClass) {
-    $("." + changeClass).on('click', function(evt) {
+    $("." + changeClass).on('click', function (evt) {
         var href = $(this).attr('href');
 
         evt.preventDefault();
@@ -161,7 +161,7 @@ function firebaseLogin() {
     var email = $("#firebaseEmail").val();
     var pwd = $("#firebasePwd").val();
 
-    firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(email, pwd).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -181,7 +181,7 @@ function firebaseLogin() {
         }
         // [END_EXCLUDE]
     });
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user !== null) {
             if (checkGAuth()) {
                 history.pushState(null, null, "profile.html");
@@ -206,7 +206,7 @@ function firebaseSignUp1() {
     if (email === "" || pwd === "") {
         $(".android-login-err").html("Du musst alle Felder angeben");
     } else {
-        firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             switch (errorCode) {
@@ -229,7 +229,7 @@ function firebaseSignUp1() {
             // ...
         });
 
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user !== null) {
                 changePage('content/vp-auth.html');
             }
@@ -270,15 +270,16 @@ function firebaseSignUp2() {
 }
 
 function signOut() {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
         console.log('Signed Out');
-    }, function(error) {
+        kursCache.newCache();
+    }, function (error) {
         console.error('Sign Out Error', error);
     });
 }
 
 function isUserLoggedIn() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user === null) {
             $('main').load('content/login.html');
             return true;
@@ -389,11 +390,11 @@ function addKurs() {
     var auth = firebase.auth();
     var uid = auth.currentUser.uid;
 
-    firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
+    firebase.database().ref("Data/lehrerRead").once('value').then(function (snapshot) {
         //  Benutzer ist Lehrer
-        firebase.database().ref('/Kurse/' + name + "/secret").once('value').then(function(snapshot) {
+        firebase.database().ref('/Kurse/' + name + "/secret").once('value').then(function (snapshot) {
             alert("Kurs existiert bereits!");
-        }, function(err) {
+        }, function (err) {
             if (err != "Error: permission_denied at /Kurse/D EFa/secret: Client doesn't have permission to access the desired data.") {
                 var username = snapshot.val().username;
                 firebase.database().ref("Kurse/" + name + "/secret").set(secret);
@@ -402,7 +403,7 @@ function addKurs() {
                 alert("Kurs Existiert bereits!");
             }
         });
-    }, function(err) {});
+    }, function (err) { });
 
     firebase.database().ref('Users/' + uid + '/Kurse/' + name).set({
         name: name,
@@ -418,9 +419,16 @@ function addKurs() {
 
 
 function dialogBox(id) {
-    $("#" + id).css({
-        'display': 'block'
-    });
+    if (mAuth.currentUser.isAnonymous) {
+        if(confirm("Um Kurse hinzuzufügen ist eine Anmeldung mittels E-Mail-Adresse oder Telefonnummer erforderlich.")==true){
+            changePage("content/signup.html")
+        }
+    } else {
+
+        $("#" + id).css({
+            'display': 'block'
+        });
+    }
 }
 
 function delDialogBox(id, name) {
@@ -437,7 +445,7 @@ function closeDialogBox(id) {
 }
 
 function setKurs(name) {
-    $('main').load("content/kurs.html", function() {
+    $('main').load("content/kurs.html", function () {
         $("#card-kurs").html(name);
         // firebase.database().ref("Data/lehrerRead").once('value').then(function(snapshot) {
         //     $(".operatorArea").show();
@@ -488,7 +496,7 @@ function setJahrgangOffline(year) {
 function getJahrgang() {
     var year = localStorage.getItem("Jahrgang");
     if (year === null || year === "null") {
-        firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function(snapshot) {
+        firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/year").once('value').then(function (snapshot) {
             year = snapshot.val();
             setJahrgangOffline(year);
             return year;
@@ -506,7 +514,7 @@ function getLehrerAbk() {
     if (getJahrgang() == 0) {
         var abk = localStorage.getItem("lehrer-abk");
         if (abk === null || abk === "null") {
-            firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/abk").once('value').then(function(snapshot) {
+            firebase.database().ref("Users/" + firebase.auth().currentUser.uid + "/abk").once('value').then(function (snapshot) {
                 abk = snapshot.val();
                 setLehrerAbkOffline(abk);
                 return abk;
@@ -597,9 +605,9 @@ function sendKursMessage() {
 
 function getKursMessage() {
     var ref = "Kurse/" + $("#card-kurs").text() + "/messages";
-    firebase.database().ref(ref).on('value', function(snapshot) {
+    firebase.database().ref(ref).on('value', function (snapshot) {
         var output = "";
-        snapshot.forEach(function(childSnapshot) {
+        snapshot.forEach(function (childSnapshot) {
             output += childSnapshot.val().sender;
             output += ": "
             output += childSnapshot.val().body;
@@ -607,7 +615,7 @@ function getKursMessage() {
         });
         $("#kursMessages").html(output);
         $("#kursMessages").scrollTop($("#kursMessages")[0].scrollHeight);
-    }, function(err) {
+    }, function (err) {
         $("#kursMessages").html("Dieser Kurs existiert nicht, oder das Passwort ist falsch!");
     });
 
@@ -619,7 +627,7 @@ function getUserProfilePage() {
         var email = user.email;
         name = email.split("@").shift();
         var welcome = "Hallo, " + name
-            // ???
+        // ???
         $("#profileHead").html(welcome);
         $("#settingsEmail").html(firebase.auth().currentUser.email);
         var year = getJahrgang();
@@ -641,10 +649,10 @@ function loadSetting(name) {
     switch (name) {
         case "info":
             $("#settingsTitle").html("Info");
-            $("#settingsContent").load("content/settings/info.html", function() {
-                
+            $("#settingsContent").load("content/settings/info.html", function () {
+
                 $("#settingsEmail").html(firebase.auth().currentUser.email);
-                if(firebase.auth().currentUser.isAnonymous){
+                if (firebase.auth().currentUser.isAnonymous) {
                     $("#settingsEmail").html("Keine E-Mail-Adresse angegeben");
                 }
 
@@ -679,28 +687,28 @@ function closeCard(element) {
 }
 
 var LocalUser = {
-    setJahrgangText: function(jahrgang) {
+    setJahrgangText: function (jahrgang) {
         localStorage.setItem("LU_jahrgang", jahrgang);
     },
-    getJahrgangText: function() {
+    getJahrgangText: function () {
         return localStorage.getItem("LU_jahrgang");
     },
-    setJahrgang: function(jahrgang) {
+    setJahrgang: function (jahrgang) {
         localStorage.setItem("LU_jahrgangNumber", jahrgang);
     },
-    getJahrgang: function() {
+    getJahrgang: function () {
         return localStorage.getItem("LU_jahrgangNumber");
     },
-    setTeacherStatus: function(isTrue) {
+    setTeacherStatus: function (isTrue) {
         localStorage.setItem("LU_isTeacher", isTrue);
     },
-    getTeacherStatus: function() {
+    getTeacherStatus: function () {
         return localStorage.getItem("LU_isTeacher");
     },
-    setTeacherName: function(teacherName) {
+    setTeacherName: function (teacherName) {
         localStorage.setItem("LU_lehrer-abk", teacherName);
     },
-    getTeacherName: function() {
+    getTeacherName: function () {
         return localStorage.getItem("LU_lehrer-abk");
     }
 
@@ -714,20 +722,20 @@ function addListener() {
     window.addEventListener('dragover', handleDragOver, false);
     dropZone.addEventListener('drop', handleFileDrop, false);
 
-    $('#uploadButton').click(function() {
+    $('#uploadButton').click(function () {
         files = uploadedFiles;
         for (var i = 0, f; f = files[i]; i++) {
             uploadKursMediaDrive(f);
         }
     });
 
-    $('#driveLogInButton').click(function() {
+    $('#driveLogInButton').click(function () {
         handleAuthClick();
     });
 }
 
 /**Auto Function**/
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == document.getElementById('android-kurs-dialog')) {
         $('#android-kurs-dialog').css({
             'display': 'none'
@@ -740,7 +748,7 @@ window.onclick = function(event) {
 }
 
 //User uses Back/Forward Button
-$(window).on('popstate', function() {
+$(window).on('popstate', function () {
     changePage("content/" + location.pathname.split('/').pop());
     //  firebase.app().delete();
 });

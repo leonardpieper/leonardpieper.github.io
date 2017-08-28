@@ -16,12 +16,19 @@ var auth = {
         var phoneNumber = "+49" + $("#login_input_phone").val();
         var appVerifier = window.recaptchaVerifier;
 
+        $("#login_input_code").show();
+        $("#login_btn_codeReady").show();
+
+        $("#login_input_phoneCountryCode").hide();
+        $("#login_input_phone").hide();
+        $("#login_btn_proove").hide();
+
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
             .then(function (confirmationResult) {
                 // SMS sent. Prompt user to type the code from the message, then sign the
                 // user in with confirmationResult.confirm(code).
                 window.confirmationResult = confirmationResult;
-                changePage("content/home.html");
+                this.completeTel();
             }).catch(function (error) {
                 // Error; SMS not sent
                 // ...
@@ -64,6 +71,16 @@ var auth = {
 
     getJahrgang: function () {
         return localStorage.getItem("jahrgang");
+    },
+
+    completeTel: function () {
+        var code = $("#login_input_code").val();
+        confirmationResult.confirm(code).then(function (result) {
+            changePage("content/home.html")
+        })
+        .catch(function (error) {
+            $("#login_div_err").html("Du konntest nicht angemeldet werden.");
+        })
     }
 }
 
