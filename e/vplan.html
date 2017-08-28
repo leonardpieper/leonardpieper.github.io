@@ -54,13 +54,15 @@ limitations under the License
     <script>
         // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyAQHIWuE8zO49oazSKEmoOzZiq1nZO2ES8",
-            authDomain: "test-e84e5.firebaseapp.com",
-            databaseURL: "https://test-e84e5.firebaseio.com",
-            storageBucket: "test-e84e5.appspot.com",
-            messagingSenderId: "445583886225",
+            apiKey: "AIzaSyD-RaqI4ZqS72QpdZuGn83sZevEN0CHqCY",
+            authDomain: "ceciplan-8709c.firebaseapp.com",
+            databaseURL: "https://ceciplan-8709c.firebaseio.com",
+            projectId: "ceciplan-8709c",
+            storageBucket: "ceciplan-8709c.appspot.com",
+            messagingSenderId: "811320534951"
         };
         firebase.initializeApp(config);
+
     </script>
 
     <script src="script/script.js"></script>
@@ -129,8 +131,8 @@ limitations under the License
 
         <main class="android-content mdl-layout__content">
             <script>
-                $('main').load('content/vplan.html', function() {
-                    firebase.auth().onAuthStateChanged(function() {
+                $('main').load('content/vplan.html', function () {
+                    firebase.auth().onAuthStateChanged(function () {
                         setFirstOpen();
                         // getVPlanForYear(getJahrgang(), "vplan");
 
