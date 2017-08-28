@@ -632,7 +632,12 @@ function getUserProfilePage() {
         var welcome = "Hallo, " + name
         // ???
         $("#profileHead").html(welcome);
-        $("#settingsEmail").html(firebase.auth().currentUser.email);
+        if(mAuth.currentUser.phoneNumber!=null){
+            $("#settingsEmail").html(mAuth.currentUser.phoneNumber);
+        }else{
+            $("#settingsEmail").html(firebase.auth().currentUser.email);
+        }
+        
         var year = getJahrgang();
         var abk = getLehrerAbk();
         if (year == 0) {
@@ -654,7 +659,11 @@ function loadSetting(name) {
             $("#settingsTitle").html("Info");
             $("#settingsContent").load("content/settings/info.html", function () {
 
-                $("#settingsEmail").html(firebase.auth().currentUser.email);
+                if(mAuth.currentUser.phoneNumber!=null){
+                    $("#settingsEmail").html(mAuth.currentUser.phoneNumber);
+                }else{
+                    $("#settingsEmail").html(firebase.auth().currentUser.email);
+                }
                 if (firebase.auth().currentUser.isAnonymous) {
                     $("#settingsEmail").html("Keine E-Mail-Adresse angegeben");
                 }
