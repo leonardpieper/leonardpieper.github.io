@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kurato - Become an Art Experts</title>
+<meta name="description" content="Curato: a card game where you sort famous paintings through time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/curato.css">
+</head>
+<body>
+
+<aside class="rail">
+  <a class="rail__logo" href="#top">Kurato</a>
+  <nav class="rail__nav"><a href="#timeline">I. Timeline</a><a href="#play">II. Play</a><a href="#box">III. The game</a><a href="rules.html">IV. Rules</a></nav>
+</aside>
+
+<main id="top">
+  <section class="hero">
+    <h1 class="hero__title">
+      <span class="l1">Become an</span>
+      <span class="l2"><em> <span class="circled">Art Expert<svg class="scribble" viewBox="0 0 330 150" preserveAspectRatio="none"><path d="M20 80 C10 20 150 0 250 18 C330 34 330 120 200 135 C90 148 0 130 22 62 C30 36 70 24 110 20"/></svg></span></em></span>
+    </h1>
+    <div class="fan" id="hero-fan" aria-hidden="true"></div>
+    <div class="hero__foot">
+      <p class="hero__lede">A card game about famous paintings and when they were made. Which came first, the Mona Lisa or The Kiss?</p>
+      <a class="link" href="#play">Play a round →</a>
+    </div>
+  </section>
+
+  <section class="index">
+    <h2>Index of works</h2>
+    <p id="ribbon"></p>
+  </section>
+
+  <section class="how">
+    <h2>How it plays</h2>
+    <ol>
+      <li><span class="n">1</span><div><h3>Draw</h3><p>Turn over a painting. You see the picture, never the year.</p></div></li>
+      <li><span class="n">2</span><div><h3>Place</h3><p>Put it before or after the cards already on the table. Trust your eye.</p></div></li>
+      <li><span class="n">3</span><div><h3>Reveal</h3><p>Flip the date. Right, and the timeline grows. Wrong, and the card is out.</p></div></li>
+    </ol>
+    <a class="link how__more" href="rules.html">Read the full rules →</a>
+  </section>
+
+  <section class="timeline" id="timeline">
+    <div class="stage" id="stage">
+      <div class="stage__head" id="stage-head">
+        <h2 class="stage__title" id="stage-title">Out of order.</h2>
+        <p class="stage__hint">Scroll slowly to deal the cards</p>
+      </div>
+      <div class="eras" id="eras" aria-hidden="true"></div>
+      <div class="cards" id="cards"></div>
+      <div class="stage__foot">
+        <span class="counter"><b id="counter">0</b> / <span id="counter-total">0</span> in place</span>
+        <span class="bar"><i id="bar"></i></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="play" id="play">
+    <div class="play__inner">
+      <h2 class="play__title">Before <em>or</em> after?</h2>
+      <p class="play__lede">Pick a gap in the timeline. Three wrong guesses and the gallery closes.</p>
+      <div class="hud">
+        <div class="pill">Score <b id="g-score">0</b></div>
+        <div class="pill">Best <b id="g-best">0</b></div>
+        <div class="pill pill--hearts">Lives <b id="g-lives" aria-label="lives">♥♥♥</b></div>
+      </div>
+      <div class="draw">
+        <div class="draw__slot" id="g-draw"></div>
+        <p class="draw__msg" id="g-msg" role="status">Loading the gallery…</p>
+      </div>
+      <div class="line" id="g-line" aria-label="Your timeline"></div>
+      <button class="btn" id="g-restart" hidden>Play again</button>
+    </div>
+  </section>
+
+  <section class="box" id="box">
+    <div class="box__art" id="box-art" aria-hidden="true"></div>
+    <h2>A museum<br>in a box.</h2>
+    <aside class="label">
+      <p class="label__k">Curato</p>
+      <p>Card game, 2026</p>
+      <p>400 paintings, Renaissance to the twentieth century</p>
+      <p>2–8 players, about fifteen minutes a round</p>
+      <p class="label__price">€23</p>
+      <a class="link" href="#">Get the game →</a>
+    </aside>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Curato</span>
+  <span>Paintings from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, public domain</span>
+</footer>
+
+<script src="assets/cards.js"></script>
+<script src="assets/curato.js"></script>
+</body>
+</html>

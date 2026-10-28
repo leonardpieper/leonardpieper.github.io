@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instructions — Curato</title>
+<meta name="description" content="How to play Curato: setup, goal, turns, stealing and FAQ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/curato.css">
+</head>
+<body class="rules-page">
+
+<aside class="rail">
+  <a class="rail__logo" href="index.html">Curato</a>
+  <nav class="rail__nav"><a href="#setup">I. Setup</a><a href="#goal">II. Goal</a><a href="#turn">III. Play</a><a href="#steal">IV. Steal</a></nav>
+</aside>
+
+<main id="top">
+  <section class="rules-hero">
+    <p class="kicker">Instructions</p>
+    <h1 class="hero__title"><span class="l1">The <em>rules</em></span><span class="l2">in a few <span class="circled">minutes<svg class="scribble" viewBox="0 0 330 150" preserveAspectRatio="none"><path d="M20 80 C10 20 150 0 250 18 C330 34 330 120 200 135 C90 148 0 130 22 62 C30 36 70 24 110 20"/></svg></span></span></h1>
+    <div class="hero__foot">
+      <p class="hero__lede">Place paintings on your timeline, guess who made them, and be first to fill it.</p>
+      <a class="link" href="index.html#play">Try a round first →</a>
+    </div>
+  </section>
+
+  <section class="rule rule--setup" id="setup">
+    <h2 class="rule__k">Setup</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><p>Shuffle all cards together to form the <b>draw pile</b>.</p></li>
+      <li><span class="n">2</span><p>Deal one card to each player or team, showing the information side <em>(Movement, Year, Artist and Name)</em>.</p></li>
+      <li><span class="n">3</span><p>Place the draw pile within reach of all players.</p></li>
+    </ol>
+    <figure class="info" aria-label="Diagram: the draw pile in the middle, one card dealt to each player">
+<svg viewBox="0 0 360 300" role="img">
+<g><g transform="translate(20 110) rotate(-6)"><rect width="64" height="64" rx="8" fill="#8a6f4d" stroke="#1a1816" stroke-opacity=".25"/></g><g transform="translate(24 106) rotate(3)"><rect width="64" height="64" rx="8" fill="#a5524a" stroke="#1a1816" stroke-opacity=".25"/></g><g transform="translate(28 102) rotate(0)"><rect width="64" height="64" rx="8" fill="#3b57b8" stroke="#1a1816" stroke-opacity=".25"/></g></g>
+<text x="20" y="200" class="t">DRAW PILE</text><text x="20" y="218" class="s">face down, within reach</text>
+<path d="M104 120 C160 80 190 60 236 58" class="ar"/><path d="M104 140 C160 160 190 200 236 226" class="ar"/>
+<g><g transform="translate(244 28) rotate(0)"><rect width="64" height="64" rx="8" fill="#e9c46a" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g></g><g><g transform="translate(244 196) rotate(0)"><rect width="64" height="64" rx="8" fill="#a8bde0" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g></g>
+<text x="244" y="22" class="t">PLAYER 1</text><text x="244" y="190" class="t">PLAYER 2</text>
+<g class="s"><text x="316" y="50">Movement</text><text x="316" y="66">Year</text><text x="316" y="82">Artist</text><text x="316" y="98">Name</text></g>
+<text x="244" y="116" class="s">info side up</text>
+</svg></figure>
+  </section>
+
+  <section class="rule rule--goal" id="goal">
+    <h2 class="rule__k">Goal</h2>
+    <div class="goal">
+      <p class="goal__big">Be the first player or team to reach the target number of cards in your timeline.</p>
+      <table class="goal__table">
+        <thead><tr><th scope="col">Players / Teams</th><th scope="col">Cards to win</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>15</td></tr>
+          <tr><td>3</td><td>13</td></tr>
+          <tr><td>4</td><td>10</td></tr>
+          <tr><td>5</td><td>8</td></tr>
+          <tr><td>6</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="rule rule--turn" id="turn">
+    <h2 class="rule__k">How to play</h2>
+    <div class="turn">
+      <h3>On your turn</h3>
+      <ol class="steps steps--light">
+        <li><span class="n">1</span><p><b>Draw</b> a card from the top of the pile, keeping the image side face up so everyone can see the cropped artwork.</p></li>
+        <li><span class="n">2</span><p><b>Place</b> the card on your timeline in the correct position.</p></li>
+        <li><span class="n">3</span><p><b>Guess</b> the artist and title of the artwork.</p></li>
+        <li><span class="n">4</span><p><b>Reveal</b> the back of the card to check your guess.</p></li>
+      </ol>
+      <div class="callouts">
+        <p class="callout callout--ok"><b>Placed correctly?</b> The card stays in your timeline.</p>
+        <p class="callout callout--bad"><b>Wrong position?</b> The card is discarded and your turn ends.</p>
+        <p class="callout callout--good"><b>Artist and title correct?</b> You may move one card from the top of the draw pile to the bottom. Use it to make the next draw easier or harder for the next player.
+<svg class="mini" viewBox="0 0 360 150" role="img" aria-label="Diagram: after a correct guess, the top card of the draw pile moves to the bottom">
+<text x="30" y="16" class="t">DRAW PILE</text>
+<rect x="44" y="44" width="56" height="56" rx="8" fill="#e9c46a" stroke="#1a1816" stroke-opacity=".25"/><rect x="40" y="38" width="56" height="56" rx="8" fill="#6fa38a" stroke="#1a1816" stroke-opacity=".25"/><rect x="36" y="32" width="56" height="56" rx="8" fill="#3b57b8" stroke="#1a1816" stroke-opacity=".25"/>
+<text x="30" y="118" class="s">top card</text>
+<path d="M104 62 C150 140 210 140 246 104" class="ar"/><path d="M238 108 L248 103 L246 114" class="ar" style="stroke-dasharray:none"/>
+<text x="132" y="146" class="s">move it to the bottom</text>
+<text x="248" y="16" class="t">NEXT PLAYER DRAWS</text>
+<rect x="256" y="50" width="56" height="56" rx="8" fill="#3b57b8" stroke="#1a1816" stroke-opacity=".25"/><rect x="252" y="44" width="56" height="56" rx="8" fill="#e9c46a" stroke="#1a1816" stroke-opacity=".25"/><rect x="248" y="38" width="56" height="56" rx="8" fill="#6fa38a" stroke="#1a1816" stroke-opacity=".25"/>
+<text x="248" y="124" class="s">easier or harder draw</text>
+</svg></p>
+      </div>
+    </div>
+    <figure class="info info--dark" aria-label="Diagram: place the drawn card into the right gap of your timeline">
+<svg viewBox="0 0 360 300" role="img">
+<text x="0" y="22" class="t">1 · DRAW</text>
+<g><g transform="translate(148 34) rotate(-4)"><rect width="64" height="64" rx="8" fill="#e6bf5e" stroke="#1a1816" stroke-opacity=".25"/></g></g>
+<path d="M180 112 L180 138" class="ar"/>
+<text x="0" y="168" class="t">2 · PLACE IT IN THE RIGHT GAP</text>
+<g><g transform="translate(14 182) rotate(0)"><rect width="64" height="64" rx="8" fill="#8a6f4d" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g></g><g><g transform="translate(282 182) rotate(0)"><rect width="64" height="64" rx="8" fill="#a8bde0" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g></g>
+<rect x="124" y="182" width="112" height="64" rx="8" fill="none" stroke="#f3ecdc" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="180" y="221" text-anchor="middle" class="n2">?</text>
+<text x="46" y="268" text-anchor="middle" class="s">earlier</text><text x="314" y="268" text-anchor="middle" class="s">later</text>
+<text x="180" y="268" text-anchor="middle" class="s">3 guess · 4 reveal</text>
+<text x="180" y="288" text-anchor="middle" class="s">✓ right gap: card stays · ✗ wrong: discarded</text>
+</svg></figure>
+  </section>
+
+  <section class="rule rule--steal" id="steal">
+    <h2 class="rule__k">Additional rules</h2>
+    <div class="steal">
+      <h3>Stealing</h3>
+      <p class="steal__lede">If a non-active player already has a card of the same painting somewhere in their timeline, they may attempt to steal the card on top of the draw pile at any moment.</p>
+      <ul class="bullets">
+        <li>To steal, call out the steal and name which of your own paintings you believe the top card depicts.</li>
+        <li><b>Correct:</b> you take the drawn card into your own timeline.</li>
+        <li><b>Incorrect:</b> you must discard all cards with the painting you called.</li>
+        <li>If more than one player tries to steal the same card, whoever calls first gets the guess.</li>
+        <li>After a successful steal the active player draws again, taking another turn immediately with a fresh draw.</li>
+      </ul>
+    </div>
+    <figure class="info" aria-label="Diagram: a non-active player steals the top card of the draw pile">
+<svg viewBox="0 0 360 300" role="img">
+<g><g transform="translate(148 16) rotate(0)"><rect width="64" height="64" rx="8" fill="#6fa38a" stroke="#1a1816" stroke-opacity=".25"/></g><g transform="translate(152 12) rotate(0)"><rect width="64" height="64" rx="8" fill="#3b57b8" stroke="#1a1816" stroke-opacity=".25"/></g></g>
+<text x="236" y="40" class="t">TOP OF PILE</text><text x="236" y="58" class="s">same painting as yours?</text>
+<path d="M180 92 C180 130 120 120 84 168" class="ar"/>
+<text x="140" y="128" class="n2" fill="#c8432b">STEAL!</text>
+<text x="0" y="158" class="t">YOUR TIMELINE</text>
+<g><g transform="translate(14 172) rotate(0)"><rect width="64" height="64" rx="8" fill="#e9c46a" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g><g transform="translate(90 172) rotate(0)"><rect width="64" height="64" rx="8" fill="#3b57b8" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g><g transform="translate(166 172) rotate(0)"><rect width="64" height="64" rx="8" fill="#a5524a" stroke="#1a1816" stroke-opacity=".25"/><rect x="8" y="42" width="40" height="5" rx="2.5" fill="#fff" fill-opacity=".9"/><rect x="8" y="51" width="26" height="4" rx="2" fill="#fff" fill-opacity=".6"/></g></g>
+<rect x="86" y="168" width="72" height="72" rx="12" fill="none" stroke="#c8432b" stroke-width="3"/>
+<g class="s"><text x="0" y="266">✓ right: card joins your timeline</text><text x="0" y="286">✗ wrong: discard that painting's cards</text></g>
+</svg></figure>
+  </section>
+
+  <section class="rule rule--faq" id="faq">
+    <h2 class="rule__k">FAQ</h2>
+    <dl class="faq">
+      <dt>Can I steal during my own turn?</dt>
+      <dd>No.</dd>
+    </dl>
+  </section>
+</main>
+
+<footer class="foot">
+  <span><a href="index.html">Curato</a></span>
+  <span>Paintings from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, public domain</span>
+</footer>
+
+</body>
+</html>
